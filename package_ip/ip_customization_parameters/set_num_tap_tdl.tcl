@@ -2,9 +2,9 @@
 # NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 32;
 
 # ---------------- NUM_TAP_TDL -----------------
-set MIN_NUM_TAP_TDL 4
-set MAX_NUM_TAP_TDL 4096
-set DEFAULT_NUM_TAP_TDL 256
+set MIN_NUM_TAP_TDL 48
+set MAX_NUM_TAP_TDL 1920
+set DEFAULT_NUM_TAP_TDL 192
 
 set enablement {True}
 set editable {}

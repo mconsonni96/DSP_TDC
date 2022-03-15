@@ -3,20 +3,20 @@
 proc init_AXI4Stream_DSP_TDC_gui { IPINST Page} {
 
   #Adding Page
-  set Page_0 [ipgui::add_page $IPINST -name $Page]
-  set TYPE_TDL_0 [ipgui::add_param $IPINST -name "TYPE_TDL_0" -parent ${Page_0} -widget comboBox]
+  set DSP_TDC [ipgui::add_page $IPINST -name "DSP TDC"]
+  set TYPE_TDL_0 [ipgui::add_param $IPINST -name "TYPE_TDL_0" -parent ${DSP_TDC} -widget comboBox]
   set_property tooltip {Use C or O sampling} ${TYPE_TDL_0}
-  set DEBUG_MODE [ipgui::add_param $IPINST -name "DEBUG_MODE" -parent ${Page_0}]
+  set DEBUG_MODE [ipgui::add_param $IPINST -name "DEBUG_MODE" -parent ${DSP_TDC}]
   set_property tooltip {Allow to tune in real-time the valid position for its generation} ${DEBUG_MODE}
   #Adding Group
-  set TDL_Dimension [ipgui::add_group $IPINST -name "TDL Dimension" -parent ${Page_0}]
+  set TDL_Dimension [ipgui::add_group $IPINST -name "TDL Dimension" -parent ${DSP_TDC}]
   set NUM_TAP_TDL [ipgui::add_param $IPINST -name "NUM_TAP_TDL" -parent ${TDL_Dimension}]
   set_property tooltip {Number of Taps in each TDL} ${NUM_TAP_TDL}
   set BIT_SMP_TDL [ipgui::add_param $IPINST -name "BIT_SMP_TDL" -parent ${TDL_Dimension}]
   set_property tooltip {Number of taps sampled on the TDL} ${BIT_SMP_TDL}
 
   #Adding Group
-  set Valid_Generation [ipgui::add_group $IPINST -name "Valid Generation" -parent ${Page_0}]
+  set Valid_Generation [ipgui::add_group $IPINST -name "Valid Generation" -parent ${DSP_TDC}]
   set MIN_VALID_TAP_POS [ipgui::add_param $IPINST -name "MIN_VALID_TAP_POS" -parent ${Valid_Generation}]
   set_property tooltip {Select the minimum position of the bit of sampled taps of TDL to insert in the MUX using in DEBUG for valid generation} ${MIN_VALID_TAP_POS}
   set STEP_VALID_TAP_POS [ipgui::add_param $IPINST -name "STEP_VALID_TAP_POS" -parent ${Valid_Generation}]
