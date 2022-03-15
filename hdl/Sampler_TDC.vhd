@@ -72,9 +72,9 @@ entity Sampler_TDC is
 		
 		VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	2;								
 		
-		NUM_TAP_TDL			:	POSITIVE	RANGE 4 TO 4096	:= 192;						
+		NUM_TAP_TDL			:	POSITIVE	RANGE 4 TO 4096	:= 96;						
 		
-		BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 4096	:= 192						
+		BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 4096	:= 96						
 
 	);
 	port(
@@ -88,6 +88,10 @@ entity Sampler_TDC is
 		SampledTaps_TDL					:	OUT	STD_LOGIC_VECTOR(BIT_SMP_TDL-1 downto 0);
 		
 		Valid_SampledTaps_TDL			:	OUT	STD_LOGIC;
+		
+		PolarityIn			            :	IN	STD_LOGIC;
+		
+		PolarityOut			            :	OUT	STD_LOGIC;
 		
 		ValidPositionTap				:	IN	STD_LOGIC_VECTOR(31 DOWNTO 0)			
 		
@@ -120,6 +124,8 @@ architecture Behavioral of Sampler_TDC is
 	
 	signal	Valid_SampledTaps		:	STD_LOGIC	:=	'0';
 	
+	signal	Polarity			:	STD_LOGIC;
+	
 	signal 	ValidPositionTap_int    :	INTEGER	RANGE	0	TO	ValidPosition_SampledTaps'HIGH	:=	VALID_POSITION_TAP_INIT;
 	
 begin
@@ -150,10 +156,12 @@ begin
 
 				);
 
+			Polarity <= PolarityIn;
 			
 		end if;
 		
 		SampledTaps_TDL	<=	SampledTaps(BIT_SMP_TDL -1 downto 0);
+		PolarityOut     <=  Polarity;
 		
 	end process;
 	

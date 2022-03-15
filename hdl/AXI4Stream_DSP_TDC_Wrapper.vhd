@@ -93,10 +93,10 @@ entity AXI4Stream_DSP_TDC_Wrapper is
 		
 		AsyncInput	:	IN	STD_LOGIC;															
 		
-
+        PolarityIn	:	IN	STD_LOGIC;
 		
 		m00_axis_undeco_tvalid	:	OUT	STD_LOGIC;															
-		m00_axis_undeco_tdata	:	OUT	STD_LOGIC_VECTOR(BIT_SMP_TDL-1 DOWNTO 0);
+		m00_axis_undeco_tdata	:	OUT	STD_LOGIC_VECTOR(1 + BIT_SMP_TDL-1 DOWNTO 0);
 		
 		ValidPositionTap		:	IN	STD_LOGIC_VECTOR(31 DOWNTO 0)   := ( 1 => '1', Others => '0')		
 		
@@ -113,7 +113,7 @@ architecture Behavioral of AXI4Stream_DSP_TDC_Wrapper is
 	component DSP_TDC is
 	generic (
 
-        NUM_TAP_TDL				:	POSITIVE	RANGE 4 TO 4096	:= 192					
+        NUM_TAP_TDL				:	POSITIVE	RANGE 4 TO 4096	:= 96					
 		
 	);
 	port(
@@ -143,9 +143,9 @@ architecture Behavioral of AXI4Stream_DSP_TDC_Wrapper is
 		
 		VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	2;								
 		
-		NUM_TAP_TDL			:	POSITIVE	RANGE 4 TO 4096	:= 192;						
+		NUM_TAP_TDL			:	POSITIVE	RANGE 4 TO 4096	:= 96;						
 		
-		BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 4096	:= 192						
+		BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 4096	:= 96						
 
 	);
 	port(
@@ -160,6 +160,10 @@ architecture Behavioral of AXI4Stream_DSP_TDC_Wrapper is
 		
 		Valid_SampledTaps_TDL			:	OUT	STD_LOGIC;
 		
+		PolarityIn			            :	IN	STD_LOGIC;
+		
+		PolarityOut			            :	OUT	STD_LOGIC;
+		
 		ValidPositionTap				:	IN	STD_LOGIC_VECTOR(31 DOWNTO 0)			
 		
 	);
@@ -171,6 +175,8 @@ architecture Behavioral of AXI4Stream_DSP_TDC_Wrapper is
     signal	O_Taps_TDL      : std_logic_vector(NUM_TAP_TDL-1 downto 0);
     signal	AsyncTaps_TDL   : std_logic_vector(NUM_TAP_TDL-1 downto 0);
 	signal	SampledTaps_TDL : std_logic_vector(BIT_SMP_TDL-1 downto 0);
+	
+	signal	Polarity			:	std_logic;
 	
 	signal  Valid_SampledTaps_TDL : std_logic;
 	
@@ -235,11 +241,19 @@ begin
 				
 				SampledTaps_TDL			=>	SampledTaps_TDL,
 				
+				PolarityIn			=>	PolarityIn,
+				
+				PolarityOut			=>	Polarity,
+				
 				ValidPositionTap	=>	ValidPositionTap
 				
 			);
 
-	 m00_axis_undeco_tdata <= SampledTaps_TDL(BIT_SMP_TDL -1 downto 0);
+	 m00_axis_undeco_tvalid	<=	Valid_SampledTaps_TDL;
+	 
+	 m00_axis_undeco_tdata(BIT_SMP_TDL)	<=   Polarity;
+	 
+	 m00_axis_undeco_tdata(BIT_SMP_TDL-1 DOWNTO 0) <= SampledTaps_TDL(BIT_SMP_TDL -1 downto 0);
 	
 	
 end Behavioral;

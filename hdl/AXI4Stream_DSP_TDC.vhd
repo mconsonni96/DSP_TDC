@@ -94,8 +94,10 @@ entity AXI4Stream_DSP_TDC is
 		
 		AsyncInput	:	IN	STD_LOGIC;																
 		
+		PolarityIn	:	IN	STD_LOGIC;
+		
 		m00_axis_undeco_tvalid	:	OUT	STD_LOGIC;																	
-		m00_axis_undeco_tdata	:	OUT	STD_LOGIC_VECTOR((((BIT_SMP_TDL -1)/8+1)*8)-1 DOWNTO 0); 	
+		m00_axis_undeco_tdata	:	OUT	STD_LOGIC_VECTOR((((1 + BIT_SMP_TDL -1)/8+1)*8)-1 DOWNTO 0); 	
 		
 		ValidPositionTap		:	IN	STD_LOGIC_VECTOR(31 DOWNTO 0)							
 		
@@ -123,15 +125,15 @@ architecture Behavioral of AXI4Stream_DSP_TDC is
 			
 			DEBUG_MODE		:	BOOLEAN	:=	FALSE;														
 			
-			NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 256;										
+			NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 58;										
 			
-			MIN_VALID_TAP_POS		:	INTEGER		:=	5;												-- Minimal position inside SampledTaps used by ValidPositionTap to extract the valid (MIN = LOW that is RIGTH attribute in downto vect)
-			STEP_VALID_TAP_POS		:	POSITIVE	:=	3;												-- Step used between MAX_VALID_TAP_POS and MIM_VALID_POS for assigned ValidPositionTap
-			MAX_VALID_TAP_POS		:	NATURAL		:=	7;												-- Maximal position inside SampledTaps used by ValidPositionTap to extract the valid (MAX = HIGH that is LEFT attribute downto vect)
+			MIN_VALID_TAP_POS		:	INTEGER		:=	5;												
+			STEP_VALID_TAP_POS		:	POSITIVE	:=	3;												
+			MAX_VALID_TAP_POS		:	NATURAL		:=	7;												
 			
-			VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	8;							-- initial position along the TDL from which we want to extract the valid in case of DEBUG_MODE= FALSE
+			VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	2;							
 			
-			BIT_SMP_TDL						:	POSITIVE	RANGE 1 TO 4096	:= 16						-- Bit Sampled from the TDL each NUM_TAP_TDL/BIT_SMP_TDL after OFFSET_TAP_TDL, obiusly equal in each TDLs
+			BIT_SMP_TDL						:	POSITIVE	RANGE 1 TO 4096	:= 48						
 			
 
 		);
@@ -146,8 +148,10 @@ architecture Behavioral of AXI4Stream_DSP_TDC is
 			
 			AsyncInput	:	IN	STD_LOGIC;																
 			
+			PolarityIn	:	IN	STD_LOGIC;
+			
 			m00_axis_undeco_tvalid	:	OUT	STD_LOGIC;													
-			m00_axis_undeco_tdata	:	OUT	STD_LOGIC_VECTOR(BIT_SMP_TDL -1 DOWNTO 0); 
+			m00_axis_undeco_tdata	:	OUT	STD_LOGIC_VECTOR(1 + BIT_SMP_TDL -1 DOWNTO 0); 
 			
 			ValidPositionTap		:	IN	STD_LOGIC_VECTOR(31 DOWNTO 0)								
 			
@@ -197,15 +201,17 @@ begin
 			
 			AsyncInput	=>	AsyncInput,
 			
+			PolarityIn	=>	PolarityIn,
+			
 			m00_axis_undeco_tvalid	=>	m00_axis_undeco_tvalid,
-			m00_axis_undeco_tdata	=>	m00_axis_undeco_tdata(BIT_SMP_TDL-1 DOWNTO 0),
+			m00_axis_undeco_tdata	=>	m00_axis_undeco_tdata(1 + BIT_SMP_TDL-1 DOWNTO 0),
 			
 			ValidPositionTap	=>	ValidPositionTap
 			
 			
 		);
 	
-	m00_axis_undeco_tdata(m00_axis_undeco_tdata'LENGTH-1 downto BIT_SMP_TDL) <= (others => '0');
+	m00_axis_undeco_tdata(m00_axis_undeco_tdata'LENGTH-1 downto 1 + BIT_SMP_TDL) <= (others => '0');
 	
 
 end Behavioral;

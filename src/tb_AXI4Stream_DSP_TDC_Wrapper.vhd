@@ -42,6 +42,14 @@ architecture Behavioral of tb_AXI4Stream_DSP_TDC_Wrapper is
 	
 	constant	TYPE_TDL : STRING := "O";
 	
+	constant    DEBUG_MODE : BOOLEAN := FALSE;
+	
+	constant    MIN_VALID_TAP_POS	:	INTEGER		:=	0;
+	constant    STEP_VALID_TAP_POS	:	POSITIVE	:=	1;
+	constant    MAX_VALID_TAP_POS	:	NATURAL		:=	7;
+	
+	constant    VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	2;
+	
 	constant	NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 48;
 	constant	BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 4096	:= 48;
 	
@@ -49,8 +57,18 @@ architecture Behavioral of tb_AXI4Stream_DSP_TDC_Wrapper is
     generic (
         
         TYPE_TDL        :   STRING  := "O";
+        
+        DEBUG_MODE		:	BOOLEAN	:=	FALSE;
 		
-		NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 96;										
+		NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 48;										
+		
+		MIN_VALID_TAP_POS	:	INTEGER		:=	5;
+		
+		STEP_VALID_TAP_POS	:	POSITIVE	:=	3;
+		
+		MAX_VALID_TAP_POS	:	NATURAL		:=	7;
+		
+		VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	2;	
 		
 		BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 4096	:= 48						
 		
@@ -66,10 +84,12 @@ architecture Behavioral of tb_AXI4Stream_DSP_TDC_Wrapper is
 		
 		AsyncInput	:	IN	STD_LOGIC;															
 		
-
+        PolarityIn	:	IN	STD_LOGIC;
 		
 		m00_axis_undeco_tvalid	:	OUT	STD_LOGIC;															
-		m00_axis_undeco_tdata	:	OUT	STD_LOGIC_VECTOR(BIT_SMP_TDL-1 DOWNTO 0) 			
+		m00_axis_undeco_tdata	:	OUT	STD_LOGIC_VECTOR(1 + BIT_SMP_TDL-1 DOWNTO 0);
+		
+		ValidPositionTap		:	IN	STD_LOGIC_VECTOR(31 DOWNTO 0)   := ( 1 => '1', Others => '0')			
 		
 		
 	);
@@ -85,7 +105,9 @@ architecture Behavioral of tb_AXI4Stream_DSP_TDC_Wrapper is
     signal	AsyncInput	:	STD_LOGIC;
 
 	signal	m00_axis_undeco_tvalid	:	STD_LOGIC;
-	signal	m00_axis_undeco_tdata	:	STD_LOGIC_VECTOR(BIT_SMP_TDL-1 DOWNTO 0);
+	signal	m00_axis_undeco_tdata	:	STD_LOGIC_VECTOR(1 + BIT_SMP_TDL-1 DOWNTO 0);
+	
+	signal  PolarityIn : std_logic := '1';
 	
 begin
     
@@ -95,7 +117,12 @@ begin
        generic map ( 
                    
           TYPE_TDL    => TYPE_TDL,
+          DEBUG_MODE  => DEBUG_MODE,
           NUM_TAP_TDL => NUM_TAP_TDL,
+          MIN_VALID_TAP_POS  => MIN_VALID_TAP_POS,
+          STEP_VALID_TAP_POS => STEP_VALID_TAP_POS,
+          MAX_VALID_TAP_POS  => MAX_VALID_TAP_POS,
+          VALID_POSITION_TAP_INIT => VALID_POSITION_TAP_INIT,
           BIT_SMP_TDL => BIT_SMP_TDL
        )
        port map ( 
@@ -104,7 +131,9 @@ begin
           clk   => clk,
           AsyncInput => AsyncInput,
           m00_axis_undeco_tvalid => m00_axis_undeco_tvalid,
-          m00_axis_undeco_tdata  => m00_axis_undeco_tdata
+          m00_axis_undeco_tdata  => m00_axis_undeco_tdata,
+          
+          PolarityIn => PolarityIn
           
        );
        
