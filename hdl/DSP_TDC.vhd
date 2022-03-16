@@ -88,26 +88,31 @@ architecture Behavioral of DSP_TDC is
 			BIT_DSP
 		);
 		
-	type array_type is array(0 to NUM_DSP-1) of std_logic;
-    signal CARRYCASCOUT : array_type;
-
+	--type array_type is array(0 to NUM_DSP-1) of std_logic;
+    --signal CARRYCASCOUT : array_type;
+        
+        type array_type is array(0 to NUM_DSP-1) of std_logic_vector(17 downto 0);
+        signal BCOUT : array_type;
+        
 	signal O	: std_logic_vector(NUM_DSP*BIT_DSP-1 downto 0);		
 	
 	
-    signal CARRYIN : std_logic := '0';
-
+    --signal CARRYIN : std_logic := '0';
+      signal BCIN : std_logic_vector(17 downto 0) := (Others => '0');
+	
 	----------------------------------------------------------------------------
 
 
 begin
-    CARRYIN <=  AsyncInput;
+    --CARRYIN <=  AsyncInput;
+    BCIN <= (0 => AsyncInput, Others => '0');
     O_Taps_TDL	<=	O(NUM_TAP_TDL - 1 downto 0);
 
     DSP48E1_inst : DSP48E1
     generic map (
       -- Feature Control Attributes: Data Path Selection
       A_INPUT => "DIRECT",               -- Selects A input source, "DIRECT" (A port) or "CASCADE" (ACIN port)
-      B_INPUT => "DIRECT",               -- Selects B input source, "DIRECT" (B port) or "CASCADE" (BCIN port)
+      B_INPUT => "CASCADE",               -- Selects B input source, "DIRECT" (B port) or "CASCADE" (BCIN port)
       USE_DPORT => FALSE,                -- Select D port usage (TRUE or FALSE)
       USE_MULT => "NONE",            -- Select multiplier usage ("MULTIPLY", "DYNAMIC", or "NONE")
       USE_SIMD => "ONE48",               -- SIMD selection ("ONE48", "TWO24", "FOUR12")
@@ -120,25 +125,25 @@ begin
       USE_PATTERN_DETECT => "NO_PATDET", -- Enable pattern detect ("PATDET" or "NO_PATDET")
       -- Register Control Attributes: Pipeline Register Configuration
       ACASCREG => 1,                     -- Number of pipeline stages between A/ACIN and ACOUT (0, 1 or 2)
-      ADREG => 1,                        -- Number of pipeline stages for pre-adder (0 or 1)
+      ADREG => 0,                        -- Number of pipeline stages for pre-adder (0 or 1)
       ALUMODEREG => 1,                   -- Number of pipeline stages for ALUMODE (0 or 1)
       AREG => 1,                         -- Number of pipeline stages for A (0, 1 or 2)
       BCASCREG => 1,                     -- Number of pipeline stages between B/BCIN and BCOUT (0, 1 or 2)
       BREG => 1,                         -- Number of pipeline stages for B (0, 1 or 2)
-      CARRYINREG => 0,                   -- Number of pipeline stages for CARRYIN (0 or 1)
+      CARRYINREG => 1,                   -- Number of pipeline stages for CARRYIN (0 or 1)
       CARRYINSELREG => 1,                -- Number of pipeline stages for CARRYINSEL (0 or 1)
       CREG => 1,                         -- Number of pipeline stages for C (0 or 1)
       DREG => 1,                         -- Number of pipeline stages for D (0 or 1)
       INMODEREG => 1,                    -- Number of pipeline stages for INMODE (0 or 1)
-      MREG => 1,                         -- Number of multiplier pipeline stages (0 or 1)
+      MREG => 0,                         -- Number of multiplier pipeline stages (0 or 1)
       OPMODEREG => 1,                    -- Number of pipeline stages for OPMODE (0 or 1)
       PREG => 1                          -- Number of pipeline stages for P (0 or 1)
    )
    port map (
       -- Cascade: 30-bit (each) output: Cascade Ports
       ACOUT => open,                   -- 30-bit output: A port cascade output
-      BCOUT => open,                   -- 18-bit output: B port cascade output
-      CARRYCASCOUT => CARRYCASCOUT(0),     -- 1-bit output: Cascade carry output
+      BCOUT => BCOUT(0),                   -- 18-bit output: B port cascade output
+      CARRYCASCOUT => open,     -- 1-bit output: Cascade carry output
       MULTSIGNOUT => open,       -- 1-bit output: Multiplier sign cascade output
       PCOUT => open,                   -- 48-bit output: Cascade output
       -- Control: 1-bit (each) output: Control Inputs/Status Bits
@@ -151,7 +156,7 @@ begin
       P => O(BIT_DSP-1 downto 0),                           -- 48-bit output: Primary data output
       -- Cascade: 30-bit (each) input: Cascade Ports
       ACIN => (Others => '0'),                     -- 30-bit input: A cascade data input
-      BCIN => (Others => '0'),                     -- 18-bit input: B cascade input
+      BCIN => BCIN,                     -- 18-bit input: B cascade input
       CARRYCASCIN => '0',       -- 1-bit input: Cascade carry input
       MULTSIGNIN => '0',         -- 1-bit input: Multiplier sign input
       PCIN => (Others => '0'),                     -- 48-bit input: P cascade input
@@ -165,7 +170,7 @@ begin
       A => (Others => '0'),                           -- 30-bit input: A data input
       B => (Others => '0'),                           -- 18-bit input: B data input
       C => (Others => '1'),                           -- 48-bit input: C data input
-      CARRYIN => CARRYIN,               -- 1-bit input: Carry input signal
+      CARRYIN => '0',               -- 1-bit input: Carry input signal
       D => (Others => '0'),                           -- 25-bit input: D data input
       -- Reset/Clock Enable: 1-bit (each) input: Reset/Clock Enable Inputs
       CEA1 => '1',                     -- 1-bit input: Clock enable input for 1st stage AREG
@@ -209,7 +214,7 @@ begin
                 generic map ( 
                     -- Feature Control Attributes: Data Path Selection
                     A_INPUT => "DIRECT",               -- Selects A input source, "DIRECT" (A port) or "CASCADE" (ACIN port)
-                    B_INPUT => "DIRECT",               -- Selects B input source, "DIRECT" (B port) or "CASCADE" (BCIN port)
+                    B_INPUT => "CASCADE",               -- Selects B input source, "DIRECT" (B port) or "CASCADE" (BCIN port)
                     USE_DPORT => FALSE,                -- Select D port usage (TRUE or FALSE)
                     USE_MULT => "NONE",            -- Select multiplier usage ("MULTIPLY", "DYNAMIC", or "NONE")
                     USE_SIMD => "ONE48",               -- SIMD selection ("ONE48", "TWO24", "FOUR12")
@@ -222,25 +227,25 @@ begin
                     USE_PATTERN_DETECT => "NO_PATDET", -- Enable pattern detect ("PATDET" or "NO_PATDET")
                     -- Register Control Attributes: Pipeline Register Configuration
                     ACASCREG => 1,                     -- Number of pipeline stages between A/ACIN and ACOUT (0, 1 or 2)
-                    ADREG => 1,                        -- Number of pipeline stages for pre-adder (0 or 1)
+                    ADREG => 0,                        -- Number of pipeline stages for pre-adder (0 or 1)
                     ALUMODEREG => 1,                   -- Number of pipeline stages for ALUMODE (0 or 1)
                     AREG => 1,                         -- Number of pipeline stages for A (0, 1 or 2)
                     BCASCREG => 1,                     -- Number of pipeline stages between B/BCIN and BCOUT (0, 1 or 2)
                     BREG => 1,                         -- Number of pipeline stages for B (0, 1 or 2)
-                    CARRYINREG => 0,                   -- Number of pipeline stages for CARRYIN (0 or 1)
+                    CARRYINREG => 1,                   -- Number of pipeline stages for CARRYIN (0 or 1)
                     CARRYINSELREG => 1,                -- Number of pipeline stages for CARRYINSEL (0 or 1)
                     CREG => 1,                         -- Number of pipeline stages for C (0 or 1)
                     DREG => 1,                         -- Number of pipeline stages for D (0 or 1)
                     INMODEREG => 1,                    -- Number of pipeline stages for INMODE (0 or 1)
-                    MREG => 1,                         -- Number of multiplier pipeline stages (0 or 1)
+                    MREG => 0,                         -- Number of multiplier pipeline stages (0 or 1)
                     OPMODEREG => 1,                    -- Number of pipeline stages for OPMODE (0 or 1)
                     PREG => 1        
                 )
                 port map ( 
                     -- Cascade: 30-bit (each) output: Cascade Ports
                     ACOUT => open,                   -- 30-bit output: A port cascade output
-                    BCOUT => open,                   -- 18-bit output: B port cascade output
-                    CARRYCASCOUT => CARRYCASCOUT(I),     -- 1-bit output: Cascade carry output
+                    BCOUT => BCOUT(I),                   -- 18-bit output: B port cascade output
+                    CARRYCASCOUT => open,     -- 1-bit output: Cascade carry output
                     MULTSIGNOUT => open,       -- 1-bit output: Multiplier sign cascade output
                     PCOUT => open,                   -- 48-bit output: Cascade output
                     -- Control: 1-bit (each) output: Control Inputs/Status Bits
@@ -253,13 +258,13 @@ begin
                     P => O(BIT_DSP*(I+1)-1 downto BIT_DSP*I),                           -- 48-bit output: Primary data output
                     -- Cascade: 30-bit (each) input: Cascade Ports
                     ACIN => (Others => '0'),                     -- 30-bit input: A cascade data input
-                    BCIN => (Others => '0'),                     -- 18-bit input: B cascade input
-                    CARRYCASCIN => CARRYCASCOUT(I-1),       -- 1-bit input: Cascade carry input
+                    BCIN => BCOUT(I-1),                     -- 18-bit input: B cascade input
+                    CARRYCASCIN => '0',       -- 1-bit input: Cascade carry input
                     MULTSIGNIN => '0',         -- 1-bit input: Multiplier sign input
                     PCIN => (Others => '0'),                     -- 48-bit input: P cascade input
                     -- Control: 4-bit (each) input: Control Inputs/Status Bits
                     ALUMODE => (Others => '0'),               -- 4-bit input: ALU control input
-                    CARRYINSEL => "010",         -- 3-bit input: Carry select input
+                    CARRYINSEL => "000",         -- 3-bit input: Carry select input
                     CLK => clk,                       -- 1-bit input: Clock input
                     INMODE => (Others => '0'),                 -- 5-bit input: INMODE control input
                     OPMODE => ("0110011"), --Others => '0'),                 -- 7-bit input: Operation mode input

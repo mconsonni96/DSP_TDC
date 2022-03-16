@@ -50,8 +50,8 @@ architecture Behavioral of tb_AXI4Stream_DSP_TDC_Wrapper is
 	
 	constant    VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	2;
 	
-	constant	NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 48;
-	constant	BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 4096	:= 48;
+	constant	NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 144;
+	constant	BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 4096	:= 144;
 	
 	component AXI4Stream_DSP_TDC_Wrapper is
     generic (

@@ -72,7 +72,7 @@ entity AXI4Stream_DSP_TDC is
         
 		DEBUG_MODE		:	BOOLEAN	:=	TRUE;														
 		
-		NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 96;										
+		NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 192;										
 		
 		MIN_VALID_TAP_POS	:	INTEGER		:=	0;													
 		STEP_VALID_TAP_POS	:	POSITIVE	:=	1;													
@@ -80,7 +80,7 @@ entity AXI4Stream_DSP_TDC is
 		
 		VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	0;					
 		
-        BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 4096	:= 96	
+        BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 4096	:= 192	
     
     );
 
@@ -125,7 +125,7 @@ architecture Behavioral of AXI4Stream_DSP_TDC is
 			
 			DEBUG_MODE		:	BOOLEAN	:=	FALSE;														
 			
-			NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 58;										
+			NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 48;										
 			
 			MIN_VALID_TAP_POS		:	INTEGER		:=	5;												
 			STEP_VALID_TAP_POS		:	POSITIVE	:=	3;												
