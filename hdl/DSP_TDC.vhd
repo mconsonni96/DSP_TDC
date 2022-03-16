@@ -98,21 +98,21 @@ architecture Behavioral of DSP_TDC is
 	
 	
     --signal CARRYIN : std_logic := '0';
-      signal BCIN : std_logic_vector(17 downto 0) := (Others => '0');
+      signal B : std_logic_vector(17 downto 0) := (Others => '0');
 	
 	----------------------------------------------------------------------------
 
 
 begin
     --CARRYIN <=  AsyncInput;
-    BCIN <= (0 => AsyncInput, Others => '0');
+    B <= (0 => AsyncInput, Others => '0');
     O_Taps_TDL	<=	O(NUM_TAP_TDL - 1 downto 0);
 
     DSP48E1_inst : DSP48E1
     generic map (
       -- Feature Control Attributes: Data Path Selection
       A_INPUT => "DIRECT",               -- Selects A input source, "DIRECT" (A port) or "CASCADE" (ACIN port)
-      B_INPUT => "CASCADE",               -- Selects B input source, "DIRECT" (B port) or "CASCADE" (BCIN port)
+      B_INPUT => "DIRECT",               -- Selects B input source, "DIRECT" (B port) or "CASCADE" (BCIN port)
       USE_DPORT => FALSE,                -- Select D port usage (TRUE or FALSE)
       USE_MULT => "NONE",            -- Select multiplier usage ("MULTIPLY", "DYNAMIC", or "NONE")
       USE_SIMD => "ONE48",               -- SIMD selection ("ONE48", "TWO24", "FOUR12")
@@ -156,7 +156,7 @@ begin
       P => O(BIT_DSP-1 downto 0),                           -- 48-bit output: Primary data output
       -- Cascade: 30-bit (each) input: Cascade Ports
       ACIN => (Others => '0'),                     -- 30-bit input: A cascade data input
-      BCIN => BCIN,                     -- 18-bit input: B cascade input
+      BCIN => (Others => '0'),                     -- 18-bit input: B cascade input
       CARRYCASCIN => '0',       -- 1-bit input: Cascade carry input
       MULTSIGNIN => '0',         -- 1-bit input: Multiplier sign input
       PCIN => (Others => '0'),                     -- 48-bit input: P cascade input
@@ -168,7 +168,7 @@ begin
       OPMODE => "0110011", --Others => '0'),                 -- 7-bit input: Operation mode input
       -- Data: 30-bit (each) input: Data Ports
       A => (Others => '0'),                           -- 30-bit input: A data input
-      B => (Others => '0'),                           -- 18-bit input: B data input
+      B => B,                           -- 18-bit input: B data input
       C => (Others => '1'),                           -- 48-bit input: C data input
       CARRYIN => '0',               -- 1-bit input: Carry input signal
       D => (Others => '0'),                           -- 25-bit input: D data input
