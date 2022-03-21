@@ -64,8 +64,6 @@ entity AXI4Stream_DSP_TDC_Wrapper is
 
 	generic (
         
-        CASCADE_TYPE    :   STRING      := "B";                   -- cascade of DSPs on BCOUT or on CARRYCASCOUT
-        
         TYPE_TDL        :   STRING  := "O";
         
         DEBUG_MODE		:	BOOLEAN	:=	FALSE;
@@ -115,8 +113,6 @@ architecture Behavioral of AXI4Stream_DSP_TDC_Wrapper is
 	component DSP_TDC is
 	generic (
 
-        CASCADE_TYPE            :   STRING      := "B";                   -- cascade of DSPs on BCOUT or on CARRYCASCOUT
-        
         NUM_TAP_TDL				:	POSITIVE	RANGE 4 TO 4096	:= 96					
 		
 	);
@@ -190,7 +186,6 @@ begin
 		Inst_TDC	:	DSP_TDC
 			generic map(
 
-				CASCADE_TYPE    =>  CASCADE_TYPE,
 				
 				NUM_TAP_TDL		=>	NUM_TAP_TDL
 				

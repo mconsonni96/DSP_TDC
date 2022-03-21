@@ -68,13 +68,11 @@ entity AXI4Stream_DSP_TDC is
 
 	generic (
         
-        CASCADE_TYPE    :   STRING      := "B";                   -- cascade of DSPs on BCOUT or on CARRYCASCOUT
-        
         TYPE_TDL_0      :   STRING  :=  "O";  
         
 		DEBUG_MODE		:	BOOLEAN	:=	TRUE;														
 		
-		NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 96;										
+		NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 192;										
 		
 		MIN_VALID_TAP_POS	:	INTEGER		:=	0;													
 		STEP_VALID_TAP_POS	:	POSITIVE	:=	1;													
@@ -82,7 +80,7 @@ entity AXI4Stream_DSP_TDC is
 		
 		VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	0;					
 		
-        BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 4096	:= 96	
+        BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 4096	:= 192	
     
     );
 
@@ -122,13 +120,12 @@ architecture Behavioral of AXI4Stream_DSP_TDC is
 
 		generic (
 
-			CASCADE_TYPE    :   STRING      := "B";                   -- cascade of DSPs on BCOUT or on CARRYCASCOUT
 			
 			TYPE_TDL : STRING :=  "O";
 			
 			DEBUG_MODE		:	BOOLEAN	:=	FALSE;														
 			
-			NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 58;										
+			NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 48;										
 			
 			MIN_VALID_TAP_POS		:	INTEGER		:=	5;												
 			STEP_VALID_TAP_POS		:	POSITIVE	:=	3;												
@@ -180,8 +177,6 @@ begin
 
 		generic map(
 
-			CASCADE_TYPE    =>  CASCADE_TYPE,
-			
 			TYPE_TDL		=>	TYPE_TDL,
 			
 			DEBUG_MODE	    =>	 DEBUG_MODE,

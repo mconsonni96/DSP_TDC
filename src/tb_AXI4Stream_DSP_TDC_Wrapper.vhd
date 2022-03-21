@@ -40,8 +40,6 @@ architecture Behavioral of tb_AXI4Stream_DSP_TDC_Wrapper is
     constant	CLK_PERIOD 		: time := 1 ns;									
 	constant	ASYNC_PERIOD 	: time := 12 ns;								
 	
-	constant    CASCADE_TYPE  :  STRING := "CARRY";
-	
 	constant	TYPE_TDL : STRING := "O";
 	
 	constant    DEBUG_MODE : BOOLEAN := FALSE;
@@ -52,13 +50,11 @@ architecture Behavioral of tb_AXI4Stream_DSP_TDC_Wrapper is
 	
 	constant    VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	2;
 	
-	constant	NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 96;
-	constant	BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 4096	:= 96;
+	constant	NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 144;
+	constant	BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 4096	:= 144;
 	
 	component AXI4Stream_DSP_TDC_Wrapper is
     generic (
-        
-        CASCADE_TYPE    :   STRING      := "B";                   -- cascade of DSPs on BCOUT or on CARRYCASCOUT
         
         TYPE_TDL        :   STRING  := "O";
         
@@ -120,7 +116,6 @@ begin
      
        generic map ( 
                    
-          CASCADE_TYPE => CASCADE_TYPE,
           TYPE_TDL    => TYPE_TDL,
           DEBUG_MODE  => DEBUG_MODE,
           NUM_TAP_TDL => NUM_TAP_TDL,

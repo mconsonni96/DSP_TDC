@@ -7,8 +7,6 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "Component_Name"
   #Adding Page
   set Page_0 [ipgui::add_page $IPINST -name "Page 0"]
-  set CASCADE_TYPE [ipgui::add_param $IPINST -name "CASCADE_TYPE" -parent ${Page_0} -widget comboBox]
-  set_property tooltip {Use B or CARRY cascade} ${CASCADE_TYPE}
   set TYPE_TDL_0 [ipgui::add_param $IPINST -name "TYPE_TDL_0" -parent ${Page_0} -widget comboBox]
   set_property tooltip {Use C or O sampling} ${TYPE_TDL_0}
   set DEBUG_MODE [ipgui::add_param $IPINST -name "DEBUG_MODE" -parent ${Page_0}]
@@ -98,15 +96,6 @@ proc validate_PARAM_VALUE.BIT_SMP_TDL { PARAM_VALUE.BIT_SMP_TDL } {
 	return true
 }
 
-proc update_PARAM_VALUE.CASCADE_TYPE { PARAM_VALUE.CASCADE_TYPE } {
-	# Procedure called to update CASCADE_TYPE when any of the dependent parameters in the arguments change
-}
-
-proc validate_PARAM_VALUE.CASCADE_TYPE { PARAM_VALUE.CASCADE_TYPE } {
-	# Procedure called to validate CASCADE_TYPE
-	return true
-}
-
 proc update_PARAM_VALUE.DEBUG_MODE { PARAM_VALUE.DEBUG_MODE } {
 	# Procedure called to update DEBUG_MODE when any of the dependent parameters in the arguments change
 }
@@ -143,11 +132,6 @@ proc validate_PARAM_VALUE.VALID_POSITION_TAP_INIT { PARAM_VALUE.VALID_POSITION_T
 	return true
 }
 
-
-proc update_MODELPARAM_VALUE.CASCADE_TYPE { MODELPARAM_VALUE.CASCADE_TYPE PARAM_VALUE.CASCADE_TYPE } {
-	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.CASCADE_TYPE}] ${MODELPARAM_VALUE.CASCADE_TYPE}
-}
 
 proc update_MODELPARAM_VALUE.TYPE_TDL_0 { MODELPARAM_VALUE.TYPE_TDL_0 PARAM_VALUE.TYPE_TDL_0 } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value

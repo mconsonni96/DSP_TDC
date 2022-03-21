@@ -4,8 +4,6 @@ proc init_AXI4Stream_DSP_TDC_gui { IPINST Page} {
 
   #Adding Page
   set Page_0 [ipgui::add_page $IPINST -name $Page]
-  set CASCADE_TYPE [ipgui::add_param $IPINST -name "CASCADE_TYPE" -parent ${Page_0} -widget comboBox]
-  set_property tooltip {Use B or CARRY cascade} ${CASCADE_TYPE}
   set TYPE_TDL_0 [ipgui::add_param $IPINST -name "TYPE_TDL_0" -parent ${Page_0} -widget comboBox]
   set_property tooltip {Use C or O sampling} ${TYPE_TDL_0}
   set DEBUG_MODE [ipgui::add_param $IPINST -name "DEBUG_MODE" -parent ${Page_0}]
@@ -31,4 +29,3 @@ proc init_AXI4Stream_DSP_TDC_gui { IPINST Page} {
 
 
 }
-
