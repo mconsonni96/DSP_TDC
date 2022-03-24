@@ -48,12 +48,13 @@ append param_path "/ip_customization_parameters/"
 source [join [list $param_path "set_param_fx.tcl"] ""] -notrace
 
 
-source [join [list $param_path "set_bit_smp_tdl.tcl"] ""] -notrace
+source [join [list $param_path "set_cascade_type.tcl"] ""] -notrace
 source [join [list $param_path "set_debug_mode_tdl.tcl"] ""] -notrace
 source [join [list $param_path "set_num_tap_tdl.tcl"] ""] -notrace
+source [join [list $param_path "set_bit_smp_tdl.tcl"] ""] -notrace
+source [join [list $param_path "set_type_tdl.tcl"] ""] -notrace
+source [join [list $param_path "set_valid_position_tap_init.tcl"] ""] -notrace
 source [join [list $param_path "set_max_valid_tap_pos_tdl.tcl"] ""] -notrace
 source [join [list $param_path "set_min_valid_tap_pos_tdl.tcl"] ""] -notrace
 source [join [list $param_path "set_step_valid_tap_pos_tdl.tcl"] ""] -notrace
-source [join [list $param_path "set_type_tdl.tcl"] ""] -notrace
-source [join [list $param_path "set_valid_position_tap_init.tcl"] ""] -notrace
 # ==============================================================================
