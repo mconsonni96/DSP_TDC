@@ -61,9 +61,6 @@ library work;
 entity Sampler_TDC is
 	generic (
 
-		
-		TYPE_TDL			:	STRING	:= "O";	
-		
 		DEBUG_MODE	      	:	BOOLEAN	:=	FALSE;	
 		
 		MIN_VALID_TAP_POS	:	INTEGER		:=	5;
@@ -72,9 +69,13 @@ entity Sampler_TDC is
 		
 		VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	2;								
 		
-		NUM_TAP_TDL			:	POSITIVE	RANGE 4 TO 4096	:= 96;						
+		NUM_TAP_TDL			:	POSITIVE	RANGE 4 TO 1920	:= 96;						
 		
-		BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 4096	:= 96						
+		BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 1920	:= 96;
+		
+		NUM_TAP_PRE_TDL		:	INTEGER	RANGE 0 TO 480	:= 48;
+		
+		BIT_SMP_PRE_TDL			:	INTEGER	RANGE 0 TO 480	:= 48						
 
 	);
 	port(
@@ -83,7 +84,9 @@ entity Sampler_TDC is
 		
 		clk     : IN    STD_LOGIC;			 														
 		
-		AsyncTaps_TDL					:	IN	STD_LOGIC_VECTOR(NUM_TAP_TDL-1 downto 0);		
+		AsyncTaps_TDL					:	IN	STD_LOGIC_VECTOR(NUM_TAP_TDL-1 downto 0);
+		
+		AsyncTaps_preTDL				:	IN	STD_LOGIC_VECTOR(NUM_TAP_PRE_TDL-1 downto 0);		
 		
 		SampledTaps_TDL					:	OUT	STD_LOGIC_VECTOR(BIT_SMP_TDL-1 downto 0);
 		
@@ -101,7 +104,7 @@ end Sampler_TDC;
 
 architecture Behavioral of Sampler_TDC is
 
-	signal	SampledTaps				:	STD_LOGIC_VECTOR(BIT_SMP_TDL -1 downto 0);	
+	signal	SampledTaps				:	STD_LOGIC_VECTOR(BIT_SMP_TDL + BIT_SMP_PRE_TDL -1 downto 0);	
 	
 	signal	ValidPosition_SampledTaps	:	STD_LOGIC_VECTOR					
 	(
@@ -112,6 +115,8 @@ architecture Behavioral of Sampler_TDC is
 			MIN_VALID_TAP_POS,
 			STEP_VALID_TAP_POS,
 			MAX_VALID_TAP_POS,
+			
+			BIT_SMP_PRE_TDL,
 
 			SampledTaps
 
@@ -144,14 +149,13 @@ begin
 			SampledTaps	<=
 				Sample_AsyncTapsTDL (
 
-					TYPE_TDL,
-
 					NUM_TAP_TDL,
-					
 					BIT_SMP_TDL,
-
+ 
+					BIT_SMP_PRE_TDL,
+					NUM_TAP_PRE_TDL,
 					
-					
+					AsyncTaps_preTDL,
 					AsyncTaps_TDL
 
 				);
@@ -160,7 +164,7 @@ begin
 			
 		end if;
 		
-		SampledTaps_TDL	<=	SampledTaps(BIT_SMP_TDL -1 downto 0);
+		SampledTaps_TDL	<=	SampledTaps(BIT_SMP_TDL + BIT_SMP_PRE_TDL-1 downto BIT_SMP_PRE_TDL);
 		PolarityOut     <=  Polarity;
 		
 	end process;
@@ -175,8 +179,6 @@ begin
 		
 		Valid_SampledTaps	<=	Compute_ValidSampledTapsTDL
 		(
-
-			TYPE_TDL,
 
 			RiseValid,
 			FallValid
@@ -205,7 +207,9 @@ begin
 			MIN_VALID_TAP_POS,
 			STEP_VALID_TAP_POS,
 			MAX_VALID_TAP_POS,
-
+            
+            BIT_SMP_PRE_TDL,
+            
             SampledTaps
 		);
 		

@@ -40,29 +40,29 @@ architecture Behavioral of tb_AXI4Stream_DSP_TDC_Wrapper is
     constant	CLK_PERIOD 		: time := 1 ns;									
 	constant	ASYNC_PERIOD 	: time := 12 ns;								
 	
-	constant    CASCADE_TYPE  :  STRING := "CARRY";
-	
-	constant	TYPE_TDL : STRING := "O";
-	
 	constant    DEBUG_MODE : BOOLEAN := FALSE;
+	
+	constant	NUMBER_OF_TDL	:	POSITIVE	RANGE 1 TO 16 	:= 1;
 	
 	constant    MIN_VALID_TAP_POS	:	INTEGER		:=	0;
 	constant    STEP_VALID_TAP_POS	:	POSITIVE	:=	1;
 	constant    MAX_VALID_TAP_POS	:	NATURAL		:=	7;
 	
 	constant    VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	2;
+	constant    VALID_NUMBER_OF_TDL_INIT	:	INTEGER	RANGE 0 TO 15		:=	0;
 	
-	constant	NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 96;
-	constant	BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 4096	:= 96;
+	constant	NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 1920	:= 96;
+	constant	BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 1920	:= 96;
+	
+	constant	NUM_TAP_PRE_TDL		:	INTEGER	RANGE 0 TO 480	:= 0;
+	constant	BIT_SMP_PRE_TDL		:	INTEGER	RANGE 0 TO 480	:= 0;
 	
 	component AXI4Stream_DSP_TDC_Wrapper is
     generic (
         
-        CASCADE_TYPE    :   STRING      := "B";                   -- cascade of DSPs on BCOUT or on CARRYCASCOUT
-        
-        TYPE_TDL        :   STRING  := "O";
-        
         DEBUG_MODE		:	BOOLEAN	:=	FALSE;
+        
+        NUMBER_OF_TDL	:	POSITIVE	RANGE 1 TO 16 	:= 2;
 		
 		NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 48;										
 		
@@ -74,7 +74,13 @@ architecture Behavioral of tb_AXI4Stream_DSP_TDC_Wrapper is
 		
 		VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	2;	
 		
-		BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 4096	:= 48						
+		VALID_NUMBER_OF_TDL_INIT	:	INTEGER	RANGE 0 TO 15		:=	0;
+		
+		BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 1920	:= 48;
+		
+		NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 480	:= 48;
+			
+		BIT_SMP_PRE_TDL			:	INTEGER	RANGE 0 TO 480	:= 48						
 		
 	);
 
@@ -91,9 +97,7 @@ architecture Behavioral of tb_AXI4Stream_DSP_TDC_Wrapper is
         PolarityIn	:	IN	STD_LOGIC;
 		
 		m00_axis_undeco_tvalid	:	OUT	STD_LOGIC;															
-		m00_axis_undeco_tdata	:	OUT	STD_LOGIC_VECTOR(1 + BIT_SMP_TDL-1 DOWNTO 0);
-		
-		ValidPositionTap		:	IN	STD_LOGIC_VECTOR(31 DOWNTO 0)   := ( 1 => '1', Others => '0')			
+		m00_axis_undeco_tdata	:	OUT	STD_LOGIC_VECTOR(1 + NUMBER_OF_TDL*BIT_SMP_TDL-1 DOWNTO 0)
 		
 		
 	);
@@ -102,14 +106,14 @@ architecture Behavioral of tb_AXI4Stream_DSP_TDC_Wrapper is
     end component;
 
 
-    signal reset : std_logic;
+    signal  reset : std_logic;
     
-    signal clk   : std_logic := '1';
+    signal  clk   : std_logic := '1';
     
     signal	AsyncInput	:	STD_LOGIC;
 
 	signal	m00_axis_undeco_tvalid	:	STD_LOGIC;
-	signal	m00_axis_undeco_tdata	:	STD_LOGIC_VECTOR(1 + BIT_SMP_TDL-1 DOWNTO 0);
+	signal	m00_axis_undeco_tdata	:	STD_LOGIC_VECTOR(1 + NUMBER_OF_TDL*BIT_SMP_TDL-1 DOWNTO 0);
 	
 	signal  PolarityIn : std_logic := '1';
 	
@@ -120,15 +124,17 @@ begin
      
        generic map ( 
                    
-          CASCADE_TYPE => CASCADE_TYPE,
-          TYPE_TDL    => TYPE_TDL,
           DEBUG_MODE  => DEBUG_MODE,
+          NUMBER_OF_TDL => NUMBER_OF_TDL,
           NUM_TAP_TDL => NUM_TAP_TDL,
           MIN_VALID_TAP_POS  => MIN_VALID_TAP_POS,
           STEP_VALID_TAP_POS => STEP_VALID_TAP_POS,
           MAX_VALID_TAP_POS  => MAX_VALID_TAP_POS,
-          VALID_POSITION_TAP_INIT => VALID_POSITION_TAP_INIT,
-          BIT_SMP_TDL => BIT_SMP_TDL
+          VALID_POSITION_TAP_INIT	 => VALID_POSITION_TAP_INIT,
+		  VALID_NUMBER_OF_TDL_INIT => VALID_NUMBER_OF_TDL_INIT,
+		  BIT_SMP_TDL => BIT_SMP_TDL,
+		  NUM_TAP_PRE_TDL		=>	NUM_TAP_PRE_TDL,
+		  BIT_SMP_PRE_TDL		=>	BIT_SMP_PRE_TDL
        )
        port map ( 
        

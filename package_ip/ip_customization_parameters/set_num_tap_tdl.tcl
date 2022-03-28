@@ -4,7 +4,7 @@
 # ---------------- NUM_TAP_TDL -----------------
 set MIN_NUM_TAP_TDL 48
 set MAX_NUM_TAP_TDL 1920
-set DEFAULT_NUM_TAP_TDL 192
+set DEFAULT_NUM_TAP_TDL 1920
 
 set enablement {True}
 set editable {}
