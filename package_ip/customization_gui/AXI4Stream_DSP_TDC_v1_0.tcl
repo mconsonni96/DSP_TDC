@@ -6,13 +6,13 @@ source [file join [file dirname [file dirname [info script]]] gui/AXI4Stream_DSP
 proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "Component_Name"
   #Adding Page
-  set DSP_TDC [ipgui::add_page $IPINST -name "DSP TDC"]
-  set DEBUG_MODE [ipgui::add_param $IPINST -name "DEBUG_MODE" -parent ${DSP_TDC}]
+  set Page_0 [ipgui::add_page $IPINST -name "Page 0"]
+  set DEBUG_MODE [ipgui::add_param $IPINST -name "DEBUG_MODE" -parent ${Page_0}]
   set_property tooltip {Allow to tune in real-time the valid position for its generation} ${DEBUG_MODE}
-  set NUMBER_OF_TDL [ipgui::add_param $IPINST -name "NUMBER_OF_TDL" -parent ${DSP_TDC}]
+  set NUMBER_OF_TDL [ipgui::add_param $IPINST -name "NUMBER_OF_TDL" -parent ${Page_0}]
   set_property tooltip {Number of TDL sub-Interpolated in each TDC channel} ${NUMBER_OF_TDL}
   #Adding Group
-  set TDL_Dimension [ipgui::add_group $IPINST -name "TDL Dimension" -parent ${DSP_TDC}]
+  set TDL_Dimension [ipgui::add_group $IPINST -name "TDL Dimension" -parent ${Page_0}]
   set NUM_TAP_TDL [ipgui::add_param $IPINST -name "NUM_TAP_TDL" -parent ${TDL_Dimension}]
   set_property tooltip {Number of Taps in each TDL} ${NUM_TAP_TDL}
   set BIT_SMP_TDL [ipgui::add_param $IPINST -name "BIT_SMP_TDL" -parent ${TDL_Dimension}]
@@ -23,7 +23,7 @@ proc init_gui { IPINST } {
   set_property tooltip {Number of taps sampled on the PRE-TDL} ${BIT_SMP_PRE_TDL}
 
   #Adding Group
-  set Valid_Generation [ipgui::add_group $IPINST -name "Valid Generation" -parent ${DSP_TDC}]
+  set Valid_Generation [ipgui::add_group $IPINST -name "Valid Generation" -parent ${Page_0}]
   set MIN_VALID_TAP_POS [ipgui::add_param $IPINST -name "MIN_VALID_TAP_POS" -parent ${Valid_Generation}]
   set_property tooltip {Select the minimum position of the bit of sampled taps of TDL to insert in the MUX using in DEBUG for valid generation} ${MIN_VALID_TAP_POS}
   set STEP_VALID_TAP_POS [ipgui::add_param $IPINST -name "STEP_VALID_TAP_POS" -parent ${Valid_Generation}]
