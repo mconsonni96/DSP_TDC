@@ -156,7 +156,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>1f478d42</spirit:value>
+            <spirit:value>95494f0d</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -172,7 +172,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>534d301f</spirit:value>
+            <spirit:value>cc8f4d40</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -186,7 +186,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>bd1961c3</spirit:value>
+            <spirit:value>656073d2</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -446,11 +446,6 @@
         <spirit:userFileType>xdc</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/LocalPackage_TDC.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:logicalName>work</spirit:logicalName>
-      </spirit:file>
-      <spirit:file>
         <spirit:name>hdl/AXI4Stream_DSP_TDC_Wrapper.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
@@ -471,11 +466,6 @@
     <spirit:fileSet>
       <spirit:name>xilinx_anylanguagebehavioralsimulation_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>hdl/LocalPackage_TDC.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:logicalName>work</spirit:logicalName>
-      </spirit:file>
-      <spirit:file>
         <spirit:name>hdl/AXI4Stream_DSP_TDC_Wrapper.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
@@ -493,7 +483,7 @@
       <spirit:file>
         <spirit:name>xgui/AXI4Stream_DSP_TDC_v1_0.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_bd1961c3</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_656073d2</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
@@ -573,6 +563,7 @@
         <spirit:name>src/tb_AXI4Stream_DSP_TDC_Wrapper.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>USED_IN_simulation</spirit:userFileType>
+        <spirit:userFileType>USED_IN_testbench</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -603,7 +594,7 @@
     <spirit:parameter>
       <spirit:name>MIN_VALID_TAP_POS</spirit:name>
       <spirit:displayName>Minimum Valid Position</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.MIN_VALID_TAP_POS" spirit:minimum="0" spirit:maximum="1918" spirit:rangeType="long">0</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.MIN_VALID_TAP_POS" spirit:minimum="-480" spirit:maximum="1918" spirit:rangeType="long">0</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -700,11 +691,11 @@
       <xilinx:displayName>AXI4-Stream Xilinx 7-Series DSP-TDC</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
       <xilinx:vendorDisplayName>DigiLAB</xilinx:vendorDisplayName>
-      <xilinx:coreRevision>1</xilinx:coreRevision>
+      <xilinx:coreRevision>2</xilinx:coreRevision>
       <xilinx:upgrades>
         <xilinx:canUpgradeFrom>user.org:user:AXI4Stream_DSP_TDC:1.0</xilinx:canUpgradeFrom>
       </xilinx:upgrades>
-      <xilinx:coreCreationDateTime>2022-03-28T08:51:30Z</xilinx:coreCreationDateTime>
+      <xilinx:coreCreationDateTime>2022-03-28T09:08:00Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="nopcore"/>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@5299142b_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
@@ -768,15 +759,36 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@5b350266_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@5fae8c09_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@1a0c61ac_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@13d2472d_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@51cb82bb_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1f7f1dfe_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@630d436c_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6dead2c2_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@32025390_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@304715ac_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@16b38906_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5d60c66d_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5351a643_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@57852be1_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@49b706e3_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5e111938_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@712fc6f4_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@135e2fd3_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6bd0c10c_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@354b87e1_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ef86386_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1ae12ca6_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3bf965a1_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@359bf53e_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.2</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="eb8b43ff"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="e59c9139"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="c2a05a05"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="ce993133"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="46922814"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="2c852a69"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="918a9bc1"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>

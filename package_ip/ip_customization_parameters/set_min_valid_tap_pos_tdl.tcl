@@ -2,7 +2,7 @@
 # MIN_VALID_TAP_POS	:	NATURAL		:=	1;
 
 # ---------------- MIN_VALID_TAP_POS -----------------
-set MIN_MIN_VALID_TAP_POS 0
+set MIN_MIN_VALID_TAP_POS [expr 0 - [get_property value [ipx::get_user_parameters BIT_SMP_PRE_TDL -of_objects [ipx::current_core]]]]
 #set MAX_MIN_VALID_TAP_POS 4096
 set MAX_MIN_VALID_TAP_POS [expr [get_property value [ipx::get_user_parameters MAX_VALID_TAP_POS -of_objects [ipx::current_core]]] -1]
 #set DEFAULT_MIN_VALID_TAP_POS 0
