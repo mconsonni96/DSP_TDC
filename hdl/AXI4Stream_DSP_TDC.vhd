@@ -72,21 +72,21 @@ entity AXI4Stream_DSP_TDC is
         
         NUMBER_OF_TDL	:	POSITIVE	RANGE 1 TO 16 	:= 1;														
 		
-		NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 1920	:= 480;										
+		NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 1920	:= 96;										
 		
 		MIN_VALID_TAP_POS	:	INTEGER		:=	0;													
-		STEP_VALID_TAP_POS	:	POSITIVE	:=	16;													
-		MAX_VALID_TAP_POS	:	NATURAL		:=	479;												
+		STEP_VALID_TAP_POS	:	POSITIVE	:=	8;													
+		MAX_VALID_TAP_POS	:	NATURAL		:=	95;												
 		
 		VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	0;
 		
 		VALID_NUMBER_OF_TDL_INIT	:	INTEGER	RANGE 0 TO 15		:=	0;					
 		
-        BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 1920	:= 480	;
+        BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 1920	:= 96;
         
-        NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 480	:= 48;
+        NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 480	:= 0;
         
-        BIT_SMP_PRE_TDL			:	INTEGER	RANGE 0 TO 480	:= 48
+        BIT_SMP_PRE_TDL			:	INTEGER	RANGE 0 TO 480	:= 0
     
     );
 

@@ -136,17 +136,17 @@ begin
           -- Register Control Attributes: Pipeline Register Configuration
           ACASCREG => 0,                     -- Number of pipeline stages between A/ACIN and ACOUT (0, 1 or 2)
           ADREG => 0,                        -- Number of pipeline stages for pre-adder (0 or 1)
-          ALUMODEREG => 1,                   -- Number of pipeline stages for ALUMODE (0 or 1)
+          ALUMODEREG => 0,                   -- Number of pipeline stages for ALUMODE (0 or 1)
           AREG => 0,                         -- Number of pipeline stages for A (0, 1 or 2)
           BCASCREG => 0,                     -- Number of pipeline stages between B/BCIN and BCOUT (0, 1 or 2)
           BREG => 0,                         -- Number of pipeline stages for B (0, 1 or 2)
           CARRYINREG => 0,                   -- Number of pipeline stages for CARRYIN (0 or 1)
-          CARRYINSELREG => 1,                -- Number of pipeline stages for CARRYINSEL (0 or 1)
+          CARRYINSELREG => 0,                -- Number of pipeline stages for CARRYINSEL (0 or 1)
           CREG => 0,                         -- Number of pipeline stages for C (0 or 1)
           DREG => 0,                         -- Number of pipeline stages for D (0 or 1)
-          INMODEREG => 1,                    -- Number of pipeline stages for INMODE (0 or 1)
+          INMODEREG => 0,                    -- Number of pipeline stages for INMODE (0 or 1)
           MREG => 0,                         -- Number of multiplier pipeline stages (0 or 1)
-          OPMODEREG => 1,                    -- Number of pipeline stages for OPMODE (0 or 1)
+          OPMODEREG => 0,                    -- Number of pipeline stages for OPMODE (0 or 1)
           PREG => 0                          -- Number of pipeline stages for P (0 or 1)
        )
        port map (
@@ -236,18 +236,18 @@ begin
                     -- Register Control Attributes: Pipeline Register Configuration
                     ACASCREG => 0,                     -- Number of pipeline stages between A/ACIN and ACOUT (0, 1 or 2)
                     ADREG => 0,                        -- Number of pipeline stages for pre-adder (0 or 1)
-                    ALUMODEREG => 1,                   -- Number of pipeline stages for ALUMODE (0 or 1)
+                    ALUMODEREG => 0,                   -- Number of pipeline stages for ALUMODE (0 or 1)
                     AREG => 0,                         -- Number of pipeline stages for A (0, 1 or 2)
                     BCASCREG => 0,                     -- Number of pipeline stages between B/BCIN and BCOUT (0, 1 or 2)
                     BREG => 0,                         -- Number of pipeline stages for B (0, 1 or 2)
                     CARRYINREG => 0,                   -- Number of pipeline stages for CARRYIN (0 or 1)
-                    CARRYINSELREG => 1,                -- Number of pipeline stages for CARRYINSEL (0 or 1)
+                    CARRYINSELREG => 0,                -- Number of pipeline stages for CARRYINSEL (0 or 1)
                     CREG => 0,                         -- Number of pipeline stages for C (0 or 1)
                     DREG => 0,                         -- Number of pipeline stages for D (0 or 1)
-                    INMODEREG => 1,                    -- Number of pipeline stages for INMODE (0 or 1)
+                    INMODEREG => 0,                    -- Number of pipeline stages for INMODE (0 or 1)
                     MREG => 0,                         -- Number of multiplier pipeline stages (0 or 1)
-                    OPMODEREG => 1,                    -- Number of pipeline stages for OPMODE (0 or 1)
-                    PREG => 0        
+                    OPMODEREG => 0,                    -- Number of pipeline stages for OPMODE (0 or 1)
+                    PREG => 0       
                 )
                 port map ( 
                     -- Cascade: 30-bit (each) output: Cascade Ports
