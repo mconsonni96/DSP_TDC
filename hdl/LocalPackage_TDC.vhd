@@ -56,80 +56,80 @@ library STD;
 
 package LocalPackage_TDC is
 
-	
+
 	CONSTANT	MAX_NUMBER_OF_TDL	:	INTEGER	:=	16;
-	
-	
+
+
 	function Compute_Num_DSP (
 
-		
+
 		num_tap_tdl		:	integer;
 		bit_dsp	:	positive
 
 
 	) return integer ;
 
---------------------------------------	
-	
+--------------------------------------
+
 	function Sample_AsyncTapsTDL (
 
-		
+
 		num_tap_tdl		:	positive;
-		
+
 		bit_smp_tdl		:	positive;
-		
+
 		bit_smp_pre_tdl		:	integer;
-		
+
 		num_tap_pre_tdl		:	integer;
-		
+
 		AsyncTaps_preTDL	:	std_logic_vector;
-		
+
 		AsyncTaps_TDL		:	std_logic_vector
-		
+
 	) return std_logic_vector ;
-	
-----------------------------------------	
-	
+
+----------------------------------------
+
 	function Compute_ValidPositionSampledTapsTDL (
 
 		min_valid_pos	:	integer;
 		step_valid_pos	:	positive;
 		max_valid_pos	:	natural;
-		
+
 		bit_smp_pre_tdl	: integer;
-		
+
 		SampledTaps_TDL	:	std_logic_vector
-		
+
 	) return std_logic_vector;
-	
+
 ------------------------------------------
-	
-	
+
+
 	function Compute_ValidSampledTapsTDL (
 
-		
+
 		RiseValid	:	std_logic;
 		FallValid	:	std_logic
-		
+
 	) return std_logic ;
-	
+
 
 ----------------------------------------------
-	
+
 	procedure	X7S_Choose_AsyncTaps_TDL (
 
-		
-		signal	O_Taps	:	IN	STD_LOGIC_VECTOR;										
-		
-		signal	AsyncTaps_TDL	:	OUT	STD_LOGIC_VECTOR								
-		
+
+		signal	O_Taps	:	IN	STD_LOGIC_VECTOR;
+
+		signal	AsyncTaps_TDL	:	OUT	STD_LOGIC_VECTOR
+
 
 	);
-	
-	
+
+
 -------------------------------------------
 
-    
+
 
 end LocalPackage_TDC;
 
@@ -139,10 +139,10 @@ package body LocalPackage_TDC is
 
 	function Compute_Num_DSP (
 
-	
+
 		num_tap_tdl		:	integer;
 		bit_dsp	:	positive
-		
+
 
 	) return integer is
 
@@ -158,42 +158,42 @@ package body LocalPackage_TDC is
 
 		 return integer(num_dsp);
 	end function;
-	
+
 	----------------------------------------------------------------------------
 
-	
+
 	function Sample_AsyncTapsTDL (
 
-		
+
 		num_tap_tdl		:	positive;
-		
+
 		bit_smp_tdl		:	positive;
-		
+
 		bit_smp_pre_tdl		:	integer;
-		
+
 		num_tap_pre_tdl		:	integer;
-		
+
 		AsyncTaps_preTDL	:	std_logic_vector;
-		
+
 		AsyncTaps_TDL		:	std_logic_vector
-		
+
 	) return std_logic_vector is
 
 		variable	step_tap_tdl		:	integer;
-		
+
 		variable	step_tap_pre_tdl	:	integer;
-		
+
 		variable	SampledTaps_preTDL_tmp	:	std_logic_vector(bit_smp_pre_tdl -1 downto 0);
-		
+
 		variable	SampledTaps_TDL_tmp		:	std_logic_vector(bit_smp_tdl -1 downto 0);
-		
+
 		variable	SampledTaps_tmp			:	std_logic_vector(bit_smp_tdl + bit_smp_pre_tdl -1 downto 0);
 
 	begin
 
-	
+
 		step_tap_tdl		:=	integer(num_tap_tdl)/integer(bit_smp_tdl);
-		
+
 		if bit_smp_pre_tdl > 0 then
 			step_tap_pre_tdl	:=	integer(num_tap_pre_tdl)/integer(bit_smp_pre_tdl);
 		else
@@ -207,16 +207,16 @@ package body LocalPackage_TDC is
 		if step_tap_pre_tdl = 0 then
 			step_tap_pre_tdl := 1;
 		end if;
-		
+
 		SampledTaps_tmp	:= (Others => '1');
 
 		for I in 0 to bit_smp_pre_tdl -1 loop
 			SampledTaps_preTDL_tmp(I)	:=	AsyncTaps_preTDL(I*step_tap_pre_tdl);   -- change minus with module
 		end loop;
-		
+
 		for I in 0 to bit_smp_tdl -1 loop
 
-			
+
 			if I*step_tap_tdl  < num_tap_tdl  then
 				SampledTaps_TDL_tmp(I)	:=	AsyncTaps_TDL(I*step_tap_tdl);
 			end if;
@@ -224,7 +224,7 @@ package body LocalPackage_TDC is
 		end loop;
 
         SampledTaps_tmp   :=   SampledTaps_TDL_tmp & SampledTaps_preTDL_tmp;
-        
+
 		return	SampledTaps_tmp;
 
 	end function;
@@ -236,11 +236,11 @@ package body LocalPackage_TDC is
 		min_valid_pos	:	integer;
 		step_valid_pos	:	positive;
 		max_valid_pos	:	natural;
-		
+
 		bit_smp_pre_tdl	:   integer;
-		
+
 		SampledTaps_TDL	:	std_logic_vector
-		
+
 	) return std_logic_vector is
 
 		variable	ValidPosition_SampledTaps_lng	:	integer;
@@ -250,21 +250,21 @@ package body LocalPackage_TDC is
 
 	begin
 
-		
+
 		ValidPosition_SampledTaps_lng	:=	integer(max_valid_pos - min_valid_pos +1)/integer(step_valid_pos);
-		
+
 		ValidPosition_SampledTaps_mod  :=  integer(max_valid_pos - min_valid_pos +1) mod integer(step_valid_pos);
 
 		if ValidPosition_SampledTaps_lng = 0 then
 			ValidPosition_SampledTaps_lng := 1;
 		end if;
 
-		
+
 		if ValidPosition_SampledTaps_mod > 0 then
 			ValidPosition_SampledTaps_lng := ValidPosition_SampledTaps_lng + 1;
 		end if;
 
-		
+
 		for I in 0 to ValidPosition_SampledTaps_lng-1 loop
 
 			if I*step_valid_pos + min_valid_pos <= max_valid_pos then
@@ -277,18 +277,18 @@ package body LocalPackage_TDC is
 		return	ValidPosition_SampledTaps_tmp(ValidPosition_SampledTaps_lng-1 downto 0);
 
 	end function;
-	
 
-------------------------------------------------------	
-	
-    
+
+------------------------------------------------------
+
+
     function Compute_ValidSampledTapsTDL (
 
-		
+
 		RiseValid	:	std_logic;
 		FallValid	:	std_logic
-		
-		
+
+
 	) return std_logic is
 
 		variable	valid_tmp	:std_logic;
@@ -304,25 +304,25 @@ package body LocalPackage_TDC is
 		return	valid_tmp;
 
 	end function;
-	
-	
+
+
 ------------------------------------------------------
 
-    
+
 	procedure	X7S_Choose_AsyncTaps_TDL (
 
-		
-		signal	O_Taps	:	IN	STD_LOGIC_VECTOR;								
-		
-		signal	AsyncTaps_TDL	:	OUT	STD_LOGIC_VECTOR						
+
+		signal	O_Taps	:	IN	STD_LOGIC_VECTOR;
+
+		signal	AsyncTaps_TDL	:	OUT	STD_LOGIC_VECTOR
 
 	) is
 
 	begin
 
-		
+
 		AsyncTaps_TDL	<=	O_Taps;
 
 	end procedure;
-	
+
 end LocalPackage_TDC;
