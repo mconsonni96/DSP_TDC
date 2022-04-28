@@ -4,6 +4,8 @@ proc init_AXI4Stream_DSP_TDC_gui { IPINST Page} {
 
   #Adding Page
   set Page_0 [ipgui::add_page $IPINST -name $Page]
+  set X7S_VS_XUS [ipgui::add_param $IPINST -name "X7S_VS_XUS" -parent ${Page_0} -widget comboBox]
+  set_property tooltip {Use TDL for Xilinx Xilinx 7-Series or Ultrascale} ${X7S_VS_XUS}
   set DEBUG_MODE [ipgui::add_param $IPINST -name "DEBUG_MODE" -parent ${Page_0}]
   set_property tooltip {Allow to tune in real-time the valid position for its generation} ${DEBUG_MODE}
   set NUMBER_OF_TDL [ipgui::add_param $IPINST -name "NUMBER_OF_TDL" -parent ${Page_0}]

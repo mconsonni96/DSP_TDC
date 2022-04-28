@@ -7,6 +7,8 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "Component_Name"
   #Adding Page
   set Page_0 [ipgui::add_page $IPINST -name "Page 0"]
+  set X7S_VS_XUS [ipgui::add_param $IPINST -name "X7S_VS_XUS" -parent ${Page_0} -widget comboBox]
+  set_property tooltip {Use TDL for Xilinx Xilinx 7-Series or Ultrascale} ${X7S_VS_XUS}
   set DEBUG_MODE [ipgui::add_param $IPINST -name "DEBUG_MODE" -parent ${Page_0}]
   set_property tooltip {Allow to tune in real-time the valid position for its generation} ${DEBUG_MODE}
   set NUMBER_OF_TDL [ipgui::add_param $IPINST -name "NUMBER_OF_TDL" -parent ${Page_0}]
@@ -24,16 +26,16 @@ proc init_gui { IPINST } {
 
   #Adding Group
   set Valid_Generation [ipgui::add_group $IPINST -name "Valid Generation" -parent ${Page_0}]
+  set VALID_NUMBER_OF_TDL_INIT [ipgui::add_param $IPINST -name "VALID_NUMBER_OF_TDL_INIT" -parent ${Valid_Generation}]
+  set_property tooltip {Select the TDL for the valid position (if TDL Debug FALSE) or initalize the TDL to choose the valid position (if TDL Debug TRUE)} ${VALID_NUMBER_OF_TDL_INIT}
+  set VALID_POSITION_TAP_INIT [ipgui::add_param $IPINST -name "VALID_POSITION_TAP_INIT" -parent ${Valid_Generation}]
+  set_property tooltip {Select the tap position for the valid (if TDL Debug FALSE) or initalize the position (if TDL Debug TRUE)} ${VALID_POSITION_TAP_INIT}
   set MIN_VALID_TAP_POS [ipgui::add_param $IPINST -name "MIN_VALID_TAP_POS" -parent ${Valid_Generation}]
   set_property tooltip {Select the minimum position of the bit of sampled taps of TDL to insert in the MUX using in DEBUG for valid generation} ${MIN_VALID_TAP_POS}
   set STEP_VALID_TAP_POS [ipgui::add_param $IPINST -name "STEP_VALID_TAP_POS" -parent ${Valid_Generation}]
   set_property tooltip {Select the step between consecuteve position of the bit of sampled taps of TDL to insert in the MUX using in DEBUGle for valid generation} ${STEP_VALID_TAP_POS}
   set MAX_VALID_TAP_POS [ipgui::add_param $IPINST -name "MAX_VALID_TAP_POS" -parent ${Valid_Generation}]
   set_property tooltip {Select the maximum position of the bit of sampled taps of TDL to insert in the MUX using in DEBUG for valid generation} ${MAX_VALID_TAP_POS}
-  set VALID_NUMBER_OF_TDL_INIT [ipgui::add_param $IPINST -name "VALID_NUMBER_OF_TDL_INIT" -parent ${Valid_Generation}]
-  set_property tooltip {Select the TDL for the valid position (if TDL Debug FALSE) or initalize the TDL to choose the valid position (if TDL Debug TRUE)} ${VALID_NUMBER_OF_TDL_INIT}
-  set VALID_POSITION_TAP_INIT [ipgui::add_param $IPINST -name "VALID_POSITION_TAP_INIT" -parent ${Valid_Generation}]
-  set_property tooltip {Select the tap position for the valid (if TDL Debug FALSE) or initalize the position (if TDL Debug TRUE)} ${VALID_POSITION_TAP_INIT}
 
 
 
@@ -165,6 +167,20 @@ proc validate_PARAM_VALUE.VALID_POSITION_TAP_INIT { PARAM_VALUE.VALID_POSITION_T
 	return true
 }
 
+proc update_PARAM_VALUE.X7S_VS_XUS { PARAM_VALUE.X7S_VS_XUS } {
+	# Procedure called to update X7S_VS_XUS when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.X7S_VS_XUS { PARAM_VALUE.X7S_VS_XUS } {
+	# Procedure called to validate X7S_VS_XUS
+	return true
+}
+
+
+proc update_MODELPARAM_VALUE.X7S_VS_XUS { MODELPARAM_VALUE.X7S_VS_XUS PARAM_VALUE.X7S_VS_XUS } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.X7S_VS_XUS}] ${MODELPARAM_VALUE.X7S_VS_XUS}
+}
 
 proc update_MODELPARAM_VALUE.DEBUG_MODE { MODELPARAM_VALUE.DEBUG_MODE PARAM_VALUE.DEBUG_MODE } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value

@@ -64,7 +64,9 @@ entity AXI4Stream_DSP_TDC_Wrapper is
 
 	generic (
 
-        DEBUG_MODE		:	BOOLEAN	:=	FALSE;
+        X7S_VS_XUS      :   STRING  := "XUS";
+	
+		DEBUG_MODE		:	BOOLEAN	:=	FALSE;
 
         NUMBER_OF_TDL   :   POSITIVE    RANGE 1 TO 16   := 4;
 
@@ -152,7 +154,9 @@ architecture Behavioral of AXI4Stream_DSP_TDC_Wrapper is
 	component DSP_TDC is
 	generic (
 
-        NUM_TAP_TDL				:	POSITIVE	RANGE 4 TO 1920	:= 480;
+        X7S_VS_XUS              :   STRING  := "XUS";
+	
+		NUM_TAP_TDL				:	POSITIVE	RANGE 4 TO 1920	:= 480;
 
         NUM_TAP_PRE_TDL			:	INTEGER	    RANGE 0 TO 1920	:= 480
 
@@ -238,6 +242,7 @@ begin
 		Inst_TDC	:	DSP_TDC
 			generic map(
 
+				X7S_VS_XUS      =>  X7S_VS_XUS,
 				NUM_TAP_TDL		=>	NUM_TAP_TDL,
 				NUM_TAP_PRE_TDL	=> NUM_TAP_PRE_TDL
 

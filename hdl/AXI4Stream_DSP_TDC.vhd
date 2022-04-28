@@ -68,13 +68,15 @@ entity AXI4Stream_DSP_TDC is
 
 	generic (
 
-        DEBUG_MODE		:	BOOLEAN	:=	TRUE;
+		X7S_VS_XUS      :   STRING  := "XUS";
+	
+		DEBUG_MODE		:	BOOLEAN	:=	TRUE;
 
         NUMBER_OF_TDL	:	POSITIVE	RANGE 1 TO 16 	:= 1;
 
 		NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 1920	:= 192;
 
-		MIN_VALID_TAP_POS	:	INTEGER		:=	-48;
+		MIN_VALID_TAP_POS	:	INTEGER		:=	0;
 		STEP_VALID_TAP_POS	:	POSITIVE	:=	8;
 		MAX_VALID_TAP_POS	:	NATURAL		:=	191;
 
@@ -84,9 +86,9 @@ entity AXI4Stream_DSP_TDC is
 
         BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 1920	:= 192	;
 
-        NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 480	:= 48;
+        NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 480	:= 0;
 
-        BIT_SMP_PRE_TDL			:	INTEGER	RANGE 0 TO 480	:= 48
+        BIT_SMP_PRE_TDL			:	INTEGER	RANGE 0 TO 480	:= 0
 
     );
 
@@ -125,6 +127,8 @@ architecture Behavioral of AXI4Stream_DSP_TDC is
 
 		generic (
 
+			X7S_VS_XUS      :   STRING  := "XUS";
+		
 			DEBUG_MODE		:	BOOLEAN	:=	FALSE;
 
 			NUMBER_OF_TDL	:	POSITIVE	RANGE 1 TO 16 	:= 2;
@@ -188,6 +192,8 @@ begin
 
 		generic map(
 
+			X7S_VS_XUS      =>   X7S_VS_XUS,
+		
 			DEBUG_MODE	    =>	 DEBUG_MODE,
 
 			NUMBER_OF_TDL	=>	NUMBER_OF_TDL,

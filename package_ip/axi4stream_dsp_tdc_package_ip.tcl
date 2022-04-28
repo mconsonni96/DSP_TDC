@@ -18,7 +18,7 @@ set_property name $name [ipx::current_core]
 set version "1.0"
 set_property version $version [ipx::current_core]
 
-set display_name "AXI4-Stream Xilinx 7-Series DSP-TDC"
+set display_name "AXI4-Stream Xilinx DSP-TDC"
 set_property display_name $display_name [ipx::current_core]
 
 set description "TDC with Digital Signal Processor with AXI4-Stram interface for the TDC"
@@ -47,6 +47,7 @@ set param_path $path
 append param_path "/ip_customization_parameters/"
 source [join [list $param_path "set_param_fx.tcl"] ""] -notrace
 
+source [join [list $param_path "set_x7s_vs_xus.tcl"] ""] -notrace
 source [join [list $param_path "set_debug_mode_tdl.tcl"] ""] -notrace
 source [join [list $param_path "set_number_of_tdl.tcl"] ""] -notrace
 source [join [list $param_path "set_num_tap_tdl.tcl"] ""] -notrace

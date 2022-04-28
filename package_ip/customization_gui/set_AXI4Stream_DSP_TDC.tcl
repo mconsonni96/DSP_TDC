@@ -1,3 +1,20 @@
+proc update_PARAM_VALUE.X7S_VS_XUS { PARAM_VALUE.X7S_VS_XUS } {
+	# Procedure called to update X7S_VS_XUS when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.X7S_VS_XUS { PARAM_VALUE.X7S_VS_XUS } {
+	# Procedure called to validate X7S_VS_XUS
+	return true
+}
+
+
+proc update_MODELPARAM_VALUE.X7S_VS_XUS { MODELPARAM_VALUE.X7S_VS_XUS PARAM_VALUE.X7S_VS_XUS } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.X7S_VS_XUS}] ${MODELPARAM_VALUE.X7S_VS_XUS}
+}
+
+
+
 proc update_PARAM_VALUE.DEBUG_MODE { PARAM_VALUE.DEBUG_MODE } {
 	# Procedure called to update DEBUG_MODE when any of the dependent parameters in the arguments change
 }

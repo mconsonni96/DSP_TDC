@@ -40,6 +40,8 @@ architecture Behavioral of tb_AXI4Stream_DSP_TDC_Wrapper is
     constant	CLK_PERIOD 		: time := 1 ns;									
 	constant	ASYNC_PERIOD 	: time := 12 ns;								
 	
+	constant    X7S_VS_XUS   :   STRING  :=  "XUS";
+	
 	constant    DEBUG_MODE : BOOLEAN := FALSE;
 	
 	constant	NUMBER_OF_TDL	:	POSITIVE	RANGE 1 TO 16 	:= 1;
@@ -51,14 +53,16 @@ architecture Behavioral of tb_AXI4Stream_DSP_TDC_Wrapper is
 	constant    VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	2;
 	constant    VALID_NUMBER_OF_TDL_INIT	:	INTEGER	RANGE 0 TO 15		:=	0;
 	
-	constant	NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 1920	:= 192;
-	constant	BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 1920	:= 192;
+	constant	NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 1920	:= 96;
+	constant	BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 1920	:= 96;
 	
-	constant	NUM_TAP_PRE_TDL		:	INTEGER	RANGE 0 TO 480	:= 48;
-	constant	BIT_SMP_PRE_TDL		:	INTEGER	RANGE 0 TO 480	:= 48;
+	constant	NUM_TAP_PRE_TDL		:	INTEGER	RANGE 0 TO 480	:= 0;
+	constant	BIT_SMP_PRE_TDL		:	INTEGER	RANGE 0 TO 480	:= 0;
 	
 	component AXI4Stream_DSP_TDC_Wrapper is
     generic (
+        
+        X7S_VS_XUS      :   STRING  := "XUS";
         
         DEBUG_MODE		:	BOOLEAN	:=	FALSE;
         
@@ -124,6 +128,7 @@ begin
      
        generic map ( 
                    
+          X7S_VS_XUS => X7S_VS_XUS,
           DEBUG_MODE  => DEBUG_MODE,
           NUMBER_OF_TDL => NUMBER_OF_TDL,
           NUM_TAP_TDL => NUM_TAP_TDL,
