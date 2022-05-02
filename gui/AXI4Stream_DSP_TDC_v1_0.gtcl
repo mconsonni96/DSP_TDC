@@ -1,4 +1,0 @@
-# This file is automatically written.  Do not modify.
-proc gen_USERPARAMETER_MIN_VALID_TAP_POS_ENABLEMENT {DEBUG_MODE } {expr $DEBUG_MODE == {true}}
-proc gen_USERPARAMETER_STEP_VALID_TAP_POS_ENABLEMENT {DEBUG_MODE } {expr $DEBUG_MODE == true}
-proc gen_USERPARAMETER_MAX_VALID_TAP_POS_ENABLEMENT {DEBUG_MODE } {expr $DEBUG_MODE == {true}}

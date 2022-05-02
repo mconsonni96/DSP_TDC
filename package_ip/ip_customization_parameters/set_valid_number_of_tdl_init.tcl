@@ -4,7 +4,7 @@
 
 # ---------------- VALID_NUMBER_OF_TDL_INIT -----------------
 set MIN_VALID_NUMBER_OF_TDL_INIT 0
-set MAX_VALID_NUMBER_OF_TDL_INIT [expr [get_property value [ipx::get_user_parameters NUMBER_OF_TDL -of_objects [ipx::current_core]]] -1]
+set MAX_VALID_NUMBER_OF_TDL_INIT [expr [get_property value [ipx::get_user_parameters NUMBER_OF_CARRY_CHAINS -of_objects [ipx::current_core]]] -1]
 set DEFAULT_VALID_NUMBER_OF_TDL_INIT 0
 
 set enablement {True}

@@ -92,9 +92,9 @@ entity AXI4Stream_VirtualTDL_Wrapper is
 		
 		BIT_SMP_TDL		     :	POSITIVE	RANGE 1 TO 1920	:= 512;
 
-		NUM_TAP_PRE_TDL		 :	INTEGER	RANGE 0 TO 480	:= 128;
+		NUM_TAP_PRE_TDL		 :	INTEGER	RANGE 0 TO 1024	:= 128;
 
-		BIT_SMP_PRE_TDL		 :	INTEGER	RANGE 0 TO 480	:= 128
+		BIT_SMP_PRE_TDL		 :	INTEGER	RANGE 0 TO 1024	:= 128
 
 	);
 
@@ -176,7 +176,7 @@ architecture Behavioral of AXI4Stream_VirtualTDL_Wrapper is
 		XUS_VS_X7S   :  STRING := "XUS";
 		
 		NUM_TAP_TDL				:	POSITIVE	RANGE 4 TO 4096	:= 16;					--! Bits of the TDL (number of buffers in the TDL)
-		NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 256	:= 256						--! Bits of the PRE-Tapped Delay-Line (number of buffers in the PRE-TDL)
+		NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 1024	:= 256						--! Bits of the PRE-Tapped Delay-Line (number of buffers in the PRE-TDL)
 		----------------------------
 
 	);
@@ -205,9 +205,9 @@ architecture Behavioral of AXI4Stream_VirtualTDL_Wrapper is
 
       XUS_VS_X7S   :  STRING := "XUS";
       
-      NUM_TAP_TDL				   :	POSITIVE	RANGE 4 TO 1920	:= 96;
+      NUM_TAP_TDL				   :	POSITIVE	RANGE 4 TO 4096	:= 96;
 
-      NUM_TAP_PRE_TDL         :   INTEGER     RANGE 0 TO 480  := 48
+      NUM_TAP_PRE_TDL         :   INTEGER     RANGE 0 TO 1024  := 48
 
 	);
 	port(
@@ -258,8 +258,8 @@ architecture Behavioral of AXI4Stream_VirtualTDL_Wrapper is
 		---------------------------
 
 		------ PRE-Tapped Delay-Line (PRE-TDL) -------
-		NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 256	:= 256;					--! Bits of the PRE-Tapped Delay-Line (number of buffers in the PRE-TDL)
-		BIT_SMP_PRE_TDL			:	INTEGER	RANGE 0 TO 256	:= 256					--! Bits Sampled from the PRE-TDL each NUM_TAP_PRE_TDL/BIT_SMP_PRE_TDL after OFFSET_TAP_TDL, obviously equal in each TDLs
+		NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 1024	:= 256;					--! Bits of the PRE-Tapped Delay-Line (number of buffers in the PRE-TDL)
+		BIT_SMP_PRE_TDL			:	INTEGER	RANGE 0 TO 1024	:= 256					--! Bits Sampled from the PRE-TDL each NUM_TAP_PRE_TDL/BIT_SMP_PRE_TDL after OFFSET_TAP_TDL, obviously equal in each TDLs
 		----------------------------------------------
 
 	);
@@ -307,13 +307,13 @@ architecture Behavioral of AXI4Stream_VirtualTDL_Wrapper is
 
 		VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	2;
 
-		NUM_TAP_TDL			:	POSITIVE	RANGE 4 TO 1920	:= 96;
-        OFFSET_TAP_TDL		:	NATURAL		RANGE 0 TO 1920	:= 0;
-		BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 1920	:= 96;
+		NUM_TAP_TDL			:	POSITIVE	RANGE 4 TO 4096	:= 96;
+        OFFSET_TAP_TDL		:	NATURAL		RANGE 0 TO 4096	:= 0;
+		BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 4096	:= 96;
 
-		NUM_TAP_PRE_TDL		:	INTEGER	RANGE 0 TO 480	:= 48;
+		NUM_TAP_PRE_TDL		:	INTEGER	RANGE 0 TO 1024	:= 48;
 
-		BIT_SMP_PRE_TDL		:	INTEGER	RANGE 0 TO 480	:= 48
+		BIT_SMP_PRE_TDL		:	INTEGER	RANGE 0 TO 1024	:= 48
 
 	);
 	port(

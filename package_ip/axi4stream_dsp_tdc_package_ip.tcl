@@ -1,6 +1,6 @@
 
 # =========================== SET PATH =========================================
-set path "/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_DSP_TDC/package_ip"
+set path "/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL/package_ip"
 # ==============================================================================
 
 
@@ -12,16 +12,16 @@ set_property vendor $vendor [ipx::current_core]
 set library "ip"
 set_property library $library [ipx::current_core]
 
-set name "AXI4Stream_DSP_TDC"
+set name "AXI4Stream_HybridTDL"
 set_property name $name [ipx::current_core]
 
 set version "1.0"
 set_property version $version [ipx::current_core]
 
-set display_name "AXI4-Stream Xilinx DSP-TDC"
+set display_name "AXI4-Stream Xilinx Hybrid-TDC"
 set_property display_name $display_name [ipx::current_core]
 
-set description "TDC with Digital Signal Processor with AXI4-Stram interface for the TDC"
+set description "TDC with Carry Chain and Digital Signal Processor with AXI4-Stream interface for the TDC"
 set_property description $description [ipx::current_core]
 
 set vendor_display_name {DigiLAB}
@@ -47,9 +47,13 @@ set param_path $path
 append param_path "/ip_customization_parameters/"
 source [join [list $param_path "set_param_fx.tcl"] ""] -notrace
 
-source [join [list $param_path "set_x7s_vs_xus.tcl"] ""] -notrace
+source [join [list $param_path "set_xus_vs_x7s.tcl"] ""] -notrace
+source [join [list $param_path "set_type_tdl.tcl"] ""] -notrace
+source [join [list $param_path "set_offset_tap_tdl.tcl"] ""] -notrace
 source [join [list $param_path "set_debug_mode_tdl.tcl"] ""] -notrace
-source [join [list $param_path "set_number_of_tdl.tcl"] ""] -notrace
+source [join [list $param_path "set_buffering_stage.tcl"] ""] -notrace
+source [join [list $param_path "set_number_of_carry_chains.tcl"] ""] -notrace
+source [join [list $param_path "set_number_of_dsp_chains.tcl"] ""] -notrace
 source [join [list $param_path "set_num_tap_tdl.tcl"] ""] -notrace
 source [join [list $param_path "set_bit_smp_tdl.tcl"] ""] -notrace
 source [join [list $param_path "set_num_tap_pre_tdl.tcl"] ""] -notrace

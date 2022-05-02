@@ -118,8 +118,8 @@ entity CARRY_Sampler is
 		---------------------------
 
 		------ PRE-Tapped Delay-Line (PRE-TDL) -------
-		NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 256	:= 256;					--! Bits of the PRE-Tapped Delay-Line (number of buffers in the PRE-TDL)
-		BIT_SMP_PRE_TDL			:	INTEGER	RANGE 0 TO 256	:= 256					--! Bits Sampled from the PRE-TDL each NUM_TAP_PRE_TDL/BIT_SMP_PRE_TDL after OFFSET_TAP_TDL, obviously equal in each TDLs
+		NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 1024	:= 256;					--! Bits of the PRE-Tapped Delay-Line (number of buffers in the PRE-TDL)
+		BIT_SMP_PRE_TDL			:	INTEGER	RANGE 0 TO 1024	:= 256					--! Bits Sampled from the PRE-TDL each NUM_TAP_PRE_TDL/BIT_SMP_PRE_TDL after OFFSET_TAP_TDL, obviously equal in each TDLs
 		----------------------------------------------
 
 	);

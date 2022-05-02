@@ -3,8 +3,8 @@
 
 # ---------------- NUM_TAP_PRE_TDL -----------------
 set MIN_NUM_TAP_PRE_TDL 0
-set MAX_NUM_TAP_PRE_TDL 480
-set DEFAULT_NUM_TAP_PRE_TDL 480
+set MAX_NUM_TAP_PRE_TDL 1024
+set DEFAULT_NUM_TAP_PRE_TDL 1024
 
 set enablement {True}
 set editable {}

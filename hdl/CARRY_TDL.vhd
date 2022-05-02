@@ -82,7 +82,7 @@ entity CARRY_TDL is
 		XUS_VS_X7S   :  STRING := "XUS";
 		
 		NUM_TAP_TDL				:	POSITIVE	RANGE 4 TO 4096	:= 16;					--! Bits of the TDL (number of buffers in the TDL)
-		NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 256	:= 256						--! Bits of the PRE-Tapped Delay-Line (number of buffers in the PRE-TDL)
+		NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 1024	:= 256						--! Bits of the PRE-Tapped Delay-Line (number of buffers in the PRE-TDL)
 		----------------------------
 
 	);

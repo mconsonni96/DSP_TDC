@@ -62,11 +62,11 @@ architecture Behavioral of tb_AXI4Stream_VirtualTDL_Wrapper is
 	constant    VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	0;
 	constant    VALID_NUMBER_OF_TDL_INIT	:	INTEGER	RANGE 0 TO 15		:=	0;
 	
-	constant	NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 1920	:= 512;
-	constant	BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 1920	:= 512;
+	constant	NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 512;
+	constant	BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 4096	:= 512;
 	
-	constant	NUM_TAP_PRE_TDL		:	INTEGER	RANGE 0 TO 480	:= 0;
-	constant	BIT_SMP_PRE_TDL		:	INTEGER	RANGE 0 TO 480	:= 0;
+	constant	NUM_TAP_PRE_TDL		:	INTEGER	RANGE 0 TO 1024	:= 0;
+	constant	BIT_SMP_PRE_TDL		:	INTEGER	RANGE 0 TO 1024	:= 0;
 	
 	component AXI4Stream_VirtualTDL_Wrapper is
 
@@ -98,11 +98,11 @@ architecture Behavioral of tb_AXI4Stream_VirtualTDL_Wrapper is
 
 		OFFSET_TAP_TDL_ARRAY	:	OFFSET_TAP_TDL_ARRAY_TYPE	:=	(1, Others => 0);
 		
-		BIT_SMP_TDL		     :	POSITIVE	RANGE 1 TO 1920	:= 512;
+		BIT_SMP_TDL		     :	POSITIVE	RANGE 1 TO 4096	:= 512;
 
-		NUM_TAP_PRE_TDL		 :	INTEGER	RANGE 0 TO 480	:= 128;
+		NUM_TAP_PRE_TDL		 :	INTEGER	RANGE 0 TO 1024	:= 128;
 
-		BIT_SMP_PRE_TDL		 :	INTEGER	RANGE 0 TO 480	:= 128
+		BIT_SMP_PRE_TDL		 :	INTEGER	RANGE 0 TO 1024	:= 128
 
 	);
 

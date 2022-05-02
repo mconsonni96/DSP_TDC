@@ -150,8 +150,8 @@ entity AXI4Stream_VirtualTDL is
 		----------------------------
 
 		------------ Tapped Delay-Line (TDL) ---------
-		NUMBER_OF_CARRY_CHAINS	:	NATURAL	RANGE 0 TO 16 	:= 1;										--! Number of TDL in parallel
-		NUMBER_OF_DSP_CHAINS	:	NATURAL	RANGE 0 TO 16 	:= 1;										--! Number of TDL in parallel
+		NUMBER_OF_CARRY_CHAINS	:	NATURAL	RANGE 0 TO 16 	:= 16;										--! Number of TDL in parallel
+		NUMBER_OF_DSP_CHAINS	:	NATURAL	RANGE 0 TO 16 	:= 16;										--! Number of TDL in parallel
 		
 		NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 512;										--! Bit of the Tapped Delay-Line (number of buffers in the TDL)
 		
@@ -199,8 +199,8 @@ entity AXI4Stream_VirtualTDL is
 
 		BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 4096	:= 512;								--! Bit Sampled from the TDL each NUM_TAP_TDL/BIT_SMP_TDL after OFFSET_TAP_TDL, obviously equal in each TDLs. Basically it is the number of Flip Flops
 		
-		NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 256	:= 0;								--! Bit of the PRE-Tapped Delay-Line (number of buffers in the PRE-TDL)
-		BIT_SMP_PRE_TDL			:	INTEGER	RANGE 0 TO 256	:= 0								--! Bit Sampled from the PRE-TDL each NUM_TAP_PRE_TDL/BIT_SMP_PRE_TDL after OFFSET_TAP_TDL, obviously equal in each TDLs.
+		NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 1024	:= 1024;								--! Bit of the PRE-Tapped Delay-Line (number of buffers in the PRE-TDL)
+		BIT_SMP_PRE_TDL			:	INTEGER	RANGE 0 TO 1024	:= 1024								--! Bit Sampled from the PRE-TDL each NUM_TAP_PRE_TDL/BIT_SMP_PRE_TDL after OFFSET_TAP_TDL, obviously equal in each TDLs.
 		----------------------------------------------
 		------------------------------------------------------------------------
 
@@ -377,9 +377,9 @@ architecture Behavioral of AXI4Stream_VirtualTDL is
 		
 		BIT_SMP_TDL		     :	POSITIVE	RANGE 1 TO 1920	:= 512;
 
-		NUM_TAP_PRE_TDL		 :	INTEGER	RANGE 0 TO 480	:= 128;
+		NUM_TAP_PRE_TDL		 :	INTEGER	RANGE 0 TO 1024	:= 128;
 
-		BIT_SMP_PRE_TDL		 :	INTEGER	RANGE 0 TO 480	:= 128
+		BIT_SMP_PRE_TDL		 :	INTEGER	RANGE 0 TO 1024	:= 128
 
 	);
 

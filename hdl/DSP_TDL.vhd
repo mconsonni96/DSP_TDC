@@ -64,9 +64,9 @@ entity DSP_TDL is
 
       XUS_VS_X7S   :  STRING := "XUS";
       
-      NUM_TAP_TDL				   :	POSITIVE	RANGE 4 TO 1920	:= 96;
+      NUM_TAP_TDL				   :	POSITIVE	RANGE 4 TO 4096	:= 96;
 
-      NUM_TAP_PRE_TDL         :   INTEGER     RANGE 0 TO 480  := 48
+      NUM_TAP_PRE_TDL         :   INTEGER     RANGE 0 TO 1024  := 48
 
 	);
 	port(
