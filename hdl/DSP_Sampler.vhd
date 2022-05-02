@@ -54,11 +54,11 @@ library UNISIM;
 -- --! Project defined libary
 library work;
 --! Tapped Delay-Line local package
-	use work.LocalPackage_TDC.all;
+	use work.LocalPackage_TDL.all;
 ------------------------------------
 
 --------------------------------------------------------------------------------
-entity Sampler_TDC is
+entity DSP_Sampler is
 	generic (
 
 		DEBUG_MODE	      	:	BOOLEAN	:=	FALSE;
@@ -70,12 +70,12 @@ entity Sampler_TDC is
 		VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	2;
 
 		NUM_TAP_TDL			:	POSITIVE	RANGE 4 TO 1920	:= 96;
-
+--        OFFSET_TAP_TDL		:	NATURAL		RANGE 0 TO 1920	:= 0;
 		BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 1920	:= 96;
 
 		NUM_TAP_PRE_TDL		:	INTEGER	RANGE 0 TO 480	:= 48;
 
-		BIT_SMP_PRE_TDL			:	INTEGER	RANGE 0 TO 480	:= 48
+		BIT_SMP_PRE_TDL		:	INTEGER	RANGE 0 TO 480	:= 48
 
 	);
 	port(
@@ -99,13 +99,13 @@ entity Sampler_TDC is
 		ValidPositionTap				:	IN	STD_LOGIC_VECTOR(31 DOWNTO 0)
 
 	);
-end Sampler_TDC;
+end DSP_Sampler;
 
 
-architecture Behavioral of Sampler_TDC is
+architecture Behavioral of DSP_Sampler is
 
 	signal	SampledTaps				:	STD_LOGIC_VECTOR(BIT_SMP_TDL + BIT_SMP_PRE_TDL -1 downto 0);
-
+	
 	signal	ValidPosition_SampledTaps	:	STD_LOGIC_VECTOR
 	(
 
@@ -123,22 +123,23 @@ architecture Behavioral of Sampler_TDC is
 		)'RANGE
 	);
 
-	signal	RiseValid	:	STD_LOGIC	:=	'0';
+	signal	RiseValid_DSP	:	STD_LOGIC	:=	'0';
 
-	signal	FallValid	:	STD_LOGIC	:=	'0';
+	signal	FallValid_DSP	:	STD_LOGIC	:=	'0';
 
 	signal	Valid_SampledTaps		:	STD_LOGIC	:=	'0';
-
+	
 	signal	Polarity			:	STD_LOGIC;
-
+	
 	signal 	ValidPositionTap_int    :	INTEGER	RANGE	0	TO	ValidPosition_SampledTaps'HIGH	:=	VALID_POSITION_TAP_INIT;
 
 begin
 
 	SampledTaps	<=
-				Sample_AsyncTapsTDL (
+				Sample_AsyncTapsDSP (
 
 					NUM_TAP_TDL,
+--					OFFSET_TAP_TDL,
 					BIT_SMP_TDL,
 
 					BIT_SMP_PRE_TDL,
@@ -154,17 +155,17 @@ begin
 		
 -------------------------------
 
-	ValidTDL	:	process(reset, clk, Valid_SampledTaps, RiseValid, FallValid)
+	ValidTDL	:	process(reset, clk, Valid_SampledTaps, RiseValid_DSP, FallValid_DSP)
 
 
 	begin
 
 
-		Valid_SampledTaps	<=	Compute_ValidSampledTapsTDL
+		Valid_SampledTaps	<=	Compute_ValidSampledTapsDSP
 		(
 
-			RiseValid,
-			FallValid
+			RiseValid_DSP,
+			FallValid_DSP
 
 		);
 
@@ -172,7 +173,7 @@ begin
 			Valid_SampledTaps_TDL	<=	'0';
 
 		elsif rising_edge(clk) then
-			FallValid	<=	RiseValid;
+			FallValid_DSP	<=	RiseValid_DSP;
 
 		end if;
 
@@ -204,13 +205,13 @@ begin
 		);
 
 
-		RiseValid	<=	ValidPosition_SampledTaps(ValidPositionTap_int);
+		RiseValid_DSP	<=	ValidPosition_SampledTaps(ValidPositionTap_int);
 
 	end generate;
 
 
 	ValidGen : if DEBUG_MODE = FALSE generate
-		RiseValid	<=	SampledTaps(VALID_POSITION_TAP_INIT);
+		RiseValid_DSP	<=	SampledTaps(VALID_POSITION_TAP_INIT);
 	end generate;
 
 
