@@ -44,6 +44,8 @@ architecture Behavioral of tb_AXI4Stream_VirtualTDL_Wrapper is
 	
 	constant    XUS_VS_X7S   :   STRING  :=  "XUS";
 	
+	constant    SIM_VS_IMP	:	STRING	:= "IMP";
+	 
 	constant	TYPE_TDL_ARRAY		:	CO_VS_O_ARRAY_STRING	:= (Others => "C");
 	
 	constant    DEBUG_MODE : BOOLEAN := FALSE;
@@ -62,8 +64,8 @@ architecture Behavioral of tb_AXI4Stream_VirtualTDL_Wrapper is
 	constant    VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	0;
 	constant    VALID_NUMBER_OF_TDL_INIT	:	INTEGER	RANGE 0 TO 15		:=	0;
 	
-	constant	NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 512;
-	constant	BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 4096	:= 512;
+	constant	NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 64;
+	constant	BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 4096	:= 64;
 	
 	constant	NUM_TAP_PRE_TDL		:	INTEGER	RANGE 0 TO 1024	:= 0;
 	constant	BIT_SMP_PRE_TDL		:	INTEGER	RANGE 0 TO 1024	:= 0;
@@ -78,6 +80,8 @@ architecture Behavioral of tb_AXI4Stream_VirtualTDL_Wrapper is
 	
 		DEBUG_MODE		:	BOOLEAN	:=	FALSE;
 
+        SIM_VS_IMP	:	STRING	:= "IMP";
+        
         NUMBER_OF_CARRY_CHAINS   :   NATURAL    RANGE 0 TO 16   := 4;
 
 		NUMBER_OF_DSP_CHAINS     :   NATURAL    RANGE 0 TO 16   := 4;
@@ -155,6 +159,7 @@ begin
           XUS_VS_X7S => XUS_VS_X7S,
           TYPE_TDL_ARRAY => TYPE_TDL_ARRAY,
           DEBUG_MODE  => DEBUG_MODE,
+          SIM_VS_IMP  => SIM_VS_IMP,
           NUMBER_OF_CARRY_CHAINS => NUMBER_OF_CARRY_CHAINS,
           NUMBER_OF_DSP_CHAINS => NUMBER_OF_DSP_CHAINS,
           NUM_TAP_TDL => NUM_TAP_TDL,
@@ -184,7 +189,15 @@ begin
        );
        
        
-    clk_process :process
+    reset_process : process
+    begin
+       reset <= '1';
+       wait for CLK_PERIOD;
+       reset <= '0';
+       wait;
+    end process;   
+    
+    clk_process : process
 	begin
 	   clk <= '0';
 	   wait for CLK_PERIOD/2;
@@ -193,7 +206,7 @@ begin
 	end process;
 	
 	
-	AsyncInput_process :process
+	AsyncInput_process : process
 	begin
 
 		AsyncInput <= '0';

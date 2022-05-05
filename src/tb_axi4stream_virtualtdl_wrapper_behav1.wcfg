@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="2557fs"></ZoomStartTime>
-      <ZoomEndTime time="26218fs"></ZoomEndTime>
+      <ZoomStartTime time="2544fs"></ZoomStartTime>
+      <ZoomEndTime time="26285fs"></ZoomEndTime>
       <Cursor1Time time="6500fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="258"></NameColumnWidth>
-      <ValueColumnWidth column_width="126"></ValueColumnWidth>
+      <ValueColumnWidth column_width="122"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="32" />
+   <WVObjectSize size="38" />
    <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/reset">
       <obj_property name="ElementShortName">reset</obj_property>
       <obj_property name="ObjectShortName">reset</obj_property>
@@ -28,21 +28,65 @@
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
+   <wvobject fp_name="divider109" type="divider">
+      <obj_property name="label">Rising Input signal</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/PolarityIn">
+      <obj_property name="ElementShortName">PolarityIn</obj_property>
+      <obj_property name="ObjectShortName">PolarityIn</obj_property>
+   </wvobject>
    <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/AsyncInput">
       <obj_property name="ElementShortName">AsyncInput</obj_property>
       <obj_property name="ObjectShortName">AsyncInput</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider105" type="divider">
+      <obj_property name="label">Carry Chain</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/\Virtual_TDL(0)\/gen_carry_chain/Inst_CARRY_TDL/CO_Taps_TDL">
+      <obj_property name="ElementShortName">CO_Taps_TDL[63:0]</obj_property>
+      <obj_property name="ObjectShortName">CO_Taps_TDL[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/\Virtual_TDL(0)\/gen_carry_chain/Inst_CARRY_Sampler/RiseValid">
+      <obj_property name="ElementShortName">RiseValid</obj_property>
+      <obj_property name="ObjectShortName">RiseValid</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/\Virtual_TDL(0)\/gen_carry_chain/Inst_CARRY_Sampler/FallValid">
+      <obj_property name="ElementShortName">FallValid</obj_property>
+      <obj_property name="ObjectShortName">FallValid</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider106" type="divider">
+      <obj_property name="label">DSP Chain</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/\Virtual_TDL(1)\/gen_dsp_chain/Inst_TDL/O">
+      <obj_property name="ElementShortName">O[95:0]</obj_property>
+      <obj_property name="ObjectShortName">O[95:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/\Virtual_TDL(1)\/gen_dsp_chain/Inst_DSP_Sampler/RiseValid">
+      <obj_property name="ElementShortName">RiseValid</obj_property>
+      <obj_property name="ObjectShortName">RiseValid</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/\Virtual_TDL(1)\/gen_dsp_chain/Inst_DSP_Sampler/FallValid">
+      <obj_property name="ElementShortName">FallValid</obj_property>
+      <obj_property name="ObjectShortName">FallValid</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider107" type="divider">
+      <obj_property name="label">AXI4Stream output data</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/m00_axis_undeco_tvalid">
       <obj_property name="ElementShortName">m00_axis_undeco_tvalid</obj_property>
       <obj_property name="ObjectShortName">m00_axis_undeco_tvalid</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/m00_axis_undeco_tdata">
-      <obj_property name="ElementShortName">m00_axis_undeco_tdata[1024:0]</obj_property>
-      <obj_property name="ObjectShortName">m00_axis_undeco_tdata[1024:0]</obj_property>
+      <obj_property name="ElementShortName">m00_axis_undeco_tdata[128:0]</obj_property>
+      <obj_property name="ObjectShortName">m00_axis_undeco_tdata[128:0]</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/PolarityIn">
-      <obj_property name="ElementShortName">PolarityIn</obj_property>
-      <obj_property name="ObjectShortName">PolarityIn</obj_property>
+   <wvobject fp_name="divider110" type="divider">
+      <obj_property name="label">Valid selection</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/ValidPositionTap">
       <obj_property name="ElementShortName">ValidPositionTap[31:0]</obj_property>
@@ -51,6 +95,10 @@
    <wvobject type="array" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/ValidNumberOfTdl">
       <obj_property name="ElementShortName">ValidNumberOfTdl[31:0]</obj_property>
       <obj_property name="ObjectShortName">ValidNumberOfTdl[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider108" type="divider">
+      <obj_property name="label">Constants</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
    </wvobject>
    <wvobject type="other" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/CLK_PERIOD">
       <obj_property name="ElementShortName">CLK_PERIOD</obj_property>
@@ -65,8 +113,8 @@
       <obj_property name="ObjectShortName">XUS_VS_X7S[1:3]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/TYPE_TDL_ARRAY">
-      <obj_property name="ElementShortName">TYPE_TDL_ARRAY[0:31][1:1]</obj_property>
-      <obj_property name="ObjectShortName">TYPE_TDL_ARRAY[0:31][1:1]</obj_property>
+      <obj_property name="ElementShortName">TYPE_TDL_ARRAY[0:15][1:1]</obj_property>
+      <obj_property name="ObjectShortName">TYPE_TDL_ARRAY[0:15][1:1]</obj_property>
    </wvobject>
    <wvobject type="other" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/DEBUG_MODE">
       <obj_property name="ElementShortName">DEBUG_MODE</obj_property>
@@ -97,8 +145,8 @@
       <obj_property name="ObjectShortName">MAX_VALID_TAP_POS</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/OFFSET_TAP_TDL_ARRAY">
-      <obj_property name="ElementShortName">OFFSET_TAP_TDL_ARRAY[0:31]</obj_property>
-      <obj_property name="ObjectShortName">OFFSET_TAP_TDL_ARRAY[0:31]</obj_property>
+      <obj_property name="ElementShortName">OFFSET_TAP_TDL_ARRAY[0:15]</obj_property>
+      <obj_property name="ObjectShortName">OFFSET_TAP_TDL_ARRAY[0:15]</obj_property>
    </wvobject>
    <wvobject type="other" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/VALID_POSITION_TAP_INIT">
       <obj_property name="ElementShortName">VALID_POSITION_TAP_INIT</obj_property>
@@ -123,29 +171,5 @@
    <wvobject type="other" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/BIT_SMP_PRE_TDL">
       <obj_property name="ElementShortName">BIT_SMP_PRE_TDL</obj_property>
       <obj_property name="ObjectShortName">BIT_SMP_PRE_TDL</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/CO_Taps_TDL">
-      <obj_property name="ElementShortName">CO_Taps_TDL[0:0][511:0]</obj_property>
-      <obj_property name="ObjectShortName">CO_Taps_TDL[0:0][511:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/\Virtual_Carry_Chain(0)\/Inst_CARRY_Sampler/RiseValid_Carry">
-      <obj_property name="ElementShortName">RiseValid_Carry</obj_property>
-      <obj_property name="ObjectShortName">RiseValid_Carry</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/\Virtual_Carry_Chain(0)\/Inst_CARRY_Sampler/FallValid_Carry">
-      <obj_property name="ElementShortName">FallValid_Carry</obj_property>
-      <obj_property name="ObjectShortName">FallValid_Carry</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/\Virtual_DSP_Chain(0)\/Inst_TDL/O">
-      <obj_property name="ElementShortName">O[527:0]</obj_property>
-      <obj_property name="ObjectShortName">O[527:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/\Virtual_DSP_Chain(0)\/Inst_DSP_Sampler/RiseValid_DSP">
-      <obj_property name="ElementShortName">RiseValid_DSP</obj_property>
-      <obj_property name="ObjectShortName">RiseValid_DSP</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/\Virtual_DSP_Chain(0)\/Inst_DSP_Sampler/FallValid_DSP">
-      <obj_property name="ElementShortName">FallValid_DSP</obj_property>
-      <obj_property name="ObjectShortName">FallValid_DSP</obj_property>
    </wvobject>
 </wave_config>

@@ -2,7 +2,7 @@
 <spirit:component xmlns:xilinx="http://www.xilinx.com" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <spirit:vendor>DigiLAB</spirit:vendor>
   <spirit:library>ip</spirit:library>
-  <spirit:name>AXI4Stream_HybridTDL</spirit:name>
+  <spirit:name>AXI4Stream_VirtualTDL</spirit:name>
   <spirit:version>1.0</spirit:version>
   <spirit:busInterfaces>
     <spirit:busInterface>
@@ -156,7 +156,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>8742eb59</spirit:value>
+            <spirit:value>3b55fd4c</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -172,7 +172,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>dd83fefc</spirit:value>
+            <spirit:value>015c9490</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -186,7 +186,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>812bfd26</spirit:value>
+            <spirit:value>17a80b4a</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -197,6 +197,20 @@
         <spirit:fileSetRef>
           <spirit:localName>xilinx_documentation_view_fileset</spirit:localName>
         </spirit:fileSetRef>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_datasheet</spirit:name>
+        <spirit:displayName>Data Sheet</spirit:displayName>
+        <spirit:envIdentifier>:vivado.xilinx.com:docs.datasheet</spirit:envIdentifier>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_datasheet_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>a64f393c</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
       </spirit:view>
       <spirit:view>
         <spirit:name>xilinx_productguide</spirit:name>
@@ -216,14 +230,13 @@
         <spirit:name>xilinx_testbench</spirit:name>
         <spirit:displayName>Test Bench</spirit:displayName>
         <spirit:envIdentifier>:vivado.xilinx.com:simulation.testbench</spirit:envIdentifier>
-        <spirit:modelName>tb_AXI4Stream_VirtualTDL_Wrapper</spirit:modelName>
         <spirit:fileSetRef>
           <spirit:localName>xilinx_testbench_view_fileset</spirit:localName>
         </spirit:fileSetRef>
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>6b87b76a</spirit:value>
+            <spirit:value>04723bae</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -237,7 +250,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>0d7dc8e7</spirit:value>
+            <spirit:value>f84eeaaa</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -313,7 +326,7 @@
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="((((((1 + ((spirit:decode(id(&apos;MODELPARAM_VALUE.NUMBER_OF_CARRY_CHAINS&apos;)) + spirit:decode(id(&apos;MODELPARAM_VALUE.NUMBER_OF_DSP_CHAINS&apos;))) * spirit:decode(id(&apos;MODELPARAM_VALUE.BIT_SMP_TDL&apos;)))) - 1) / 8) + 1) * 8) - 1)">16391</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="((((((1 + ((spirit:decode(id(&apos;MODELPARAM_VALUE.NUMBER_OF_CARRY_CHAINS&apos;)) + spirit:decode(id(&apos;MODELPARAM_VALUE.NUMBER_OF_DSP_CHAINS&apos;))) * spirit:decode(id(&apos;MODELPARAM_VALUE.BIT_SMP_TDL&apos;)))) - 1) / 8) + 1) * 8) - 1)">131079</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -451,6 +464,35 @@
         <spirit:displayName>Debug Mode</spirit:displayName>
         <spirit:value spirit:format="bool" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.DEBUG_MODE">FALSE</spirit:value>
       </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>SIM_VS_IMP</spirit:name>
+        <spirit:displayName>Sim Vs Imp</spirit:displayName>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.SIM_VS_IMP">IMP</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>FILE_PATH_NAME_CO_DELAY</spirit:name>
+        <spirit:displayName>File Path Name Co Delay</spirit:displayName>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.FILE_PATH_NAME_CO_DELAY">/home/nicola/Documents/Vivado/Projects/Time-to-Digital_Converter/TappedDelayLine/TappedDelayLine.srcs/sim_1/new/CO_O_Delay.txt</spirit:value>
+        <spirit:vendorExtensions>
+          <xilinx:parameterInfo>
+            <xilinx:enablement>
+              <xilinx:isEnabled xilinx:id="MODELPARAM_ENABLEMENT.FILE_PATH_NAME_CO_DELAY">false</xilinx:isEnabled>
+            </xilinx:enablement>
+          </xilinx:parameterInfo>
+        </spirit:vendorExtensions>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="STRING">
+        <spirit:name>FILE_PATH_NAME_O_DELAY</spirit:name>
+        <spirit:displayName>File Path Name O Delay</spirit:displayName>
+        <spirit:value spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.FILE_PATH_NAME_O_DELAY">/home/nicola/Documents/Vivado/Projects/Time-to-Digital_Converter/TappedDelayLine/TappedDelayLine.srcs/sim_1/new/CO_O_Delay.txt</spirit:value>
+        <spirit:vendorExtensions>
+          <xilinx:parameterInfo>
+            <xilinx:enablement>
+              <xilinx:isEnabled xilinx:id="MODELPARAM_ENABLEMENT.FILE_PATH_NAME_O_DELAY">false</xilinx:isEnabled>
+            </xilinx:enablement>
+          </xilinx:parameterInfo>
+        </spirit:vendorExtensions>
+      </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>NUMBER_OF_CARRY_CHAINS</spirit:name>
         <spirit:displayName>Number Of Carry Chains</spirit:displayName>
@@ -464,7 +506,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>NUM_TAP_TDL</spirit:name>
         <spirit:displayName>Num Tap Tdl</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.NUM_TAP_TDL" spirit:minimum="4" spirit:maximum="4096" spirit:rangeType="long">512</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.NUM_TAP_TDL" spirit:minimum="4" spirit:maximum="4096" spirit:rangeType="long">4096</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="BOOLEAN">
         <spirit:name>BUFFERING_STAGE</spirit:name>
@@ -486,7 +528,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>STEP_VALID_TAP_POS</spirit:name>
         <spirit:displayName>Step Valid Tap Pos</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.STEP_VALID_TAP_POS" spirit:minimum="0" spirit:rangeType="long">8</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.STEP_VALID_TAP_POS" spirit:minimum="0" spirit:rangeType="long">1</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -498,7 +540,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>MAX_VALID_TAP_POS</spirit:name>
         <spirit:displayName>Max Valid Tap Pos</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.MAX_VALID_TAP_POS" spirit:minimum="0" spirit:rangeType="long">511</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.MAX_VALID_TAP_POS" spirit:minimum="0" spirit:rangeType="long">4095</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -510,7 +552,7 @@
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>VALID_POSITION_TAP_INIT</spirit:name>
         <spirit:displayName>Valid Position Tap Init</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.VALID_POSITION_TAP_INIT" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.VALID_POSITION_TAP_INIT" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">31</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>VALID_NUMBER_OF_TDL_INIT</spirit:name>
@@ -520,7 +562,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>OFFSET_TAP_TDL_0</spirit:name>
         <spirit:displayName>Offset Tap Tdl 0</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_0" spirit:minimum="0" spirit:maximum="2047" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_0" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -532,7 +574,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>OFFSET_TAP_TDL_1</spirit:name>
         <spirit:displayName>Offset Tap Tdl 1</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_1" spirit:minimum="0" spirit:maximum="2047" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_1" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -544,7 +586,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>OFFSET_TAP_TDL_2</spirit:name>
         <spirit:displayName>Offset Tap Tdl 2</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_2" spirit:minimum="0" spirit:maximum="2047" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_2" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -556,7 +598,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>OFFSET_TAP_TDL_3</spirit:name>
         <spirit:displayName>Offset Tap Tdl 3</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_3" spirit:minimum="0" spirit:maximum="2047" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_3" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -568,7 +610,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>OFFSET_TAP_TDL_4</spirit:name>
         <spirit:displayName>Offset Tap Tdl 4</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_4" spirit:minimum="0" spirit:maximum="2047" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_4" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -580,7 +622,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>OFFSET_TAP_TDL_5</spirit:name>
         <spirit:displayName>Offset Tap Tdl 5</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_5" spirit:minimum="0" spirit:maximum="2047" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_5" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -592,7 +634,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>OFFSET_TAP_TDL_6</spirit:name>
         <spirit:displayName>Offset Tap Tdl 6</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_6" spirit:minimum="0" spirit:maximum="2047" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_6" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -604,7 +646,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>OFFSET_TAP_TDL_7</spirit:name>
         <spirit:displayName>Offset Tap Tdl 7</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_7" spirit:minimum="0" spirit:maximum="2047" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_7" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -616,7 +658,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>OFFSET_TAP_TDL_8</spirit:name>
         <spirit:displayName>Offset Tap Tdl 8</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_8" spirit:minimum="0" spirit:maximum="2047" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_8" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -628,7 +670,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>OFFSET_TAP_TDL_9</spirit:name>
         <spirit:displayName>Offset Tap Tdl 9</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_9" spirit:minimum="0" spirit:maximum="2047" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_9" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -640,7 +682,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>OFFSET_TAP_TDL_10</spirit:name>
         <spirit:displayName>Offset Tap Tdl 10</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_10" spirit:minimum="0" spirit:maximum="2047" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_10" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -652,7 +694,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>OFFSET_TAP_TDL_11</spirit:name>
         <spirit:displayName>Offset Tap Tdl 11</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_11" spirit:minimum="0" spirit:maximum="2047" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_11" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -664,7 +706,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>OFFSET_TAP_TDL_12</spirit:name>
         <spirit:displayName>Offset Tap Tdl 12</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_12" spirit:minimum="0" spirit:maximum="2047" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_12" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -676,7 +718,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>OFFSET_TAP_TDL_13</spirit:name>
         <spirit:displayName>Offset Tap Tdl 13</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_13" spirit:minimum="0" spirit:maximum="2047" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_13" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -688,7 +730,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>OFFSET_TAP_TDL_14</spirit:name>
         <spirit:displayName>Offset Tap Tdl 14</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_14" spirit:minimum="0" spirit:maximum="2047" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_14" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -700,7 +742,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>OFFSET_TAP_TDL_15</spirit:name>
         <spirit:displayName>Offset Tap Tdl 15</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_15" spirit:minimum="0" spirit:maximum="2047" spirit:rangeType="long">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.OFFSET_TAP_TDL_15" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
         <spirit:vendorExtensions>
           <xilinx:parameterInfo>
             <xilinx:enablement>
@@ -712,7 +754,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>BIT_SMP_TDL</spirit:name>
         <spirit:displayName>Bit Smp Tdl</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.BIT_SMP_TDL" spirit:minimum="1" spirit:maximum="4096" spirit:rangeType="long">512</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.BIT_SMP_TDL" spirit:minimum="1" spirit:maximum="4096" spirit:rangeType="long">4096</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>NUM_TAP_PRE_TDL</spirit:name>
@@ -727,6 +769,11 @@
     </spirit:modelParameters>
   </spirit:model>
   <spirit:choices>
+    <spirit:choice>
+      <spirit:name>choice_list_2eba8fec</spirit:name>
+      <spirit:enumeration>SIM</spirit:enumeration>
+      <spirit:enumeration>IMP</spirit:enumeration>
+    </spirit:choice>
     <spirit:choice>
       <spirit:name>choice_list_568f9d15</spirit:name>
       <spirit:enumeration>C</spirit:enumeration>
@@ -771,9 +818,13 @@
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>hdl/Simulated_TappedDelayLine.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>hdl/AXI4Stream_VirtualTDL.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_d0854fda</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_6b132c57</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -803,13 +854,17 @@
         <spirit:name>hdl/DSP_TDL.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/Simulated_TappedDelayLine.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
       <spirit:name>xilinx_xpgui_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>xgui/AXI4Stream_HybridTDL_v1_0.tcl</spirit:name>
+        <spirit:name>xgui/AXI4Stream_VirtualTDL_v1_0.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_812bfd26</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_17a80b4a</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
@@ -836,6 +891,14 @@
         <spirit:userFileType>image</spirit:userFileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>doc/img/DSP_FINAL.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/img/TappedDelayLine_Signals.PNG</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>doc/img/RTL_Carry4.svg</spirit:name>
         <spirit:fileType>unknown</spirit:fileType>
       </spirit:file>
@@ -848,15 +911,27 @@
         <spirit:userFileType>image</spirit:userFileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>doc/img/Carry8.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/img/Hybrid_waveform.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>doc/img/VALID.png</spirit:name>
         <spirit:userFileType>image</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>doc/img/TappedDelayLine_Generic.svg</spirit:name>
-        <spirit:fileType>unknown</spirit:fileType>
+        <spirit:name>doc/img/PRE-TDL.PNG</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>doc/img/OFFSET.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/img/TappedDelayLine_Generic.png</spirit:name>
         <spirit:userFileType>image</spirit:userFileType>
       </spirit:file>
       <spirit:file>
@@ -868,12 +943,1307 @@
         <spirit:fileType>unknown</spirit:fileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>doc/img/TappedDelayLine_IP-Core.PNG</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>doc/img/VALID.svg</spirit:name>
         <spirit:fileType>unknown</spirit:fileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>doc/img/CO_O_Taps_complete.svg</spirit:name>
         <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_d_s_p___sampler__inherit__graph.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_o.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars_c.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/sync_off.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/CO_O_Taps.svg</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/files.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/_c_a_r_r_y___sampler_8vhd.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/tab_b.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_c_a_r_r_y___t_d_l_1_1_behavioral-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_d_s_p___t_d_l__inherit__graph.map</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/tabs.css</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l_1_1_behavioral-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l__coll__graph.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/Waveform.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/doxygen.css</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_local_package___t_d_l.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars_u.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_c_a_r_r_y___sampler__inherit__graph.dot</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/_a_x_i4_stream___virtual_t_d_l___wrapper_8vhd.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/jquery.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_v.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/classtb___a_x_i4_stream___virtual_t_d_l___wrapper__coll__graph.map</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/dynsections.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/SamplingTDL.svg</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/inherits.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_d_s_p___sampler.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars_i.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l___wrapper__coll__graph.map</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars_t.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l__coll__graph.md5</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_w.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_r.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars_x.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/tab_h.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/Carry4.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/splitbar.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/DSP_FINAL.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_d_s_p___sampler_1_1_behavioral-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/classtb___a_x_i4_stream___virtual_t_d_l___wrapper__inherit__graph.md5</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/PRE-TDL.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_c_a_r_r_y___t_d_l__inherit__graph.map</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_d_s_p___t_d_l.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars_s.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/annotated.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l___wrapper_1_1_behavioral.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/folderclosed.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_d_s_p___t_d_l__inherit__graph.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/BUFFERING_STAGE.svg</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/Filetxt.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/_local_package___t_d_l_8vhd.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_u.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/classtb___a_x_i4_stream___virtual_t_d_l___wrapper_1_1_behavioral-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_simulated___tapped_delay_line_1_1_behavioral-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_6.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/functions_0.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_12.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/searchdata.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_e.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/files_2.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/classes_2.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_2.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/classes_1.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_0.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_b.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_a.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_d.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_f.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_10.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/functions_2.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_6.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_2.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_1.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/namespaces_0.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_b.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/nomatches.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/files_1.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/functions_3.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/functions_3.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/files_3.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_a.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/files_0.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_7.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_b.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/pages_0.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_7.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_4.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_4.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/functions_5.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/classes_0.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/files_4.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_e.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_f.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_11.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_10.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_0.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_3.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/functions_1.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_e.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/classes_3.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/classes_4.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_6.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_5.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_9.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_d.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/search_r.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_3.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_a.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_8.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/pages_1.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_8.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_9.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/classes_1.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_3.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/files_4.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/classes_7.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_10.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/mag_sel.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_9.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_5.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_c.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_f.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/search.css</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/files_0.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_b.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/functions_1.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/classes_6.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/classes_5.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_d.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_1.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_3.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_8.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_4.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/classes_6.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/functions_4.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_9.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/functions_0.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_c.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_2.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/classes_3.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/classes_7.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/files_3.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_0.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/search_m.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/files_6.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/search_l.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_5.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_d.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/classes_0.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/functions_5.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_7.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_5.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_1.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/classes_4.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_11.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_0.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/close.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/namespaces_0.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_a.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_2.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_1.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/files_5.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/files_1.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_e.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/files_6.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/classes_5.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_4.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/classes_2.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_7.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/pages_1.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_c.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_10.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_11.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/search.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_f.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/functions_4.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_12.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/pages_0.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/variables_c.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_11.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_6.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/files_2.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/functions_2.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/files_5.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/search/all_8.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/classtb___a_x_i4_stream___virtual_t_d_l___wrapper__inherit__graph.map</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/tab_a.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/classes.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars_d.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/open.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/inherit_graph_0.map</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/nav_f.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l___wrapper__inherit__graph.map</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_c_a_r_r_y___sampler__inherit__graph.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars_v.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_c_a_r_r_y___sampler__inherit__graph.md5</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/bdwn.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_c_a_r_r_y___t_d_l_1_1_behavioral.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l__inherit__graph.dot</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/doxygen.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class___local_package___t_d_l-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l___wrapper-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l___wrapper.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_c_a_r_r_y___t_d_l__inherit__graph.dot</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/TappedDelayLine_IP-Core.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars_b.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l___wrapper__inherit__graph.md5</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars_p.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/Carry8.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l___wrapper_1_1_behavioral-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l___wrapper__coll__graph.md5</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class___local_package___t_d_l.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/folderopen.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_l.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/Hybrid_waveform.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/classtb___a_x_i4_stream___virtual_t_d_l___wrapper__inherit__graph.dot</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l__coll__graph.dot</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l___wrapper__inherit__graph.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars_n.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/nav_g.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l__inherit__graph.md5</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_simulated___tapped_delay_line_1_1_behavioral.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_d_s_p___t_d_l_1_1_behavioral-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/tb___a_x_i4_stream___virtual_t_d_l___wrapper_8vhd.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/namespace_local_package___t_d_l.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/VALID.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/classtb___a_x_i4_stream___virtual_t_d_l___wrapper__coll__graph.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_local_package___t_d_l-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/TappedDelayLine_Signals.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l_1_1_behavioral.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/menudata.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/sync_on.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_d_s_p___sampler__inherit__graph.map</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_n.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_d_s_p___t_d_l__inherit__graph.md5</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars_m.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_c_a_r_r_y___t_d_l__coll__graph.dot</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_simulated___tapped_delay_line.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_c.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_d_s_p___sampler__inherit__graph.dot</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/index.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_simulated___tapped_delay_line-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l___wrapper__coll__graph.dot</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_c_a_r_r_y___t_d_l__inherit__graph.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_c_a_r_r_y___t_d_l-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars_f.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/classtb___a_x_i4_stream___virtual_t_d_l___wrapper-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/menu.js</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars_w.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_d_s_p___sampler-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l__inherit__graph.map</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/pages.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_c_a_r_r_y___sampler.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_f.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_c_a_r_r_y___t_d_l__inherit__graph.md5</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/graph_legend.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/todo.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l___wrapper__coll__graph.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/namespaces.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/classtb___a_x_i4_stream___virtual_t_d_l___wrapper_1_1_behavioral.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars_l.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l___wrapper__inherit__graph.dot</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_s.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/_simulated___tapped_delay_line_8vhd.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_c_a_r_r_y___sampler_1_1_behavioral-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/TappedDelayLine_Generic.svg</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_i.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_func.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_d_s_p___sampler_1_1_behavioral.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/graph_legend.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l__inherit__graph.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/closed.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_d_s_p___t_d_l_1_1_behavioral.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars_r.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/_r_e_a_d_m_e_8md.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/OFFSET.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/_d_s_p___t_d_l_8vhd.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/classtb___a_x_i4_stream___virtual_t_d_l___wrapper__coll__graph.dot</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/_c_a_r_r_y___t_d_l_8vhd.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/TappedDelayLine_Generic.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/inherit_graph_0.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/classtb___a_x_i4_stream___virtual_t_d_l___wrapper__inherit__graph.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/classtb___a_x_i4_stream___virtual_t_d_l___wrapper.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/doc.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_d_s_p___t_d_l__inherit__graph.dot</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_d_s_p___sampler__inherit__graph.md5</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_x.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/graph_legend.md5</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_p.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/inherit_graph_0.md5</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/_d_s_p___sampler_8vhd.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_b.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l__coll__graph.map</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_t.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/hierarchy.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_vars_o.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/dir_68267d1309a1af8e8297ef4c3efbcdba.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/classtb___a_x_i4_stream___virtual_t_d_l___wrapper__coll__graph.md5</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/dir_b95d22fb74c8ef837e5dec850a739e17.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/BIT_SMP.svg</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_d_s_p___t_d_l-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/ValidTDL.svg</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_c_a_r_r_y___sampler__inherit__graph.map</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_c_a_r_r_y___t_d_l.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_c_a_r_r_y___sampler-members.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_d.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/tab_s.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/TDL_Propagation_Scheme.svg</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/flow_design.dot</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_simulated___tapped_delay_line__inherit__graph.dot</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/bc_s.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/nav_h.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/functions_m.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_c_a_r_r_y___sampler_1_1_behavioral.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/class_a_x_i4_stream___virtual_t_d_l.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/_a_x_i4_stream___virtual_t_d_l_8vhd.html</spirit:name>
+        <spirit:userFileType>html</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/VALID.svg</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/CO_O_Taps_complete.svg</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_datasheet_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>doc/img/DSP_FINAL.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>doc/html/DSP_FINAL.png</spirit:name>
+        <spirit:userFileType>image</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -891,7 +2261,7 @@
         <spirit:userFileType>USED_IN_simulation</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/tb_axi4stream_virtualtdl_wrapper_behav.wcfg</spirit:name>
+        <spirit:name>src/tb_axi4stream_virtualtdl_wrapper_behav1.wcfg</spirit:name>
         <spirit:fileType>unknown</spirit:fileType>
         <spirit:userFileType>USED_IN_simulation</spirit:userFileType>
       </spirit:file>
@@ -899,7 +2269,7 @@
     <spirit:fileSet>
       <spirit:name>xilinx_utilityxitfiles_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>gui/AXI4Stream_HybridTDL_v1_0.gtcl</spirit:name>
+        <spirit:name>gui/AXI4Stream_VirtualTDL_v1_0.gtcl</spirit:name>
         <spirit:userFileType>GTCL</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
@@ -1109,6 +2479,35 @@
       <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.DEBUG_MODE">FALSE</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
+      <spirit:name>SIM_VS_IMP</spirit:name>
+      <spirit:displayName>Simulation vs Implementation</spirit:displayName>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.SIM_VS_IMP" spirit:choiceRef="choice_list_2eba8fec">IMP</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>FILE_PATH_NAME_CO_DELAY</spirit:name>
+      <spirit:displayName>CO Delay Path</spirit:displayName>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.FILE_PATH_NAME_CO_DELAY">/home/nicola/Documents/Vivado/Projects/Time-to-Digital_Converter/TappedDelayLine/TappedDelayLine.srcs/sim_1/new/CO_O_Delay.txt</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:resolve="generated" xilinx:id="PARAM_ENABLEMENT.FILE_PATH_NAME_CO_DELAY">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>FILE_PATH_NAME_O_DELAY</spirit:name>
+      <spirit:displayName>O Delay Path</spirit:displayName>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.FILE_PATH_NAME_O_DELAY">/home/nicola/Documents/Vivado/Projects/Time-to-Digital_Converter/TappedDelayLine/TappedDelayLine.srcs/sim_1/new/CO_O_Delay.txt</spirit:value>
+      <spirit:vendorExtensions>
+        <xilinx:parameterInfo>
+          <xilinx:enablement>
+            <xilinx:isEnabled xilinx:resolve="generated" xilinx:id="PARAM_ENABLEMENT.FILE_PATH_NAME_O_DELAY">false</xilinx:isEnabled>
+          </xilinx:enablement>
+        </xilinx:parameterInfo>
+      </spirit:vendorExtensions>
+    </spirit:parameter>
+    <spirit:parameter>
       <spirit:name>NUMBER_OF_CARRY_CHAINS</spirit:name>
       <spirit:displayName>Number of CARRY Chains</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.NUMBER_OF_CARRY_CHAINS" spirit:minimum="0" spirit:maximum="16" spirit:rangeType="long">16</spirit:value>
@@ -1121,7 +2520,7 @@
     <spirit:parameter>
       <spirit:name>NUM_TAP_TDL</spirit:name>
       <spirit:displayName>Number of Taps</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.NUM_TAP_TDL" spirit:minimum="48" spirit:maximum="4096" spirit:rangeType="long">512</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.NUM_TAP_TDL" spirit:minimum="48" spirit:maximum="4096" spirit:rangeType="long">4096</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>BUFFERING_STAGE</spirit:name>
@@ -1143,7 +2542,7 @@
     <spirit:parameter>
       <spirit:name>STEP_VALID_TAP_POS</spirit:name>
       <spirit:displayName>Step of Valid Position</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.STEP_VALID_TAP_POS" spirit:minimum="1" spirit:maximum="4095" spirit:rangeType="long">8</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.STEP_VALID_TAP_POS" spirit:minimum="1" spirit:maximum="4095" spirit:rangeType="long">1</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -1155,7 +2554,7 @@
     <spirit:parameter>
       <spirit:name>MAX_VALID_TAP_POS</spirit:name>
       <spirit:displayName>Maximum Valid Position</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.MAX_VALID_TAP_POS" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">511</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.MAX_VALID_TAP_POS" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">4095</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -1167,7 +2566,7 @@
     <spirit:parameter>
       <spirit:name>VALID_POSITION_TAP_INIT</spirit:name>
       <spirit:displayName>Valid Position Tap Initialization</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.VALID_POSITION_TAP_INIT" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">0</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.VALID_POSITION_TAP_INIT" spirit:minimum="0" spirit:maximum="4095" spirit:rangeType="long">31</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>VALID_NUMBER_OF_TDL_INIT</spirit:name>
@@ -1369,7 +2768,7 @@
     <spirit:parameter>
       <spirit:name>BIT_SMP_TDL</spirit:name>
       <spirit:displayName>Taps Sampled of the TDL</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.BIT_SMP_TDL" spirit:minimum="1" spirit:maximum="4096" spirit:rangeType="long">512</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.BIT_SMP_TDL" spirit:minimum="1" spirit:maximum="4096" spirit:rangeType="long">4096</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>NUM_TAP_PRE_TDL</spirit:name>
@@ -1417,108 +2816,75 @@
       <xilinx:taxonomies>
         <xilinx:taxonomy>/TDC_Basic</xilinx:taxonomy>
       </xilinx:taxonomies>
-      <xilinx:displayName>AXI4-Stream Xilinx Hybrid-TDC</xilinx:displayName>
+      <xilinx:displayName>AXI4-Stream Xilinx Virtual-TDC</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
       <xilinx:vendorDisplayName>DigiLAB</xilinx:vendorDisplayName>
       <xilinx:coreRevision>1</xilinx:coreRevision>
       <xilinx:upgrades>
         <xilinx:canUpgradeFrom>user.org:user:AXI4Stream_VirtualTDL:1.0</xilinx:canUpgradeFrom>
       </xilinx:upgrades>
-      <xilinx:coreCreationDateTime>2022-05-02T14:50:53Z</xilinx:coreCreationDateTime>
+      <xilinx:coreCreationDateTime>2022-05-05T14:13:13Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="nopcore"/>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@669bb9a6_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@44f294fc_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@5ccf5a04_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@33edb5d2_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@42d26cae_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@3f3c83b6_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@59b12557_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@51b4a3d7_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@34894164_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@532ff6ff_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@2715215_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@f91d65b_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@161d4cad_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@329ffe87_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@3d2399c5_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@6c42b9c3_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@328b2183_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@c3da5a1_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@6088f872_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@32520d48_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@12e17dd1_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@1f021eda_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@6a51aef3_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@1953f786_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@30f714e8_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b6f2d68_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@f2d5c54_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@2bfe74a0_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@39957589_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@1e6d7638_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@1b66a3a7_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@1305fa88_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@13225def_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@16d80099_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@6647e042_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@1efb6362_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@6715217a_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@283b3e69_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@74fe4b21_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@3faed271_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@1acf13d8_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@5466035f_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@1a67745e_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@4c91a965_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@7c53d9dc_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@335c9b1_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@6425bbc8_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@4a2ccd7c_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@2dfde1c_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@451a1e_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@3302042f_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@78e97e08_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@5de19bc7_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@d3308ad_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@5d4c0c60_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@56b4df17_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@51123f00_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b4da24b_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@56fd61a0_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@11fb17d9_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@7dab15aa_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@3088c8e5_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@73b3b91f_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@69184735_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@46c0def5_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@25aacf17_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@2f45e520_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@44938535_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@49e0ab8c_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@4ac85b35_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b0d06c1_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@215f0a14_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@6cdc4a21_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@d571228_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@36d9368_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@6d6aef74_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@5e006e01_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@636ac5f2_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@55a86568_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@1d3b5853_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@50aff1dd_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@75e9efdf_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@177b07d8_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@38d89de5_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@551208c_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1d801412_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@e83b473_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@74bfb656_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@29dd93dd_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@a585c92_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@117be89c_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4481a91b_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@72bf3531_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@35cc2e7c_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@ace3a0d_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6467bd98_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@67307b88_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7de61c42_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5457380e_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@49cdd78a_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4f851163_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5e405044_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@58140a59_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6524124d_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b75cddf_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@48c5a828_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6efe1773_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4620caed_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@61bc0b00_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7c3a3e1c_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@f5836e0_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@591b01b6_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@214a231b_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@590192a2_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@368c3b7a_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@526ff3c4_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@12d54acf_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7dfc59c9_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@316ddf50_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@be97b76_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4692df0_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@31fa4315_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@329ce317_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@273f67f8_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6f482751_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@39d62b59_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@362bfaeb_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4d083927_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@742a289d_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@313842b1_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@ff82cec_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@45bfda08_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ba77849_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.2</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="eb8b43ff"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="ea914e94"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="e199ff14"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="14c1aa7a"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="2c8acf97"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="5c54a639"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="e4d6db81"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="99832057"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="ea86793a"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>

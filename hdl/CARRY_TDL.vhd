@@ -17,9 +17,10 @@
 
 ------------------------- BRIEF MODULE DESCRIPTION -----------------------------
 --! \file
---! \brief This module creates the chain containing *NUM_TAP_TDL* buffers, starting from the basic block *CARRY8*, which contains 8 buffers, in the case of *SIM_VS_IMP = "IMP"*.
+--! \brief This module creates the chain containing *NUM_TAP_TDL* buffers, starting from the basic block *CARRY4* (for Xilinx 7-Series) or *CARRY8* (for Xilinx Ultrascale), which contains 4 (8) buffers, in the case of *SIM_VS_IMP = "IMP"*.
 --! Instead in the case of *SIM_VS_IMP = "SIM"*, it generates *NUM_TAP_TDL* dummy buffers in order to simulate the delay of the real buffer, but without implementing it.
---! In the following figure we can see the description of the *CARRY8* primitive.
+--! In the following figure we can see the description of the *CARRY4* primitive and the *CARRY8* primitive.
+--! \image html Carry4.png [Carry4 image]
 --! \image html Carry8.png [Carry8 image]
 
 --------------------------------------------------------------------------------
@@ -79,8 +80,17 @@ library work;
 entity CARRY_TDL is
 	generic (
 
-		XUS_VS_X7S   :  STRING := "XUS";
+		------ Technology node -------
+		XUS_VS_X7S   :  STRING := "XUS";								--! Technology node (Ultrascale or 7-Series)
 		
+		-------- Sim vs Impl ---------
+		SIM_VS_IMP	:	STRING	:= "IMP";								--! Simulation or Implementation
+
+		CO_DELAY	:	TIME_ARRAY_TYPE;										--! Delay for CO in Simulation
+		O_DELAY		:	TIME_ARRAY_TYPE;										--! Delay for O in Simulation
+		----------------------------
+		
+		-------- Dimension ---------
 		NUM_TAP_TDL				:	POSITIVE	RANGE 4 TO 4096	:= 16;					--! Bits of the TDL (number of buffers in the TDL)
 		NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 1024	:= 256						--! Bits of the PRE-Tapped Delay-Line (number of buffers in the PRE-TDL)
 		----------------------------
@@ -105,13 +115,13 @@ entity CARRY_TDL is
 end CARRY_TDL;
 
 ------------------------ ARCHITECTURE DESCRIPTION ------------------------------
---! \brief In order to build the chain of buffers , the module first computes (both for the PRE_TDL and the TDL) how many *CARRY8* we have to chain in order to get *NUM_TAP_TDL* buffers and *NUM_TAP_PRE_TDL*, by means of the function *Compute_NumCarryBlock*.
---! We need to chain *NUM_CARRY_BLOCK_TDL* of *CARRY8*. In the following figure we can see the RTL structure of the chain of CARRY8 primitives:
+--! \brief In order to build the chain of buffers , the module first computes (both for the PRE_TDL and the TDL) how many *CARRY8* or *CARRY4* we have to chain in order to get *NUM_TAP_TDL* buffers and *NUM_TAP_PRE_TDL*, by means of the function *Compute_NumCarryBlock*.
+--! We need to chain *NUM_CARRY_BLOCK_TDL* of *CARRY8(4)*. In the following figure we can see the RTL structure of the chain of CARRY8 primitives:
 --! \image html RTL_Carry8.png [RTL of CARRY8]
 --! In the following figure we can see the internal structure of the CARRY8 primitive.
 --! \image html Carry8_internal.png [CARRY8 internal structure]
---! Then, if *SIM_VS_IMP = "IMP"* the module builds the chain of buffers,
---! first by initializing the basic block *CARRY8* and then by replicating it *NUM_CARRY_BLOCK_TDL* times. Otherwise, if *SIM_VS_IMP = "SIM"*, the module instantiates the *Simulated_TappedDelayLine*.
+--! Then, the module builds the chain of buffers,
+--! first by initializing the basic block *CARRY8(4)* and then by replicating it *NUM_CARRY_BLOCK_TDL* times. 
 --------------------------------------------------------------------------------
 
 architecture Behavioral of CARRY_TDL is
@@ -120,33 +130,34 @@ architecture Behavioral of CARRY_TDL is
 
 	------- Num of Carry Blocks of TDL --------
 	-- Bits inside the primitive (carry block)
-	constant	BIT_CARRY8_BLOCK	:	POSITIVE	:= 8;
-	constant    BIT_CARRY4_BLOCK    :   POSITIVE    := 4;							--! Bits inside the primitive (carry block)
-    -- Number of carry blocks required to have NUM_TAP_TDL
-	constant	NUM_CARRY8_BLOCK_TDL	:	POSITIVE	:=							--! Number of carry blocks required to have NUM_TAP_TDL
+	constant	BIT_CARRY8_BLOCK	:	POSITIVE	:= 8;							--! Bits inside the XUS primitive (carry8 block)
+	constant    BIT_CARRY4_BLOCK    :   POSITIVE    := 4;							--! Bits inside the X7S primitive (carry4 block)
+    -- Number of carry8 blocks required to have NUM_TAP_TDL
+	constant	NUM_CARRY8_BLOCK_TDL	:	POSITIVE	:=							--! Number of carry8 blocks required to have NUM_TAP_TDL
 		Compute_NumCarryBlock
 		(
 			NUM_TAP_TDL,
 			BIT_CARRY8_BLOCK
 		);
 	-----------------------------------------
-	-- Number of carry blocks required to have NUM_TAP_PRE_TDL
-	constant	NUM_CARRY8_BLOCK_PRE_TDL	:	INTEGER	:=								--! Number of carry blocks required to have NUM_TAP_PRE_TDL
+	-- Number of carry8 blocks required to have NUM_TAP_PRE_TDL
+	constant	NUM_CARRY8_BLOCK_PRE_TDL	:	INTEGER	:=								--! Number of carry8 blocks required to have NUM_TAP_PRE_TDL
 		Compute_NumCarryBlock
 		(
 			NUM_TAP_PRE_TDL,
 			BIT_CARRY8_BLOCK
 		);
-		
-	constant	NUM_CARRY4_BLOCK_TDL	:	POSITIVE	:=							--! Number of carry blocks required to have NUM_TAP_TDL
+	-----------------------------------------
+	-- Number of carry4 blocks required to have NUM_TAP_TDL	
+	constant	NUM_CARRY4_BLOCK_TDL	:	POSITIVE	:=							--! Number of carry4 blocks required to have NUM_TAP_TDL
 		Compute_NumCarryBlock
 		(
 			NUM_TAP_TDL,
 			BIT_CARRY4_BLOCK
 		);
 	-----------------------------------------
-	-- Number of carry blocks required to have NUM_TAP_PRE_TDL
-	constant	NUM_CARRY4_BLOCK_PRE_TDL	:	INTEGER	:=								--! Number of carry blocks required to have NUM_TAP_PRE_TDL
+	-- Number of carry4 blocks required to have NUM_TAP_PRE_TDL
+	constant	NUM_CARRY4_BLOCK_PRE_TDL	:	INTEGER	:=								--! Number of carry4 blocks required to have NUM_TAP_PRE_TDL
 		Compute_NumCarryBlock
 		(
 			NUM_TAP_PRE_TDL,
@@ -154,23 +165,49 @@ architecture Behavioral of CARRY_TDL is
 		);   	
 	-----------------------------------------
 	-- Number of total carry blocks required 
-	constant	NUM_CARRY8_BLOCK_TOT	:	POSITIVE	:=	NUM_CARRY8_BLOCK_TDL + NUM_CARRY8_BLOCK_PRE_TDL;
-	constant	NUM_CARRY4_BLOCK_TOT	:	POSITIVE	:=	NUM_CARRY4_BLOCK_TDL + NUM_CARRY4_BLOCK_PRE_TDL;						--! Total Number of carry blocks required
+	constant	NUM_CARRY8_BLOCK_TOT	:	POSITIVE	:=	NUM_CARRY8_BLOCK_TDL + NUM_CARRY8_BLOCK_PRE_TDL;						--! Total Number of carry8 blocks required
+	constant	NUM_CARRY4_BLOCK_TOT	:	POSITIVE	:=	NUM_CARRY4_BLOCK_TDL + NUM_CARRY4_BLOCK_PRE_TDL;						--! Total Number of carry4 blocks required
 	-----------------------------------------
 	----------------------------------------------------------------------------
-
+    
 	----------------------- COMPONENT DECLARATION ------------------------------
 
 	------------ Simulated TDL ------------------
 	--! \brief This module simulates the TDL. The *AsyncInput* is propagated in the TDL directly in the CO and inverted in the O with tunable delay from generic.
 
-	
+	COMPONENT Simulated_TappedDelayLine
+		generic (
+
+			-------- Delay Tuning --------
+			CO_DELAY	:	TIME_ARRAY_TYPE;       -- cHANGED VALUES BY MEANS OF .TXT
+			O_DELAY		:	TIME_ARRAY_TYPE;
+			----------------------------
+
+			-------- Dimension ---------
+			NUM_TAP_TDL	:	POSITIVE	RANGE 4 TO 4096	:= 16					-- Bit of Tapped Delay-Line
+			----------------------------
+
+		);
+		port(
+			-------- Async Input --------
+			AsyncInput	:	IN	STD_LOGIC;											-- AsyncInput
+			-----------------------------
+
+			---- Tapped Delay-Line ------
+			CO	:	OUT	STD_LOGIC_VECTOR(NUM_TAP_TDL-1 downto 0);				-- CO Taps in output, AsyncInput delayed not inverted
+			O	:	OUT	STD_LOGIC_VECTOR(NUM_TAP_TDL-1 downto 0)				-- O Taps in output, AsyncInput delayed and inverted
+			-----------------------------
+		);
+	END COMPONENT;
+	-----------------------------------------
+	----------------------------------------------------------------------------
+
 	----- Output of the NUM_CARRY_BLOCK_TDL -----
-	signal XUS_CO	: std_logic_vector(NUM_CARRY8_BLOCK_TOT*BIT_CARRY8_BLOCK-1 downto 0);		--! CO outputs
-	signal XUS_O	: std_logic_vector(NUM_CARRY8_BLOCK_TOT*BIT_CARRY8_BLOCK-1 downto 0);		--! O outputs
+	signal XUS_CO	: std_logic_vector(NUM_CARRY8_BLOCK_TOT*BIT_CARRY8_BLOCK-1 downto 0);		--! CO outputs for the XUS primitive
+	signal XUS_O	: std_logic_vector(NUM_CARRY8_BLOCK_TOT*BIT_CARRY8_BLOCK-1 downto 0);		--! O outputs for the XUS primitive
 	
-	signal X7S_CO	: std_logic_vector(NUM_CARRY4_BLOCK_TOT*BIT_CARRY4_BLOCK-1 downto 0);		--! CO outputs
-	signal X7S_O	: std_logic_vector(NUM_CARRY4_BLOCK_TOT*BIT_CARRY4_BLOCK-1 downto 0);	
+	signal X7S_CO	: std_logic_vector(NUM_CARRY4_BLOCK_TOT*BIT_CARRY4_BLOCK-1 downto 0);		--! CO outputs for the X7S primitive
+	signal X7S_O	: std_logic_vector(NUM_CARRY4_BLOCK_TOT*BIT_CARRY4_BLOCK-1 downto 0);	    --! O outputs for the X7S primitive
 	-----------------------------------------
 
 	----------------------------------------------------------------------------
@@ -180,7 +217,7 @@ begin
 
 
 	-------------------------------- DATA FLOW  --------------------------------
-	-- In case we have *NUM_TAP_TDL* and *NUM_TAP_PRE_TDL* that are not 8 multiples, we have to pay attention that in reality the CO and O are all the BIT_CARRY_BLOCK*NUM_CARRY_BLOCK_TOT outputs of the CARRY8 chain, but we just want to take
+	-- In case we have *NUM_TAP_TDL* and *NUM_TAP_PRE_TDL* that are not 8(4) multiples, we have to pay attention that in reality the CO and O are all the BIT_CARRY_BLOCK*NUM_CARRY_BLOCK_TOT outputs of the CARRY8(4) chain, but we just want to take
 	-- respectively *NUM_TAP_PRE_TDL* of them for what concern the PRE-TDL and *NUM_TAP_TDL* for what concern the V-TDL.
 	--------- Output Connections -----------
 	Gen_XUS_output : if XUS_VS_X7S = "XUS" generate
@@ -201,81 +238,118 @@ begin
 	-----------------------------------------
 	----------------------------------------------------------------------------
 
+    ------------------------ COMPONENT INSTANTIATION ---------------------------
 
-    Gen_XUS_TDL : if XUS_VS_X7S = "XUS" generate
-    begin
-		Init_CARRY8_TDL : CARRY8
-			GENERIC MAP (
-                CARRY_TYPE => "SINGLE_CY8" -- 8-bit or dual 4-bit carry (SINGLE_CY8, DUAL_CY4)
-             )
-			PORT MAP (
-				CO(7 downto 0)	=>	XUS_CO(BIT_CARRY8_BLOCK-1 downto 0),					-- 8-bit carry out
-				O(7 downto 0)   =>	XUS_O(BIT_CARRY8_BLOCK-1 downto 0),   				-- 8-bit carry chain XOR data out
-				CI				=>	AsyncInput,         							-- 1-bit carry cascade input
-				CI_TOP			=>	'0', 									        -- 1-bit carry initialization
-				DI(7 downto 0)	=>	"00000000",         						    -- 8-bit carry-MUX data in
-				S(7 downto 0)	=>	"11111111"        								-- 8-bit carry-MUX select input
-			);
-		----------------------
+	---- TDL implementation ----
+	Inst_Imp : if SIM_VS_IMP = "IMP" generate
 
-
-		---- For Gen TDL ----
-		Gen_CARRY8_TDL : for I in 1 to NUM_CARRY8_BLOCK_TOT-1 generate
-	    begin
-
-			CARRY8_TDL : CARRY8
-				generic map (
-                    CARRY_TYPE => "SINGLE_CY8" -- 8-bit or dual 4-bit carry (SINGLE_CY8, DUAL_CY4)
-                )
-				port map (
-					CO(7 downto 0)	=>	XUS_CO(BIT_CARRY8_BLOCK*(I+1)-1 downto BIT_CARRY8_BLOCK*I),
-					O(7 downto 0)	=>	XUS_O(BIT_CARRY8_BLOCK*(I+1)-1 downto BIT_CARRY8_BLOCK*I),
-					CI				=>	XUS_CO(BIT_CARRY8_BLOCK*I-1),
-					CI_TOP			=>	'0',
-					DI(7 downto 0)	=>	"00000000",
-					S(7 downto 0) 	=>	"11111111"
+		---- XUS TDL generation ----
+		Gen_XUS_TDL : if XUS_VS_X7S = "XUS" generate
+		begin
+			Init_CARRY8_TDL : CARRY8
+				GENERIC MAP (
+					CARRY_TYPE => "SINGLE_CY8" -- 8-bit or dual 4-bit carry (SINGLE_CY8, DUAL_CY4)
+				)
+				PORT MAP (
+					CO(7 downto 0)	=>	XUS_CO(BIT_CARRY8_BLOCK-1 downto 0),					-- 8-bit carry out
+					O(7 downto 0)   =>	XUS_O(BIT_CARRY8_BLOCK-1 downto 0),   				-- 8-bit carry chain XOR data out
+					CI				=>	AsyncInput,         							-- 1-bit carry cascade input
+					CI_TOP			=>	'0', 									        -- 1-bit carry initialization
+					DI(7 downto 0)	=>	"00000000",         						    -- 8-bit carry-MUX data in
+					S(7 downto 0)	=>	"11111111"        								-- 8-bit carry-MUX select input
 				);
+			----------------------
+
+
+			---- For Gen TDL ----
+			Gen_CARRY8_TDL : for I in 1 to NUM_CARRY8_BLOCK_TOT-1 generate
+			begin
+				
+				--! The following CARRY8 are instantiated in such a way the output of the previous element is connected to the input of the following
+				CARRY8_TDL : CARRY8
+					generic map (
+						CARRY_TYPE => "SINGLE_CY8" -- 8-bit or dual 4-bit carry (SINGLE_CY8, DUAL_CY4)
+					)
+					port map (
+						CO(7 downto 0)	=>	XUS_CO(BIT_CARRY8_BLOCK*(I+1)-1 downto BIT_CARRY8_BLOCK*I),
+						O(7 downto 0)	=>	XUS_O(BIT_CARRY8_BLOCK*(I+1)-1 downto BIT_CARRY8_BLOCK*I),
+						CI				=>	XUS_CO(BIT_CARRY8_BLOCK*I-1),
+						CI_TOP			=>	'0',
+						DI(7 downto 0)	=>	"00000000",
+						S(7 downto 0) 	=>	"11111111"
+					);
+			end generate;
+			----------------------
 		end generate;
-		----------------------
+		-----------------------------------------
+		
+		---- X7S TDL generation ----
+		Gen_X7S_TDL : if XUS_VS_X7S = "X7S" generate
+		begin
+		
+		Init_CARRY4_TDL : CARRY4
+				PORT MAP (
+					CO(3 downto 0)	=>	X7S_CO(BIT_CARRY4_BLOCK-1 downto 0),					-- 4-bit carry out
+					O				=>	X7S_O(BIT_CARRY4_BLOCK-1 downto 0),   				-- 4-bit carry chain XOR data out
+					CI				=>	'0',         									-- 1-bit carry cascade input
+					CYINIT			=>	AsyncInput, 									-- 1-bit carry initialization
+					DI(3 downto 0)	=>	"0001",         								-- 4-bit carry-MUX data in
+					S(3 downto 0)	=>	"1111"        									-- 4-bit carry-MUX select input
+				);
+			----------------------
+
+
+			---- For Gen TDL ----
+			Gen_CARRY4_TDL : for I in 1 to NUM_CARRY4_BLOCK_TOT-1 generate
+			begin
+
+				--! The following CARRY4 are instantiated in such a way the output of the previous element is connected to the input of the following
+				CARRY4_TDL : CARRY4
+					port map (
+						CO(3 downto 0)	=>	X7S_CO(BIT_CARRY4_BLOCK*(I+1)-1 downto BIT_CARRY4_BLOCK*I),
+						O				=>	X7S_O(BIT_CARRY4_BLOCK*(I+1)-1 downto BIT_CARRY4_BLOCK*I),
+						CI				=>	X7S_CO(BIT_CARRY4_BLOCK*I-1),
+						CYINIT			=>	'0',
+						DI(3 downto 0)	=>	"0000",
+						S(3 downto 0) 	=>	"1111"
+					);
+			end generate;
+			----------------------
+		end generate;
+	end generate;
+
+    -------------- Simulated  --------------
+	Inst_Sim : if SIM_VS_IMP = "SIM" generate
+
+		-------- Sim_TappedDelayLine ---------
+		--! In case we are in simulation, we instantiate the Simulated_TappedDelayLine
+
+		Inst_Simulated_TappedDelayLine	:	Simulated_TappedDelayLine
+			generic map (
+
+				-------- Dimension ---------
+				CO_DELAY	=>	CO_DELAY,
+				O_DELAY		=>	O_DELAY,
+				----------------------------
+
+				-------- Dimension ---------
+				NUM_TAP_TDL	=>	NUM_CARRY4_BLOCK_TOT*BIT_CARRY4_BLOCK
+				----------------------------
+
+			)
+			port map(
+				-------- Async Input --------
+				AsyncInput	=>	AsyncInput,
+				-----------------------------
+
+				---- Tapped Delay-Line ------
+				CO	=>	X7S_CO,
+				O	=>	X7S_O
+				-----------------------------
+			);
+
 	end generate;
 	-----------------------------------------
 
-    Gen_X7S_TDL : if XUS_VS_X7S = "X7S" generate
-    begin
-    
-      Init_CARRY4_TDL : CARRY4
-			PORT MAP (
-				CO(3 downto 0)	=>	X7S_CO(BIT_CARRY4_BLOCK-1 downto 0),					-- 4-bit carry out
-				O				=>	X7S_O(BIT_CARRY4_BLOCK-1 downto 0),   				-- 4-bit carry chain XOR data out
-				CI				=>	'0',         									-- 1-bit carry cascade input
-				CYINIT			=>	AsyncInput, 									-- 1-bit carry initialization
-				DI(3 downto 0)	=>	"0001",         								-- 4-bit carry-MUX data in
-				S(3 downto 0)	=>	"1111"        									-- 4-bit carry-MUX select input
-			);
-		----------------------
-
-
-		---- For Gen TDL ----
-		Gen_CARRY4_TDL : for I in 1 to NUM_CARRY4_BLOCK_TOT-1 generate
-		begin
-
-		------------------- COMPONENT INSTANTIATION DESCRIPTION ---------------------
-
-		----------------------------------------------------------------------------
-			-------- CARRY4_TDL ---------
-			--! The following CARRY4 are instantiated in such a way the output of the previous element is connected to the input of the following
-
-			CARRY4_TDL : CARRY4
-				port map (
-					CO(3 downto 0)	=>	X7S_CO(BIT_CARRY4_BLOCK*(I+1)-1 downto BIT_CARRY4_BLOCK*I),
-					O				=>	X7S_O(BIT_CARRY4_BLOCK*(I+1)-1 downto BIT_CARRY4_BLOCK*I),
-					CI				=>	X7S_CO(BIT_CARRY4_BLOCK*I-1),
-					CYINIT			=>	'0',
-					DI(3 downto 0)	=>	"0000",
-					S(3 downto 0) 	=>	"1111"
-				);
-		end generate;
-		----------------------
-	end generate;
 
 end Behavioral;

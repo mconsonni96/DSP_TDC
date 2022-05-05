@@ -1,6 +1,6 @@
 
 # =========================== SET PATH =========================================
-set path "/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_HybridTDL/package_ip"
+set path "/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL/package_ip"
 # ==============================================================================
 
 
@@ -12,13 +12,13 @@ set_property vendor $vendor [ipx::current_core]
 set library "ip"
 set_property library $library [ipx::current_core]
 
-set name "AXI4Stream_HybridTDL"
+set name "AXI4Stream_VirtualTDL"
 set_property name $name [ipx::current_core]
 
 set version "1.0"
 set_property version $version [ipx::current_core]
 
-set display_name "AXI4-Stream Xilinx Hybrid-TDC"
+set display_name "AXI4-Stream Xilinx Virtual-TDC"
 set_property display_name $display_name [ipx::current_core]
 
 set description "TDC with Carry Chain and Digital Signal Processor with AXI4-Stream interface for the TDC"
@@ -51,6 +51,8 @@ source [join [list $param_path "set_xus_vs_x7s.tcl"] ""] -notrace
 source [join [list $param_path "set_type_tdl.tcl"] ""] -notrace
 source [join [list $param_path "set_offset_tap_tdl.tcl"] ""] -notrace
 source [join [list $param_path "set_debug_mode_tdl.tcl"] ""] -notrace
+source [join [list $param_path "set_sim_vs_imp.tcl"] ""] -notrace
+source [join [list $param_path "set_file_path.tcl"] ""] -notrace
 source [join [list $param_path "set_buffering_stage.tcl"] ""] -notrace
 source [join [list $param_path "set_number_of_carry_chains.tcl"] ""] -notrace
 source [join [list $param_path "set_number_of_dsp_chains.tcl"] ""] -notrace

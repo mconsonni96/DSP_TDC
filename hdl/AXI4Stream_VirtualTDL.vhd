@@ -16,7 +16,7 @@
 
 --------------------------BRIEF MODULE DESCRIPTION -----------------------------
 --! \file
---! \brief This is the wrapper of AXI4Stream_X7S_VirtualTDLWrapper for usage in block design and IP-Core.
+--! \brief This is the wrapper of AXI4Stream_VirtualTDL_Wrapper for usage in block design and IP-Core.
 --! \image html TappedDelayLine_IP-Core.png  [IP-Core image]
 --! \todo AXI4-Lite Slave Ports
 --------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ library work;
 -----------------------------ENTITY DESCRIPTION --------------------------------
 --! \brief The entity of this module can be described by the following images:
 --! \details in the first one we see the Vivado representation of the Generic
---! \image html TappedDelayLine_Generic.svg  [IP-Core Generic]
+--! \image html TappedDelayLine_Generic.png  [IP-Core Generic]
 --! \brief in the second image we see the Vivado representation of the IP-Core with the signals
 --! \image html TappedDelayLine_Signals.png  [IP-Core Signals]
 --! \details The module is composed by a *NUMBER_OF_TDL* TDLs in parallel, each one composed by *NUM_TAP_TDL* taps. Among the *NUM_TAP_TDL* taps, we choose to sample just
@@ -84,8 +84,8 @@ library work;
 --! are just used to select the valid, in order to get the valid before the TDL can acquire the signal, in such a way that by changing the position of the valid that we choose, we can move rightwards (if we choose the valid at the last taps of the TDL) or leftwards (if we choose the valid at the taps of the PRE-TDL, so a by
 --! choosing a negative *MIN_VALID_TAP_POS*) the Characteristic Curve (CC) and the Calibration Table (CT) of the TDC.
 --! Then given in input of the TDLs the asynchronous signal *AsyncInput*, in output we have the sampled version of *AsyncInput*. In this way a thermometric code in output is generated (*m00_axis_undeco_tdata*).
---! The sampling is also managed by *TYPE_TDL_i* and by *OFFSET_TAP_TDL_i* (i is a value between 0 and 15). Indeed by means of *TYPE_TDL_i*
---! we choose which taps of the *CARRY4* primitive we want to look at (*CO* taps or *O* taps) for the i-th TDL. Instead by means of *OFFSET_TAP_TDL_i* we can set an initial offset in the
+--! The sampling is also managed (just for the Carry-chains) by *TYPE_TDL_i* and by *OFFSET_TAP_TDL_i* (i is a value between 0 and 15). Indeed by means of *TYPE_TDL_i*
+--! we choose which taps of the *CARRY8(4)* primitive we want to look at (*CO* taps or *O* taps) for the i-th TDL. Instead by means of *OFFSET_TAP_TDL_i* we can set an initial offset in the
 --! sampling chains, which means that the first flip-flop of the i-th TDL is not put in the first position of the chain, but after an *OFFSET_TAP_TDL_i* number of positions.
 --! For what concern the search of the valid (*m00_axis_undeco_tvalid*), we have to distinguish two cases, depending on *DEBUG_MODE*.
 --! If *DEBUG_MODE = TRUE* we choose the Valid by means of the ports *ValidPositionTap* and *ValidNumberOfTdl*.
@@ -123,23 +123,7 @@ entity AXI4Stream_VirtualTDL is
 		TYPE_TDL_13		:	STRING	:= "C";															--! CO vs O Sampling TDL #14
 		TYPE_TDL_14		:	STRING	:= "C";															--! CO vs O Sampling TDL #15
 		TYPE_TDL_15		:	STRING	:= "C";															--! CO vs O Sampling TDL #16
---		TYPE_TDL_16		:	STRING	:= "C";															--! CO vs O Sampling TDL #16
---		TYPE_TDL_17		:	STRING	:= "C";															--! CO vs O Sampling TDL #16
---		TYPE_TDL_18		:	STRING	:= "C";															--! CO vs O Sampling TDL #16
---		TYPE_TDL_19		:	STRING	:= "C";															--! CO vs O Sampling TDL #16
---		TYPE_TDL_20		:	STRING	:= "C";															--! CO vs O Sampling TDL #16
---		TYPE_TDL_21		:	STRING	:= "C";															--! CO vs O Sampling TDL #16
---		TYPE_TDL_22		:	STRING	:= "C";															--! CO vs O Sampling TDL #16
---		TYPE_TDL_23		:	STRING	:= "C";															--! CO vs O Sampling TDL #16
---		TYPE_TDL_24		:	STRING	:= "C";															--! CO vs O Sampling TDL #16
---		TYPE_TDL_25		:	STRING	:= "C";															--! CO vs O Sampling TDL #16
---		TYPE_TDL_26		:	STRING	:= "C";															--! CO vs O Sampling TDL #16
---		TYPE_TDL_27		:	STRING	:= "C";															--! CO vs O Sampling TDL #16
---		TYPE_TDL_28		:	STRING	:= "C";															--! CO vs O Sampling TDL #16
---		TYPE_TDL_29		:	STRING	:= "C";															--! CO vs O Sampling TDL #16
---		TYPE_TDL_30		:	STRING	:= "C";															--! CO vs O Sampling TDL #16
---		TYPE_TDL_31		:	STRING	:= "C";															--! CO vs O Sampling TDL #16
-		------------------------------------------------------------------------
+	------------------------------------------------------------------------
 
 
 
@@ -150,8 +134,23 @@ entity AXI4Stream_VirtualTDL is
 		----------------------------
 
 		------------ Tapped Delay-Line (TDL) ---------
-		NUMBER_OF_CARRY_CHAINS	:	NATURAL	RANGE 0 TO 16 	:= 16;										--! Number of TDL in parallel
-		NUMBER_OF_DSP_CHAINS	:	NATURAL	RANGE 0 TO 16 	:= 16;										--! Number of TDL in parallel
+		-------- Sim vs Impl -------
+		SIM_VS_IMP	:	STRING	:= "IMP";													--! Simulation or Implementation
+		----------------------------
+
+		------ Simulation Delay ----
+		FILE_PATH_NAME_CO_DELAY		:	STRING	:=													--! Path of the .txt file that contains the CO delays for Simulation
+		--"C:\Users\nicol\Desktop\MAGISTRALE\Tesi\tappeddelayline_nlusardi\TappedDelayLine.srcs\sim_1\new\CO_O_Delay.txt";
+		"/home/nicola/Documents/Vivado/Projects/Time-to-Digital_Converter/TappedDelayLine/TappedDelayLine.srcs/sim_1/new/CO_O_Delay.txt";
+
+		FILE_PATH_NAME_O_DELAY		:	STRING	:=													--! Path of the .txt file that contains the O delays for Simulation
+		--"C:\Users\nicol\Desktop\MAGISTRALE\Tesi\tappeddelayline_nlusardi\TappedDelayLine.srcs\sim_1\new\CO_O_Delay.txt";
+		"/home/nicola/Documents/Vivado/Projects/Time-to-Digital_Converter/TappedDelayLine/TappedDelayLine.srcs/sim_1/new/CO_O_Delay.txt";
+		----------------------------
+		
+		------------ Tapped Delay-Line (TDL) ---------
+		NUMBER_OF_CARRY_CHAINS	:	NATURAL	RANGE 0 TO 16 	:= 2;										--! Number of CARRY-TDL in parallel
+		NUMBER_OF_DSP_CHAINS	:	NATURAL	RANGE 0 TO 16 	:= 2;										--! Number of DSP-TDL in parallel
 		
 		NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 512;										--! Bit of the Tapped Delay-Line (number of buffers in the TDL)
 		
@@ -164,43 +163,27 @@ entity AXI4Stream_VirtualTDL is
 		VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	0;							--! Initial position along the TDL from which we want to extract the valid in case of *DEBUG_MODE= FALSE*
 		VALID_NUMBER_OF_TDL_INIT	:	INTEGER	RANGE 0 TO 15		:=	0;							--! Initial number of TDL from which we want to extract the valid in case of *DEBUG_MODE= FALSE*
 		
-		OFFSET_TAP_TDL_0	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #1 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
-		OFFSET_TAP_TDL_1	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #2 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
-		OFFSET_TAP_TDL_2	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #3 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
-		OFFSET_TAP_TDL_3	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #4 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
-		OFFSET_TAP_TDL_4	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #5 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
-		OFFSET_TAP_TDL_5	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #6 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
-		OFFSET_TAP_TDL_6	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #7 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
-		OFFSET_TAP_TDL_7	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #8 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
-		OFFSET_TAP_TDL_8	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #9 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
-		OFFSET_TAP_TDL_9	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #10 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
-		OFFSET_TAP_TDL_10	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #11 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
-		OFFSET_TAP_TDL_11	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #12 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
-		OFFSET_TAP_TDL_12	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #13 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
-		OFFSET_TAP_TDL_13	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #14 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
-		OFFSET_TAP_TDL_14	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #15 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
-		OFFSET_TAP_TDL_15	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #16 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
---        OFFSET_TAP_TDL_16	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #1 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
---		OFFSET_TAP_TDL_17	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #2 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
---		OFFSET_TAP_TDL_18	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #3 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
---		OFFSET_TAP_TDL_19	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #4 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
---		OFFSET_TAP_TDL_20	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #5 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
---		OFFSET_TAP_TDL_21	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #6 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
---		OFFSET_TAP_TDL_22	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #7 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
---		OFFSET_TAP_TDL_23	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #8 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
---		OFFSET_TAP_TDL_24	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #9 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
---		OFFSET_TAP_TDL_25	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #10 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
---		OFFSET_TAP_TDL_26	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #11 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
---		OFFSET_TAP_TDL_27	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #12 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
---		OFFSET_TAP_TDL_28	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #13 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
---		OFFSET_TAP_TDL_29	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #14 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
---		OFFSET_TAP_TDL_30	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #15 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
---		OFFSET_TAP_TDL_31	:	NATURAL		RANGE 0 TO 2047	:=	0;								--! The TDL #16 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
+		OFFSET_TAP_TDL_0	:	NATURAL		RANGE 0 TO 4095	:=	0;								--! The TDL #1 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
+		OFFSET_TAP_TDL_1	:	NATURAL		RANGE 0 TO 4095	:=	0;								--! The TDL #2 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
+		OFFSET_TAP_TDL_2	:	NATURAL		RANGE 0 TO 4095	:=	0;								--! The TDL #3 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
+		OFFSET_TAP_TDL_3	:	NATURAL		RANGE 0 TO 4095	:=	0;								--! The TDL #4 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
+		OFFSET_TAP_TDL_4	:	NATURAL		RANGE 0 TO 4095	:=	0;								--! The TDL #5 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
+		OFFSET_TAP_TDL_5	:	NATURAL		RANGE 0 TO 4095	:=	0;								--! The TDL #6 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
+		OFFSET_TAP_TDL_6	:	NATURAL		RANGE 0 TO 4095	:=	0;								--! The TDL #7 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
+		OFFSET_TAP_TDL_7	:	NATURAL		RANGE 0 TO 4095	:=	0;								--! The TDL #8 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
+		OFFSET_TAP_TDL_8	:	NATURAL		RANGE 0 TO 4095	:=	0;								--! The TDL #9 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
+		OFFSET_TAP_TDL_9	:	NATURAL		RANGE 0 TO 4095	:=	0;								--! The TDL #10 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
+		OFFSET_TAP_TDL_10	:	NATURAL		RANGE 0 TO 4095	:=	0;								--! The TDL #11 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
+		OFFSET_TAP_TDL_11	:	NATURAL		RANGE 0 TO 4095	:=	0;								--! The TDL #12 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
+		OFFSET_TAP_TDL_12	:	NATURAL		RANGE 0 TO 4095	:=	0;								--! The TDL #13 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
+		OFFSET_TAP_TDL_13	:	NATURAL		RANGE 0 TO 4095	:=	0;								--! The TDL #14 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
+		OFFSET_TAP_TDL_14	:	NATURAL		RANGE 0 TO 4095	:=	0;								--! The TDL #15 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
+		OFFSET_TAP_TDL_15	:	NATURAL		RANGE 0 TO 4095	:=	0;								--! The TDL #16 is sampled with an initial offset of bit with respect to the Tap step of NUM_TAP_TDL/BIT_SMP_TDL, one different for each TDL for more flexibility
 
 		BIT_SMP_TDL			:	POSITIVE	RANGE 1 TO 4096	:= 512;								--! Bit Sampled from the TDL each NUM_TAP_TDL/BIT_SMP_TDL after OFFSET_TAP_TDL, obviously equal in each TDLs. Basically it is the number of Flip Flops
 		
-		NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 1024	:= 1024;								--! Bit of the PRE-Tapped Delay-Line (number of buffers in the PRE-TDL)
-		BIT_SMP_PRE_TDL			:	INTEGER	RANGE 0 TO 1024	:= 1024								--! Bit Sampled from the PRE-TDL each NUM_TAP_PRE_TDL/BIT_SMP_PRE_TDL after OFFSET_TAP_TDL, obviously equal in each TDLs.
+		NUM_TAP_PRE_TDL			:	INTEGER	RANGE 0 TO 1024	:= 0;								--! Bit of the PRE-Tapped Delay-Line (number of taps in the PRE-TDL)
+		BIT_SMP_PRE_TDL			:	INTEGER	RANGE 0 TO 1024	:= 0								--! Bit Sampled from the PRE-TDL each NUM_TAP_PRE_TDL/BIT_SMP_PRE_TDL after OFFSET_TAP_TDL, obviously equal in each TDLs.
 		----------------------------------------------
 		------------------------------------------------------------------------
 
@@ -248,7 +231,7 @@ entity AXI4Stream_VirtualTDL is
 end AXI4Stream_VirtualTDL;
 
 ------------------------ ARCHITECTURE DESCRIPTION ------------------------------
---! \brief The module instantiates the *AXI4Stream_X7S_VirtualTDLWrapper*, set to '0' the MSBs of the output data
+--! \brief The module instantiates the *AXI4Stream_VirtualTDL_Wrapper*, set to '0' the MSBs of the output data
 --! (*m00_axis_undeco_tdata(m00_axis_undeco_tdata'LENGTH-1 downto NUMBER_OF_TDL*BIT_SMP_TDL)*)
 --! and rename the input and output interfaces with AXI4-Stream, input as slave and output as master.
 --------------------------------------------------------------------------------
@@ -259,7 +242,7 @@ architecture Behavioral of AXI4Stream_VirtualTDL is
 	------------------------- CONSTANTS DECLARATION ----------------------------
 
 	--------- TYPE_TDL_ARRAY Initializzation ---------
-	CONSTANT	TYPE_TDL_ARRAY	:	CO_VS_O_ARRAY_STRING	:=					--! Initialization of the type of each TDL
+	CONSTANT	TYPE_TDL_ARRAY	:	CO_VS_O_ARRAY_STRING	:=					--! Initialization of the type of each CARRY-TDL
 	(
 		TYPE_TDL_0,
 		TYPE_TDL_1,
@@ -277,28 +260,12 @@ architecture Behavioral of AXI4Stream_VirtualTDL is
 		TYPE_TDL_13,
 		TYPE_TDL_14,
 		TYPE_TDL_15
---		TYPE_TDL_16,
---		TYPE_TDL_17,
---		TYPE_TDL_18,
---		TYPE_TDL_19,
---		TYPE_TDL_20,
---		TYPE_TDL_21,
---		TYPE_TDL_22,
---		TYPE_TDL_23,
---		TYPE_TDL_24,
---		TYPE_TDL_25,
---		TYPE_TDL_26,
---		TYPE_TDL_27,
---		TYPE_TDL_28,
---		TYPE_TDL_29,
---		TYPE_TDL_30,
---		TYPE_TDL_31
 	);
 
 	-----------------------------------------------
 
-	--------- TYPE_TDL_ARRAY Initializzation ---------
-	CONSTANT	OFFSET_TAP_TDL_ARRAY	:	OFFSET_TAP_TDL_ARRAY_TYPE	:=		--! Initialization of the offset of each TDL
+	--------- OFFSET_TDL_ARRAY Initializzation ---------
+	CONSTANT	OFFSET_TAP_TDL_ARRAY	:	OFFSET_TAP_TDL_ARRAY_TYPE	:=		--! Initialization of the offset of each CARRY-TDL
 	(
 		OFFSET_TAP_TDL_0,
 		OFFSET_TAP_TDL_1,
@@ -316,22 +283,6 @@ architecture Behavioral of AXI4Stream_VirtualTDL is
 		OFFSET_TAP_TDL_13,
 		OFFSET_TAP_TDL_14,
 		OFFSET_TAP_TDL_15
---		OFFSET_TAP_TDL_16,
---		OFFSET_TAP_TDL_17,
---		OFFSET_TAP_TDL_18,
---		OFFSET_TAP_TDL_19,
---		OFFSET_TAP_TDL_20,
---		OFFSET_TAP_TDL_21,
---		OFFSET_TAP_TDL_22,
---		OFFSET_TAP_TDL_23,
---		OFFSET_TAP_TDL_24,
---		OFFSET_TAP_TDL_25,
---		OFFSET_TAP_TDL_26,
---		OFFSET_TAP_TDL_27,
---		OFFSET_TAP_TDL_28,
---		OFFSET_TAP_TDL_29,
---		OFFSET_TAP_TDL_30,
---		OFFSET_TAP_TDL_31
 	);
 
 	-----------------------------------------------
@@ -355,7 +306,23 @@ architecture Behavioral of AXI4Stream_VirtualTDL is
 	
 		DEBUG_MODE		:	BOOLEAN	:=	FALSE;
 
-        NUMBER_OF_CARRY_CHAINS   :   NATURAL    RANGE 0 TO 16   := 4;
+        ------------ Tapped Delay-Line (TDL) ---------
+		-------- Sim vs Impl -------
+		SIM_VS_IMP	:	STRING	:= "IMP";													-- SIMULATION or IMPLEMENTATION
+		----------------------------
+
+		------ Simulation Delay ----
+		FILE_PATH_NAME_CO_DELAY		:	STRING	:=													-- Delay for CO in Simulation
+		"C:\Users\nicol\Desktop\MAGISTRALE\Tesi\tappeddelayline_nlusardi\TappedDelayLine.srcs\sim_1\new\CO_O_Delay.txt";
+		--"/home/nicola/Documents/Vivado/Projects/Time-to-Digital_Converter/TappedDelayLine/TappedDelayLine.srcs/sim_1/new/CO_O_Delay.txt";
+
+		FILE_PATH_NAME_O_DELAY		:	STRING	:=													-- Delay for O in Simulation
+		"C:\Users\nicol\Desktop\MAGISTRALE\Tesi\tappeddelayline_nlusardi\TappedDelayLine.srcs\sim_1\new\CO_O_Delay.txt";
+		--"/home/nicola/Documents/Vivado/Projects/Time-to-Digital_Converter/TappedDelayLine/TappedDelayLine.srcs/sim_1/new/CO_O_Delay.txt";
+		----------------------------
+
+
+		NUMBER_OF_CARRY_CHAINS   :   NATURAL    RANGE 0 TO 16   := 4;
 
 		NUMBER_OF_DSP_CHAINS     :   NATURAL    RANGE 0 TO 16   := 4;
 
@@ -375,7 +342,7 @@ architecture Behavioral of AXI4Stream_VirtualTDL is
 
 		OFFSET_TAP_TDL_ARRAY	:	OFFSET_TAP_TDL_ARRAY_TYPE	:=	(1, Others => 0);
 		
-		BIT_SMP_TDL		     :	POSITIVE	RANGE 1 TO 1920	:= 512;
+		BIT_SMP_TDL		     :	POSITIVE	RANGE 1 TO 4096	:= 512;
 
 		NUM_TAP_PRE_TDL		 :	INTEGER	RANGE 0 TO 1024	:= 128;
 
@@ -419,12 +386,12 @@ begin
 
 	---------------------- COMPONENTS INSTANTIATION ----------------------------
 
-	----- AXI4Stream_X7S_VirtualTDLWrapper -----
-	--! Basically the AXI4Stream_X7S_VirtualTDL and the AXI4Stream_X7S_VirtualTDLWrapper have everything in common,
+	----- AXI4Stream_VirtualTDL_Wrapper -----
+	--! Basically the AXI4Stream_VirtualTDL and the AXI4Stream_VirtualTDL_Wrapper have everything in common,
 	--! apart from the fact that the data of the first one have a length
 	--! that is a multiple of 8 in order to cope with the IP-Core requests.
-	--! The most relevant feature of this instantiation is that the in the *AXI4Stream_X7S_VirtualTDLWrapper* we find the *TYPE_TDL_i* and the *OFFSET_TAP_TDL_i*
-	--! generics that are summarized in an array and associated to the correspondent constant created in the *AXI4Stream_X7S_VirtualTDL*.
+	--! The most relevant feature of this instantiation is that the in the *AXI4Stream_VirtualTDL_Wrapper* we find the *TYPE_TDL_i* and the *OFFSET_TAP_TDL_i*
+	--! generics that are summarized in an array and associated to the correspondent constant created in the *AXI4Stream_VirtualTDL*.
 
 	Inst_AXI4Stream_VirtualTDL_Wrapper	:	AXI4Stream_VirtualTDL_Wrapper
 
@@ -435,6 +402,15 @@ begin
 			TYPE_TDL_ARRAY		=>	TYPE_TDL_ARRAY,
 			------------------------------------------------------------------------
             DEBUG_MODE	 =>	 DEBUG_MODE,
+			
+			-------- Sim vs Impl -------
+			SIM_VS_IMP	=>	SIM_VS_IMP,
+			----------------------------
+
+			------ Simulation Delay ----
+			FILE_PATH_NAME_CO_DELAY	=>	FILE_PATH_NAME_CO_DELAY,
+			FILE_PATH_NAME_O_DELAY	=>	FILE_PATH_NAME_O_DELAY,
+			----------------------------
 			
 			NUMBER_OF_CARRY_CHAINS	=>	NUMBER_OF_CARRY_CHAINS,
 			NUMBER_OF_DSP_CHAINS  =>  NUMBER_OF_DSP_CHAINS,
@@ -495,7 +471,8 @@ begin
 
 
 
-	
+	------------------------------ DATA FLOW ------------------------------
+	----- Zero Padding of the AXI4-Stream ------
 	m00_axis_undeco_tdata(m00_axis_undeco_tdata'LENGTH-1 downto 1 + (NUMBER_OF_CARRY_CHAINS + NUMBER_OF_DSP_CHAINS)*BIT_SMP_TDL) <= (others => '0');
 	---------------------------------------------
 	----------------------------------------------------------------------

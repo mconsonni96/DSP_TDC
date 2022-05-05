@@ -1,15 +1,17 @@
 # AXI4-Stream Virtual Tapped Delay-Line (V-TDL)
-This is a Vivado 2017.3 Project, AXI4Stream_X7S_VirtualTDL is an auto configurable Virtual Tapped Delay-Line (V-TDL) for Xilinx 7-Series (X7S) based on CARRY4 primitive.
+This is a Vivado 2017.3 Project, AXI4Stream_VirtualTDL is an auto configurable Virtual Tapped Delay-Line (V-TDL) for Xilinx Ultrascale (XUS) or 7-Series (X7S) based on CARRY8(4) and DSP48E2(E1) primitive.
 
-The Virtual Tapped Delay-Line (V-TDL) is able to work with multiple Tapped Delay-Line (TDL) for creating a V-TDL, X7S specifies the compatibility with Xilinx 7-Series (X7S).
+The Virtual Tapped Delay-Line (V-TDL) is able to work with multiple Tapped Delay-Line (TDL) for creating a V-TDL.
 The module is composed by a *NUMBER_OF_TDL* of TDLs in parallel, each one composed by *NUM_TAP_TDL* taps, this create a V-TDL with *NUMBER_OF_TDL⋅ NUM_TAP_TDL*.
-In the following figure we can see one Tapped Delay-Line, more than these TDLs in parallel creates e V-TDL. We can derive that the propagation delay of a V-TDL is, in average, *NUMBER_OF_TDL* faster than the TDL ones (*tp*) :
+In the following figure we can see one Carry-based Tapped Delay-Line, more than these TDLs in parallel creates e V-TDL. We can derive that the propagation delay of a V-TDL is, in average, *NUMBER_OF_TDL* faster than the TDL ones (*tp*) :
 
 ![TDL Image](doc/img/TDL_Propagation_Scheme.svg)
 
-We can see the CARRY4 primitive, and the true table in the following image:
+We can see the CARRY8, the CARRY4, and the DSP48E1(E2) primitives in the following images:
 
+![CARRY8 Image](doc/img/Carry8.png)
 ![CARRY4 Image](doc/img/Carry4.png)
+![DSP48E1 Image](doc/img/DSP_FINAL.png)
 
 Among the *NUM_TAP_TDL* taps, just a *BIT_SMP_TDL* number of taps are sampled. In the following figure we see what have just said:
 
@@ -25,7 +27,7 @@ We can see in the following figure a graphical explanation of this:
 We see in the picture that we have a PRE-TDL composed by *NUM_TAP_PRE_TDL* taps and a TDL composed by *NUM_TAP_TDL* taps, but only the *BIT_SMP_TDL* taps of the TDL are then brought in output. The *BIT_SMP_PRE_TDL* together with the *BIT_SMP_TDL* taps of the V-TDL are just used to select the valid, in order to get the valid before the TDL can acquire the signal, in such a way that by changing the position of the valid that we choose, we can move rightwards (if we choose the valid at the last taps of the TDL) or leftwards (if we choose the valid at the taps of the PRE-TDL, by setting a negative MIN_VALID_TAP_POS ) the characteristic curve and the calibration table of the TDC.
 
 Then given in input of the TDLs the asynchronous signal *AsyncInput*, in output we have a sampled version of *AsyncInput*. Basically the series of flip-flops present along the chain samples the incoming signal. In this way a thermometric code in output is generated (*m00_axis_undeco_tdata*). We can notice that the output data (*m00_axis_undeco_tdata*) has a length that is a multiple of 8 and it is in AXI4Stream.
-In addition to *BIT_SMP_TDL*, the sampling is managed also by *TYPE_TDL_i* and by *OFFSET_TAP_TDL_i* (i is a value between 0 and 15). Indeed by means of *TYPE_TDL_i*
+In addition to *BIT_SMP_TDL*, the sampling in (just) the Carry-chains is managed also by *TYPE_TDL_i* and by *OFFSET_TAP_TDL_i* (i is a value between 0 and 15). Indeed by means of *TYPE_TDL_i*
 we choose which taps of the *CARRY4* primitive we want to look at (*CO* taps or *O* taps) for the i-th TDL. Instead by means of *OFFSET_TAP_TDL_i* we can set an initial offset in the sampling chains, which means that the first flip-flop of the i-th TDL is not put in the first position of the chain, but after an *OFFSET_TAP_TDL_i* number of positions.
 We can see the concept of offset in the following figure:
 
@@ -47,7 +49,7 @@ If *SIM_VS_IMP = "SIM"* we import the simulated delays of the buffers of the cha
 
 ![.txt Image](doc/img/Filetxt.png)
 
-Then we can also align the data and the corresponding valid to the same clock pulse, in case of *BUFFERING_STAGE = TRUE*.
+Then, in (just) the Carry-chains, we can also align the data and the corresponding valid to the same clock pulse, in case of *BUFFERING_STAGE = TRUE*.
 We can see in the following figure the difference between the case *BUFFERING_STAGE = TRUE* and the case *BUFFERING_STAGE = FALSE* :
 
 ![Buffering Image](doc/img/BUFFERING_STAGE.svg)
@@ -56,11 +58,13 @@ We can see in the following figure the difference between the case *BUFFERING_ST
 
 # IP-Core
 
-Wrapping of *AXI4Stream_X7S_VirtualTDLWrapper* for AXI4-Stream interface for IP-Core.
+Wrapping of *AXI4Stream_VirtualTDL_Wrapper* for AXI4-Stream interface for IP-Core.
 
 ![IP-Core Image](doc/img/TappedDelayLine_IP-Core.png)
 
 ## Generic
+
+  - **XUS_VS_X7S**: XUS vs X7S technology node. *STRING* type, default **XUS**.
 
   - **TYPE_TDL_i**: CO vs O Sampling TDL, with i in [0; *NUMBER_OF_TDL* -1], *STRING* type, default **C**.
 
@@ -71,7 +75,8 @@ Wrapping of *AXI4Stream_X7S_VirtualTDLWrapper* for AXI4-Stream interface for IP-
   - **FILE_PATH_NAME_CO_DELAY**: Path of the .txt file that contains the CO delays for Simulation, *STRING* type.
   - **FILE_PATH_NAME_O_DELAY**: Path of the .txt file that contains the O delays for Simulation, *STRING* type.
 
-  - **NUMBER_OF_TDL**: Number of TDL in parallel, *POSITIVE* type *RANGE 1 TO 16*.
+  - **NUMBER_OF_CARRY_CHAINS**: Number of Carry-chains in parallel, *POSITIVE* type *RANGE 1 TO 16*.
+  - **NUMBER_OF_DSP_CHAINS**: Number of DSP-chains in parallel, *POSITIVE* type *RANGE 1 TO 16*.
   - **NUM_TAP_TDL**: Bit of the TDL (number of buffers in the TDL), *POSITIVE* type *RANGE 4 TO 4096*.
 
   - **BUFFERING_STAGE**: Buffering stage for the valid synch, it allows us to allign the data and the corresponding valid to the same clock pulse, *BOOLEAN* type.
@@ -90,7 +95,7 @@ Wrapping of *AXI4Stream_X7S_VirtualTDLWrapper* for AXI4-Stream interface for IP-
   - **NUM_TAP_PRE_TDL**: Bit of the PRE-TDL (number of buffers in the PRE-TDL), *INTEGER* type *RANGE 0 TO 256*.
   - **BIT_SMP_PRE_TDL**: Bit Sampled from the PRE-TDL each NUM_TAP_PRE_TDL/BIT_SMP_PRE_TDL after OFFSET_TAP_TDL, obviously equal in each TDLs, *INTEGER* type *RANGE 1 TO 4096*.
 
-  ![Generic Image](doc/img/TappedDelayLine_Generic.svg)
+  ![Generic Image](doc/img/TappedDelayLine_Generic.png)
 
 ## Port
 
@@ -108,28 +113,31 @@ Wrapping of *AXI4Stream_X7S_VirtualTDLWrapper* for AXI4-Stream interface for IP-
 
 ![Signals Image](doc/img/TappedDelayLine_Signals.png)
 
-This module instantiates the *AXI4Stream_X7S_VirtualTDLWrapper* and renames the input and the output interfaces with AXI4Stream, input as slave output as master.
+This module instantiates the *AXI4Stream_VirtualTDL_Wrapper* and renames the input and the output interfaces with AXI4Stream, input as slave output as master.
 
 # Sources
 We can find the following module in *hdl/*:
 
-  - **AXI4Stream_X7S_VirtualTDL**: Wrapping of AXI4Stream_X7S_VirtualTDLWrapper for usage in block design and IP-Core
-  - **AXI4Stream_X7S_VirtualTDLWrapper (TDL)**: Wrapping between TDLs and Sampler with axi4 stream output.
+  - **AXI4Stream_VirtualTDL**: Wrapping of AXI4Stream_VirtualTDL_Wrapper for usage in block design and IP-Core
+  - **AXI4Stream_VirtualTDL_Wrapper (TDL)**: Wrapping between TDLs and Sampler with axi4 stream output.
 
-  - **Sampler_TDL (TDL)**: Sampling the TDL, with the possibility to decimate the TAPs, and define the valid all syncronized to the input clock.
-  - **X7S_TappedDelayLine_CARRY4 (TDL)**: Simple TDL implemented using the CARRY4 primitive for Xilinx 7-Series.
+  - **CARRY_Sampler (TDL)**: Sampling the CARRY-TDL, with the possibility to decimate the TAPs, and define the valid all syncronized to the input clock.
+  - **CARRY_TDL (TDL)**: Simple TDL implemented using the CARRY8(4) primitive for Xilinx Ultrascale (7-Series).
+
+  - **DSP_Sampler (TDL)**: Sampling the DSP-TDL, with the possibility to decimate the TAPs, and define the valid all syncronized to the input clock.
+  - **DSP_TDL (TDL)**: Simple TDL implemented using the DSP48E2(E1) primitive for Xilinx Ultrascale (7-Series).
 
   - **LocalPackage_TDL (TDL)**: Functions for autoconfigurable all the VHDL file.
 
 
 # Simulation
-  We can find the VHDL simulation and relative Waveforms of *AXI4Stream_X7S_VirtualTDLWrapper* in the directory *src/*. It is possible to modify all the parameters.  In the same directory we can find also the file .txt containing the delays for the simulation.
+  We can find the VHDL simulation and relative Waveforms of *AXI4Stream_VirtualTDL_Wrapper* in the directory *src/*. It is possible to modify all the parameters.  In the same directory we can find also the file .txt containing the delays for the simulation.
 
-  - **tb_AXI4Stream_X7S_VirtualTDLWrapper**: VHDL simulation of *AXI4Stream_X7S_VirtualTDLWrapper*
-  - **tb_AXI4Stream_X7S_VirtualTDLWrapper_behav**: Waveforms of *tb_AXI4Stream_X7S_VirtualTDLWrapper*
+  - **tb_AXI4Stream_VirtualTDL_Wrapper**: VHDL simulation of *AXI4Stream_VirtualTDL_Wrapper*
+  - **tb_AXI4Stream_VirtualTDL_Wrapper_behav**: Waveforms of *tb_AXI4Stream_VirtualTDL_Wrapper*
   - **CO_Delay.txt**: File that contains the delays of the CO taps for simulation.
   - **O_Delay.txt**: File that contains the delays of the O taps for simulation.
-![wave Image](doc/img/Waveform.png)
+![wave Image](doc/img/Hybrid_waveform.png)
 
 # TODO
 

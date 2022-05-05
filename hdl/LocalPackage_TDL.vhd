@@ -77,44 +77,61 @@ package LocalPackage_TDL is
 	-- Max number of TAPs allowed
 	CONSTANT	MAX_NUMBER_OF_TAP	:	INTEGER	:=	4096 + 1024;					--! Max number of TAPs allowed
 
-	-- Max number of TDLs allowed
-	CONSTANT	MAX_NUMBER_OF_CARRY_CHAINS	:	INTEGER	:=	16;							--! Max number of TDLs allowed
+	-- Max number of CARRY-TDLs allowed
+	CONSTANT	MAX_NUMBER_OF_CARRY_CHAINS	:	INTEGER	:=	16;							--! Max number of CARRY-TDLs allowed
 	------------------------------------------------
 
 
 	--------------------------- TYPES DECLARATION ------------------------------
 
 	--------------- Type for TDLs -----------------
-    subtype CO_VS_O_STRING is string(1 TO 1);																--! Type of TDL in CARRY8(4) for Xilinx UltraScale (7-Series)
+    subtype CO_VS_O_STRING is string(1 TO 1);																--! Type of output of the TDL in CARRY8(4) for Xilinx UltraScale (7-Series)
 
-	-- Array of CO_VS_O_STRING, one for each TDL
-	type CO_VS_O_ARRAY_STRING	is array (0 to MAX_NUMBER_OF_CARRY_CHAINS -1) of  CO_VS_O_STRING; --(0 TO MAX_NUMBER_OF_TDL-1)	of	CO_VS_O_STRING;						--! Type used to make more compact the definition of the kind of output (CO or O) of each one of the TDLs in parallel.
+	-- Array of CO_VS_O_STRING, one for each CARRY-TDL
+	type CO_VS_O_ARRAY_STRING	is array (0 to MAX_NUMBER_OF_CARRY_CHAINS -1) of  CO_VS_O_STRING; 			--! Type used to make more compact the definition of the kind of output (CO or O) of each one of the CARRY-TDLs in parallel.
 
-	-- Array of OFFSET_TAP_TDL, one for each TDL
-	type OFFSET_TAP_TDL_ARRAY_TYPE	is array (0 to MAX_NUMBER_OF_CARRY_CHAINS -1)	of	NATURAL	RANGE 0 TO 2047;
-
-
-    
+	-- Array of OFFSET_TAP_TDL, one for each CARRY-TDL
+	type OFFSET_TAP_TDL_ARRAY_TYPE	is array (0 to MAX_NUMBER_OF_CARRY_CHAINS -1)	of	NATURAL	RANGE 0 TO 4095;    --! Type used to make more compact the definition of the offset in the sampling of each one of the CARRY-TDLs in parallel.
 
 
-	-------- FUNCTIONS AND PROCEDURES FOR XUS(X7S)_TAPPED_DELAY_LINE_CARRY8(4) ---------
+    ------------- Type for simulation -------------
+
+	-- Array of Time
+	type TIME_ARRAY_TYPE is array (0 TO MAX_NUMBER_OF_TAP-1) of Time;									--! Type used to make more compact the defintion of the delays introduced by the fictitious stage in case of *SIM_VS_IMP = 'SIM'*
+
+	-- Matrix of Time
+	type TIME_MATRIX_TYPE is array (0 TO MAX_NUMBER_OF_CARRY_CHAINS-1, 0 to MAX_NUMBER_OF_TAP-1) of Time;		--! Type used to store the input .txt file with *Time* unit of measure.
+
+	
+	----------------------------------------------------------------------------
+
+
+
+	-------- FUNCTIONS AND PROCEDURES FOR XUS OR X7S TAPPED DELAY LINES ---------
+
+	------- Compute the Number of DSP Blocks ------
+	--! \brief This function is used in the *DSP_TDL* module in order to compute how many basic blocks *DSP48E2* or *DSP48E1* have to be chained in order to get the TDL.
+	--! Given in input the *NUM_TAP_TDL* and *BIT_DSP*, the function first computes the integer number of *NUM_DSP_BLOCK* by dividing the previous values.
+	--! Then in case the division brings to a residual larger than zero,
+	--! the function increments  *NUM_DSP_BLOCK* block by 1, in order to reach the following integer number.
+	--! In the case the division provides '0', it is enough just 1 *DSP48E2(E1)* block.
+
+	function Compute_Num_DSP (
+
+		------ TDL Dimension ------
+		num_tap_tdl		:	integer;
+		bit_dsp	:	positive
+		---------------------------
+
+	) return integer ;
+	--------------------------------------------------
 
 	------- Compute the Number of Carry Blocks ------
-	--! \brief This function is used in the *XUS(X7S)_TappedDelayLine_CARRY8(4)* module in order to compute how many basic blocks *CARRY8(4)* have to be chained in order to get the TDL.
+	--! \brief This function is used in the *CARRY_TDL* module in order to compute how many basic blocks *CARRY8* or *CARRY4* have to be chained in order to get the TDL.
 	--! Given in input the *NUM_TAP_TDL* and *BIT_CARRY_BLOCK*, the function first computes the integer number of *NUM_CARRY_BLOCK* by dividing the previous values.
 	--! Then in case the division brings to a residual larger than zero,
 	--! the function increments  *NUM_CARRY_BLOCK* block by 1, in order to reach the following integer number.
 	--! In the case the division provides '0', it is enough just 1 *CARRY8(4)* block.
-
-	function Compute_Num_DSP (
-
-
-		num_tap_tdl		:	integer;
-		bit_dsp	:	positive
-
-
-	) return integer ;
-	
 	
 	function Compute_NumCarryBlock (
 
@@ -133,8 +150,8 @@ package LocalPackage_TDL is
 
 	--------------- FUNCTIONS AND PROCEDURES FOR SAMPLING TDL ------------------
 
-	---------- Sampling properly the TDL -------------
-	--! \brief This function is used in the *Sampler_TDL* module in order to manage the position of the flip flops at the output of each buffer and so deciding where we have to sample the data.
+	---------- Sampling properly the CARRY-TDL -------------
+	--! \brief This function is used in the *CARRY_Sampler* module in order to manage the position of the flip flops at the output of each buffer and so deciding where we have to sample the data.
 	--! Indeed, given in input *NUM_TAP_TDL*, *OFFSET_TAP_TDL*, *BIT_SMP_TDL*, the signal at the output of each buffer *AsyncTaps_TDL*,
 	--! the function first computes the *step_tap_tdl* with which we want to sample by dividing *NUM_TAP_TDL* by *BIT_SMP_TDL* and approximates the result by defect. In case the result of the division is 0, we set the *step_tap_tdl* to 1,
 	--! which means that we sample the output of each buffer.
@@ -171,12 +188,18 @@ package LocalPackage_TDL is
 	) return std_logic_vector ;
 	------------------------------------------------
     
+	---------- Sampling properly the DSP-TDL -------------
+	--! \brief This function is used in the *DSP_Sampler* module in order to manage the position of the flip flops at the output of each buffer and so deciding where we have to sample the data.
+	--! Indeed, given in input *NUM_TAP_TDL* and *BIT_SMP_TDL*, the signal at the output of each buffer *AsyncTaps_TDL*,
+	--! the function first computes the *step_tap_tdl* with which we want to sample by dividing *NUM_TAP_TDL* by *BIT_SMP_TDL* and approximates the result by defect. In case the result of the division is 0, we set the *step_tap_tdl* to 1,
+	--! which means that we sample the output of each buffer.
+	--! Then the function initializes the outputs of the flip flops to 1 because the propagation of our signal will always be seen as a propagation of zeros in the output result of the ALU.
     
     function Sample_AsyncTapsDSP (
 
 		------ Sampler Dim -------
 		num_tap_tdl		:	positive;
---		offset_tap_tdl	:	natural;
+
 		bit_smp_tdl		:	positive;
 		---------------------------
 		--------- Pre TDL ---------
@@ -190,8 +213,10 @@ package LocalPackage_TDL is
 		---------------------------
 
 	) return std_logic_vector ;
+	------------------------------------------------------
+	
 	------ Wrap the ValidPosition_SampledTaps ------
-	--! \brief This function is used in the *Sampler_TDL* module in order to find a vector (*ValidPosition_SampledTaps*) containing the values of *SampledTaps_TDL* but not all the values, only the values of *SampledTaps_TDL* in the positions where we want to search for the Valid signal.
+	--! \brief This function is used in the *CARRY_Sampler* and *DSP_Sampler* modules in order to find a vector (*ValidPosition_SampledTaps*) containing the values of *SampledTaps_TDL* but not all the values, only the values of *SampledTaps_TDL* in the positions where we want to search for the Valid signal.
 	--! It takes in input *MIN_VALID_TAP_POS*, *STEP_VALID_TAP_POS* , *MAX_VALID_TAP_POS* and the sampled data *SampledTaps_TDL*.
 	--! First the function computes how many "good" positions we have by dividing (*MAX_VALID_TAP_POS* - *MIN_VALID_TAP_POS* +1) and *STEP_VALID_TAP_POS*.
 	--! Then the function writes in *ValidPosition_SampledTaps* the values contained in the positions that we are looking for of *SampledTaps_TDL* starting from the value at the position *MIN_VALID_TAP_POS*, and stepping by *step_tap_tdl* until we reach the position *MAX_VALID_TAP_POS*.
@@ -215,10 +240,10 @@ package LocalPackage_TDL is
 		---------------------------
 
 	) return std_logic_vector;
-	------------------------------------------------
+	----------------------------------------------------------------
 
 	------- Compute the Valid_SampledTaps_TDL ------
-	--! \brief This function is used in the *Sampler_TDL* module in order to compute the overall Valid signal *m00_axis_undeco_tvalid*, that has to last just 1 clock cycle.
+	--! \brief This function is used in the *CARRY_Sampler* module in order to compute the overall Valid signal *m00_axis_undeco_tvalid*, that has to last just 1 clock cycle.
     --! This function takes in input which outputs we are interested in (*TYPE_TDL*), so CO or O, and the signals *RiseValid* and *FallValid*.
     --! *Risevalid* is the value of *ValidPosition_SampledTaps* chosen at the *ValidPositionTap*. *FallValid* is a signal chosen in such a way that
 	--! the *m00_axis_undeco_tvalid* will last just 1 clock cycle. If *TYPE_TDL* = "C", then if *RiseValid* = '1' and *FallValid* = '0', it means that we have read a '1',
@@ -239,7 +264,16 @@ package LocalPackage_TDL is
 
 
 	) return std_logic ;
-	------------------------------------------------
+	------------------------------------------------------------
+
+	------- Compute the Valid_SampledTaps_TDL ------
+	--! \brief This function is used in the *DSP_Sampler* module in order to compute the overall Valid signal *m00_axis_undeco_tvalid*, that has to last just 1 clock cycle.
+    --! This function takes in input the signals *RiseValid* and *FallValid*.
+    --! *Risevalid* is the value of *ValidPosition_SampledTaps* chosen at the *ValidPositionTap*. *FallValid* is a signal chosen in such a way that
+	--! the *m00_axis_undeco_tvalid* will last just 1 clock cycle. 
+    --! Since in the DSP we have always to read a propagation of zeros, then if *RiseValid* = '0' and *FallValid* = '1', it means that we have read a '1' at the output,
+	--! so the *m00_axis_undeco_tvalid* must be '1'. Otherwise it will remain at '0'.
+
     
     function Compute_ValidSampledTapsDSP (
 
@@ -253,10 +287,10 @@ package LocalPackage_TDL is
 	----------------------------------------------------------------------------
 
 
-	---- FUNCTIONS AND PROCEDURES FOR AXI4 STREAM XUS(X7S) VIRTUAL TDL WRAPPER ------
+	---- FUNCTIONS AND PROCEDURES FOR AXI4 STREAM VIRTUAL TDL WRAPPER ------
 
 	---- CO vs O CARRY8(4) Taps in Xilinx UltraScale (7-Series) ---
-	--! \brief This procedure is used in the *AXI4Stream_XUS(X7S)_VirtualTDLWrapper* module in order to select the CO outputs of each buffer or the O output of each buffer.
+	--! \brief This procedure is used in the *AXI4Stream_VirtualTDL_Wrapper* module in order to select the CO outputs of each buffer or the O output of each buffer.
 	--! It takes in input *TYPE_TDL*, *CO_Taps* and *O_Taps* and gives in output *AsyncTaps_TDL*.
 	--! If *TYPE_TDL* = "C" it associates to *AsyncTaps_TDL* the outputs *CO_Taps*.
 	--! If *TYPE_TDL* = "O" it associates to *AsyncTaps_TDL* the outputs *O_Taps*.
@@ -278,56 +312,119 @@ package LocalPackage_TDL is
 		----------------------------------------------
 
 	);
-	-----------------------------------------------
-    
+	---------------------------------------------------------------------------
+
+	---- Output Taps in Xilinx UltraScale (7-Series) ---
+	--! \brief This procedure is used in the *AXI4Stream_VirtualTDL_Wrapper* module in order to select the outputs of DSP.
+	--! It takes in input *Taps* and gives in output *AsyncTaps_TDL*.
+	--! It associates to *AsyncTaps_TDL* the outputs *Taps*.
+	
     procedure	Choose_AsyncTaps_DSP (
 
-
-		signal	Taps	:	IN	STD_LOGIC_VECTOR;										
+        ------------- Tapped Delay-Line --------------
+		signal	Taps	:	IN	STD_LOGIC_VECTOR;			   -- Taps in output of the DSP	chain						
 		
-		signal	AsyncTaps_TDL	:	OUT	STD_LOGIC_VECTOR								
+		signal	AsyncTaps_TDL	:	OUT	STD_LOGIC_VECTOR	   -- Async Taps						
 
 		----------------------------------------------
 
 	);
 
-	
+
+	--- Extract Delay for Simulation from File ----
+	--! \brief This function is used in the *AXI4Stream_X7S_VirtualTDLWrapper* module in order to extract from a file .txt the values of the delays of the CO and O outputs in simulation phase.
+	--! It takes in input a file.txt containing in the first row the unit of measure of the delays, and in the following rows the values of the delays written as integers.
+	--! The file .txt basically contains a matrix, that can be read in this way: each columns represents a TDL, and in each column we have the values of the delay (as integers) of each buffer contained in the TDL of interest.
+	--! Then the function saves these values in a matrix, containing the values of *Time* type. An important feature of this function is that it has to be exploited and activated only if we are in simulation,
+	--! so only if *SIM_VS_IMP = "SIM"*, because if we are in implementation phase we don't have to read any delay from the external world.
+	--! \image html Filetxt.png
+
+	function	CO_O_ExtractDelayFromFile (
+
+		------------- Sim vs Impl ------------------
+		SIM_VS_IMP	:	STRING(1 To 3);													-- SIMULATION or IMPLEMENTATION (Load only in SIM)
+		--------------------------------------------
+
+		------------- Simulation Delay --------------
+		file_path_name_co_o_delay			:	string;             					-- name and Path of the .txt file for CO or O Delay
+		----------------------------------------------
+
+		--------------- Dimension -------------------
+		num_tap_tdl		:	positive;             										-- Number of taps to simulate in each TDL
+		number_of_tdl	:	positive													-- Number of TDL to simulate
+		----------------------------------------------
+
+	)  return TIME_MATRIX_TYPE;
+	-----------------------------------------------
+
+	------------------- FUNCTION DESCRIPTION ---------------------
+
+	----------------------------------------------------------------------------
+
+
+	------ Extract the TDL from Time Matrix -------
+	--! \brief This function is used in the *AXI4Stream_X7S_VirtualTDLWrapper* module in order to extract from the matrix of delays (*CO_DELAY* \ *O_DELAY*) just the an array of *MAX_NUMBER_OF_TAP* length,
+	--! and this array corresponds to the delay of the corresponding TDL.
+
+	function From_TimeMatrix_To_TimeArray(
+		co_o_delay_matrix	:	TIME_MATRIX_TYPE;										-- Co or O Delay Matrix of Time
+
+		tdl_to_extract		:	integer													-- Number of the TDL in which we are interested in
+
+	) return TIME_ARRAY_TYPE;
+	-----------------------------------------------
+
+
+	----------------------------------------------------------------------------
+
+--------------------------------	
 
 end LocalPackage_TDL;
 
 
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
 package body LocalPackage_TDL is
 
 
-	-------- FUNCTIONS AND PROCEDURES FOR XUS(X7S)_TAPPED_DELAY_LINE_CARRY8(4) ---------
+	-------- FUNCTIONS AND PROCEDURES FOR XUS OR X7S TAPPED DELAY LINE ---------
 
 	------- Compute the Number of Carry Blocks ------
 	--! Description of the signals of the procedure:
-	--! \param num_tap_tdl Bits of the TDL (number of buffers in the TDL)
-	--! \param bit_carry_block Bits inside the primitive (carry block)
+	--! \param num_tap_tdl Bits of the TDL (number of taps in the TDL)
+	--! \param bit_dsp Bits of the output of the primitive (dsp block)
 
 	function Compute_Num_DSP (
 
-
+		------ TDL Dimension ------
 		num_tap_tdl		:	integer;
 		bit_dsp	:	positive
-
+		---------------------------
 
 	) return integer is
 
 		 variable  num_dsp : integer;
 
 	begin
-
+		 
+		 -- Compute the Number of DSP Blocks required, aproximated by defect
 		 num_dsp := integer(num_tap_tdl)/integer(bit_dsp);
 
+		 -- If this is not a perfect division, add one block more
 		 if (integer(num_tap_tdl) mod integer(bit_dsp)) > 0 then
 			 num_dsp := num_dsp + 1;
 		 end if;
 
 		 return integer(num_dsp);
 	end function;
-	
+	-----------------------------------------------------------
+
+	-------- FUNCTIONS AND PROCEDURES FOR XUS OR X7S TAPPED DELAY LINE ---------
+
+	------- Compute the Number of Carry Blocks ------
+	--! Description of the signals of the procedure:
+	--! \param num_tap_tdl Bits of the TDL (number of buffers in the TDL)
+	--! \param bit_carry_block Bits inside the primitive (carry block)
 	
 	function Compute_NumCarryBlock (
 
@@ -363,7 +460,7 @@ package body LocalPackage_TDL is
 
 	----------------------------------------------------------------------------
 
-	---------- Sampling properly the TDL -------------
+	---------- Sampling properly the CARRY-TDL -------------
 	--! Description of the signals of the procedure:
 	--! \param type_tdl CO vs O Sampling
 	--! \param num_tap_tdl Bits of the TDL (number of buffers in the TDL)
@@ -474,12 +571,18 @@ package body LocalPackage_TDL is
 	end function;
 	------------------------------------------------
     
-    
+    ---------- Sampling properly the DSP-TDL -------------
+	--! Description of the signals of the procedure:
+	--! \param num_tap_tdl Bits of the TDL (number of taps in the TDL)
+	--! \param bit_smp_tdl Bits Sampled from the TDL each *NUM_TAP_TDL* / *BIT_SMP_TDL* , obviously equal in all TDLs. Basically it is the number of Flip Flops
+	--! \param bit_smp_pre_tdl Bits sampled from the PRE-TDL taps
+	--! \param num_tap_pre_tdl Taps of the PRE-TDL
+	--! \param AsyncTaps_TDL AsyncTaps
+
     function Sample_AsyncTapsDSP (
 
 		------ Sampler Dim --------
 		num_tap_tdl		:	positive;
---		offset_tap_tdl	:	natural;
 		bit_smp_tdl		:	positive;
 		---------------------------
 
@@ -497,7 +600,6 @@ package body LocalPackage_TDL is
 
 		variable	step_tap_tdl		:	integer;
 		Variable	step_tap_pre_tdl	:	integer;
---		variable	offset_tap_tmp	    :	integer;
 
 
 		variable	SampledTaps_preTDL_tmp	:	std_logic_vector(bit_smp_pre_tdl -1 downto 0);
@@ -538,20 +640,10 @@ package body LocalPackage_TDL is
 
 
 
-		-- Sampling of the BIT_SMP_TDL from the NUM_TAP_TDL AsyncTaps_TDL, starting from OFFSET_TAP_TDL each step_tap_tdl
+		-- Sampling of the BIT_SMP_TDL from the NUM_TAP_TDL AsyncTaps_TDL each step_tap_tdl
 		for I in 0 to bit_smp_tdl -1 loop
 
---			-- Resize Offset
---			if offset_tap_tdl >= step_tap_tdl then
---				offset_tap_tmp	:=	offset_tap_tdl mod step_tap_tdl;
---			else
---				offset_tap_tmp	:=	offset_tap_tdl;
---			end if;
-
---			if I*step_tap_tdl + offset_tap_tmp < num_tap_tdl + num_tap_pre_tdl then
---				SampledTaps_TDL_tmp(I)	:=	AsyncTaps_TDL(I*step_tap_tdl + offset_tap_tmp);
---			end if;
-			if I*step_tap_tdl < num_tap_tdl + num_tap_pre_tdl then
+ 			if I*step_tap_tdl < num_tap_tdl + num_tap_pre_tdl then
 				SampledTaps_TDL_tmp(I)	:=	AsyncTaps_TDL(I*step_tap_tdl);
 			end if;
 
@@ -563,6 +655,7 @@ package body LocalPackage_TDL is
 		return	SampledTaps_tmp;
 
 	end function;
+	------------------------------------------------------------
 
 	------ Wrap the ValidPosition_SampledTaps ------
 	--! Description of the signals of the procedure:
@@ -624,7 +717,7 @@ package body LocalPackage_TDL is
 		return	ValidPosition_SampledTaps_tmp(ValidPosition_SampledTaps_lng-1 downto 0);
 
 	end function;
-	------------------------------------------------
+	-----------------------------------------------------------
 
 	------- Compute the Valid_SampledTaps_TDL ------
 	--! Description of the signals of the procedure:
@@ -673,7 +766,11 @@ package body LocalPackage_TDL is
 	end function;
 	------------------------------------------------
 
-    
+    ------- Compute the Valid_SampledTaps_TDL ------
+	--! Description of the signals of the procedure:
+	--! \param RiseValid Value of the bit in *ValidPosition_SampledTaps* chosen by the *ValidPositionTap*
+	--! \param FallValid Signal chosen in such a way that the *m00_axis_undeco_tvalid* will last just 1 clock cycle
+
     function Compute_ValidSampledTapsDSP (
 
 		---- Valid Gen Signals ----
@@ -701,9 +798,9 @@ package body LocalPackage_TDL is
 
 
 
-	---- FUNCTIONS AND PROCEDURES FOR AXI4 STREAM XUS(X7S) VIRTUAL TDL WRAPPER ------
+	---- FUNCTIONS AND PROCEDURES FOR AXI4 STREAM VIRTUAL TDL WRAPPER ------
 
-	---- CO vs O CARRY8(4) Taps in Xilinx UltraScale ---
+	---- CO vs O CARRY8(4) Taps in Xilinx UltraScale (7-Series) ---
 	--! Description of the signals of the procedure:
 	--! \param type_tdl CO vs O Sampling
 	--! \param CO_Taps CO Taps in output, AsyncInput delayed not inverted
@@ -744,10 +841,14 @@ package body LocalPackage_TDL is
 	end procedure;
 	-----------------------------------------------
     
+	---- DSP48E2(E1) Taps in Xilinx UltraScale (7-Series) ---
+	--! Description of the signals of the procedure:
+	--! \param Taps  Taps in output
+	--! \param AsyncTaps_TDL Async Taps
     
     procedure	Choose_AsyncTaps_DSP (
 
-		signal	Taps	:	IN	STD_LOGIC_VECTOR;								
+		signal	Taps	:	IN	STD_LOGIC_VECTOR;								-- Taps in output
 		
 		signal	AsyncTaps_TDL	:	OUT	STD_LOGIC_VECTOR						-- Async Taps
 
@@ -760,5 +861,170 @@ package body LocalPackage_TDL is
 		AsyncTaps_TDL	<=	Taps;
 
 	end procedure;
+	-----------------------------------------
+
+	--- Extract Delay for Simulation from File ----
+	--! Description of the signals of the procedure:
+	--! \param SIM_VS_IMP Simulation or Implementation
+	--! \param file_path_name_co_o_delay Name and Path of the .txt file for CO or O Delay
+	--! \param num_tap_tdl Number of taps to simulate in each TDL
+	--! \param number_of_tdl Number of TDL to simulate
+
+	function	CO_O_ExtractDelayFromFile (
+
+		------------- Sim vs Impl ------------------
+		SIM_VS_IMP	:	STRING(1 To 3);													-- SIMULATION or IMPLEMENTATION (Load only in SIM)
+		--------------------------------------------
+
+		------------- Simulation Delay --------------
+		file_path_name_co_o_delay			:	string;									-- name and Path of the .txt file for CO or O Delay
+		----------------------------------------------
+
+		--------------- Dimension -------------------
+		num_tap_tdl		:	positive;             										-- Number of taps to simulate in each TDL
+		number_of_tdl	:	positive													-- Number of TDL to simulate
+		----------------------------------------------
+
+	)  return TIME_MATRIX_TYPE is
+
+
+		------------ File CO O Delay Pointer -----------
+		file		file_path_name_co_o_delay_tmp	:	text;												-- Pointer to File
+
+		variable	space							:	character;											-- Variable that takes into account the space between the values of the .txt file
+		variable	row 							:	line;												-- File line
+		-----------------------------------------------
+
+		----------- Time Unit of Measure ------------
+		variable	read_time_unit	:	boolean		:=	True;												-- It is True only in the first line to detect the Unit of Measure
+		variable	time_unit		:	character	:=	'p';												-- Variable to set the unit of measure... 'f'= femto, 'p' =pico, 'n' = nano
+		---------------------------------------------
+
+		---------- Temp value from File -------------
+		variable	co_o_delay_real_tmp	:	real;
+		variable	co_o_delay_time_tmp	:	time;
+		---------------------------------------------
+
+		---------- Time Matrix in Output ------------
+		variable	co_o_delay_matrix_time	:	TIME_MATRIX_TYPE	:=	(others => (others => 0 fs));		-- Output matrix MAX_NUMBER_OF_TDL x MAX_NUMBER_OF_BUFFER  ... the values not written in the .txt are set to 0
+		variable	file_parser_idx			:	integer				:=	0;									-- Row index of co_o_delay_matrix_time
+		---------------------------------------------
+
+		begin
+
+			-- Load the CO and O delay only in SIM
+			if SIM_VS_IMP = "SIM" then
+
+				------------ File CO O Delay Pointer -----------
+				file_open(file_path_name_co_o_delay_tmp, file_path_name_co_o_delay, read_mode);
+				------------------------------------------------
+
+
+				while(not(endfile(file_path_name_co_o_delay_tmp))) loop
+
+					--------------- Read the Row ---------------
+					readline(file_path_name_co_o_delay_tmp, row);
+					---------------------------------------------
+
+					--- The First Row is the Unit of Measure ---
+					if read_time_unit = True then
+
+						------ Info to read in the Header ------
+						read(row, time_unit);													-- n = nano, p = pico, f = femto (*)
+						-- Here Others Info
+						----------------------------------------
+
+						----------- End of the Header ---------
+						read_time_unit	:=	False;												-- Only the first time
+						file_parser_idx	:=	0;													-- Reset the row_idx of the matrix
+						---------------------------------------
+					---------------------------------------------
+
+					----- The Others Row is the Time Matrix -----
+					else
+
+						----- Parse the Colon in each Row ------
+						for number_of_tdl_idx in 0 to number_of_tdl-1 loop						-- we read the values present on each row of the .txt file and we store the values in the array n_tap
+
+							------ Acquire Delay as Real ------
+							read(row, co_o_delay_real_tmp);
+							read(row, space);
+							------------------------------------
+
+							-------- Convert Real in Time ------
+							if time_unit = 'n' then
+								co_o_delay_time_tmp	:=	real(co_o_delay_real_tmp) * 1 ns;
+
+							elsif time_unit = 'p' then
+								co_o_delay_time_tmp	:=	real(co_o_delay_real_tmp) * 1 ps;
+
+							elsif time_unit = 'f' then
+								co_o_delay_time_tmp	:=	real(co_o_delay_real_tmp) * 1 fs;
+
+							else
+								co_o_delay_time_tmp	:=	real(co_o_delay_real_tmp) * 1 ps;
+
+							end if;
+							------------------------------------
+
+							------ save time in matrix ---------
+							co_o_delay_matrix_time(number_of_tdl_idx, file_parser_idx)	:=	co_o_delay_time_tmp;
+							------------------------------------
+
+
+						end loop;
+						----------------------------------------
+
+						file_parser_idx	:=	file_parser_idx +1;
+
+					end if;
+					---------------------------------------------
+
+
+				end loop;
+
+				------------ File CO O Delay Pointer -----------
+				file_close(file_path_name_co_o_delay_tmp);
+				------------------------------------------------
+
+			end if;
+
+
+
+		return co_o_delay_matrix_time;
+
+	end function;
+	-----------------------------------------------
+
+	------ Extract the TDL from Time Matrix -------
+	--! Description of the signals of the procedure:
+	--! \param co_o_delay_matrix Co or O Delay Matrix of Time
+	--! \param tdl_to_extract Number of the TDL in which we are interested in
+
+	function From_TimeMatrix_To_TimeArray (
+		co_o_delay_matrix	:	TIME_MATRIX_TYPE;										-- Co or O Delay Matrix of Time
+
+		tdl_to_extract		:	integer													-- Number of the TDL in which we are interested in
+
+	) return TIME_ARRAY_TYPE is
+
+		variable	co_o_delay_array_tmp	:	TIME_ARRAY_TYPE;
+
+	begin
+
+		for I in 0 to MAX_NUMBER_OF_TAP-1 loop
+
+			co_o_delay_array_tmp(I) := co_o_delay_matrix(tdl_to_extract, I);
+
+		end loop;
+
+		return co_o_delay_array_tmp;
+
+
+	end function;
+	-----------------------------------------------
+
+
+	----------------------------------------------------------------------------
 	
 end LocalPackage_TDL;

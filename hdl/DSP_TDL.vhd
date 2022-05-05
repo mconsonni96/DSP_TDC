@@ -13,6 +13,16 @@
 --                                                                                                                     --
 -------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------
+------------------------- BRIEF MODULE DESCRIPTION -----------------------------
+--! \file
+--! \brief This module creates the chain containing a *NUM_TAP_TDL* long output data, starting from the basic block *DSP48E1* (for Xilinx 7-Series) or *DSP48E2* (for Xilinx Ultrascale/Ultrascale+), which contains a 48-bit long output data. The propagation
+--! of the input signal consists in the propagation of the carry due to the operation of sum managed by the ALU, contained in the DSP slice.
+--! In the following figure we can see the description of the *DSP48E1* primitive.
+--! \image html DSP_FINAL.png [DSP48E1 image]
+
+--------------------------------------------------------------------------------
+
+
 
 ----------------------------- LIBRARY DECLARATION ------------------------------
 
@@ -58,35 +68,50 @@ library work;
 
 --------------------------------------------------------------------------------
 
+-----------------------------ENTITY DESCRIPTION --------------------------------
+--! \brief In this module the structure of the overall TDL is built, in a way that is described in the architecture description part.
+--! The length of the chain is determined by *NUM_TAP_TDL* and in input of the chain we have the *AsyncInput* which propagates with the physical intrinsic delay of sum operation of the chain.
+--------------------------------------------------------------------------------
 
 entity DSP_TDL is
 	generic (
 
-      XUS_VS_X7S   :  STRING := "XUS";
+      XUS_VS_X7S   :  STRING := "XUS";                                     --! Technology node (Ultrascale or 7-Series)
       
-      NUM_TAP_TDL				   :	POSITIVE	RANGE 4 TO 4096	:= 96;
+      NUM_TAP_TDL				   :	POSITIVE	RANGE 4 TO 4096	:= 96;         --! Bits of the TDL (number of taps in the TDL)
 
-      NUM_TAP_PRE_TDL         :   INTEGER     RANGE 0 TO 1024  := 48
+      NUM_TAP_PRE_TDL         :   INTEGER     RANGE 0 TO 1024  := 48       --! Bits of the PRE-Tapped Delay-Line (number of taps in the PRE-TDL)
 
 	);
 	port(
 
-		clk : in std_logic;
+		clk : in std_logic;                                                  --! clock is needed to feed the output P flip-fops of the DSP block, in order to do the sampling of the TDL directly inside the block
 
-		AsyncInput	:	in std_logic;
+		AsyncInput	:	in std_logic;                                         --! Asynchronous input data
 
-      Taps_TDL	:	out std_logic_vector(NUM_TAP_TDL-1 downto 0);
+      Taps_TDL	:	out std_logic_vector(NUM_TAP_TDL-1 downto 0);            --! Taps in output
 
-      Taps_preTDL :   out std_logic_vector(NUM_TAP_PRE_TDL-1 downto 0)
+      Taps_preTDL :   out std_logic_vector(NUM_TAP_PRE_TDL-1 downto 0)     --! Taps in output of the PRE-TDL
 
 	);
 end DSP_TDL;
 
+------------------------ ARCHITECTURE DESCRIPTION ------------------------------
+--! \brief In order to build the chain of DSP blocks, the module first computes (both for the PRE_TDL and the TDL) how many *DSP48E2* or *DSP48E1* we have to chain in order to get *NUM_TAP_TDL* taps and *NUM_TAP_PRE_TDL*, by means of the function *Compute_NumDSP*.
+--! We need to chain *NUM_DSP_TDL* of *DSP48E2(E1)*.
+--! Then, the module builds the chain of DSPs,
+--! first by initializing the basic block *DSP48E2(E1)* and then by replicating it *NUM_DSP_TDL* times. 
+--------------------------------------------------------------------------------
 
 architecture Behavioral of DSP_TDL is
 
-	 constant	BIT_DSP	:	POSITIVE	:= 48;
+	 -------------------------------- CONSTANT ----------------------------------
 
+	------- Num of Carry Blocks of TDL --------
+	-- Bits inside the primitive (dsp block)
+    constant	BIT_DSP	:	POSITIVE	:= 48;
+
+   -- Number of dsp blocks required to have NUM_TAP_TDL
 	 constant	NUM_DSP_TDL	:	INTEGER	:=
 		Compute_Num_DSP
 		(
@@ -94,6 +119,7 @@ architecture Behavioral of DSP_TDL is
 			BIT_DSP
 		);
 
+   -- Number of dsp blocks required to have NUM_TAP_PRE_TDL
 	 constant	NUM_DSP_PRE_TDL	:	INTEGER	:=
 		Compute_Num_DSP
 		(
@@ -101,25 +127,38 @@ architecture Behavioral of DSP_TDL is
 			BIT_DSP
 		);
 
-     constant NUM_DSP_TOT : POSITIVE := NUM_DSP_TDL + NUM_DSP_PRE_TDL;
+   -- Number of total dsp blocks required
+    constant NUM_DSP_TOT : POSITIVE := NUM_DSP_TDL + NUM_DSP_PRE_TDL;
 
-	 type B_array_type  is  array(0 to NUM_DSP_TOT-1) of std_logic_vector(17 downto 0);
+	-- array needed to cascade the DSP blocks by means of their BCOUT output 
+    type B_array_type  is  array(0 to NUM_DSP_TOT-1) of std_logic_vector(17 downto 0);
 	 signal BCOUT : B_array_type;
 	 
-	 
+	 ----- Output of the NUM_DSP_TDL -----
     signal O	: std_logic_vector(NUM_DSP_TOT*BIT_DSP-1 downto 0);
 
-	 signal B : std_logic_vector(17 downto 0) := (Others => '0');
+	 
+    ----- Input signal of the first DSP in the chain. It will contain our Async Input
+    signal B : std_logic_vector(17 downto 0) := (Others => '0');
 	----------------------------------------------------------------------------
 
 
 begin
     
+    -------------------------------- DATA FLOW  --------------------------------
+	-- In case we have *NUM_TAP_TDL* and *NUM_TAP_PRE_TDL* that are not 48 multiples, we have to pay attention that in reality O output are all the BIT_DSP*NUM_DSP_TOT outputs of the DSP48E2(E1) chain, but we just want to take
+	-- respectively *NUM_TAP_PRE_TDL* of them for what concern the PRE-TDL and *NUM_TAP_TDL* for what concern the V-TDL.
+	
+    --- Async Input ---
     B <= (0 => AsyncInput, Others => '0');
     
-    Taps_preTDL	 <=	 O(NUM_DSP_PRE_TDL*BIT_DSP - 1 downto NUM_DSP_PRE_TDL*BIT_DSP - NUM_TAP_PRE_TDL);
+    
+    --- Output connections ---
+    Taps_preTDL	 <=	O(NUM_DSP_PRE_TDL*BIT_DSP - 1 downto NUM_DSP_PRE_TDL*BIT_DSP - NUM_TAP_PRE_TDL);
     Taps_TDL       <=  O(NUM_DSP_PRE_TDL*BIT_DSP + NUM_TAP_TDL -1 downto NUM_DSP_PRE_TDL*BIT_DSP);
     
+    
+    ---- XUS TDL generation ----
     XUS_DSP_GEN : if XUS_VS_X7S = "XUS" generate
     begin
     DSP48E2_inst : DSP48E2
@@ -173,7 +212,7 @@ begin
             INMODEREG => 1,                    -- Pipeline stages for INMODE (0-1)
             MREG => 0,                         -- Multiplier pipeline stages (0-1)
             OPMODEREG => 1,                    -- Pipeline stages for OPMODE (0-1)
-            PREG => 1                          -- Number of pipeline stages for P (0-1)
+            PREG => 1                          -- NEEDED TO SAMPLE THE TDL INTERNALLY
          )
          port map (
             -- Cascade outputs: Cascade Ports
@@ -289,7 +328,7 @@ begin
                           INMODEREG => 1,                    -- Pipeline stages for INMODE (0-1)
                           MREG => 0,                         -- Multiplier pipeline stages (0-1)
                           OPMODEREG => 1,                    -- Pipeline stages for OPMODE (0-1)
-                          PREG => 1                          -- Number of pipeline stages for P (0-1)
+                          PREG => 1                          -- NEEDED TO SAMPLE THE TDL INTERNALLY
                        )
                        port map (
                           -- Cascade outputs: Cascade Ports
@@ -354,6 +393,8 @@ begin
                end generate;
        end generate;
        
+      
+      ---- X7S TDL generation ----
       X7S_DSP_GEN : if XUS_VS_X7S = "X7S" generate
       begin
         
@@ -386,7 +427,7 @@ begin
               INMODEREG => 1,                    -- Number of pipeline stages for INMODE (0 or 1)
               MREG => 0,                         -- Number of multiplier pipeline stages (0 or 1)
               OPMODEREG => 1,                    -- Number of pipeline stages for OPMODE (0 or 1)
-              PREG => 1                          -- Number of pipeline stages for P (0 or 1)
+              PREG => 1                          -- NEEDED TO SAMPLE THE TDL INTERNALLY
            )
            port map (
               -- Cascade: 30-bit (each) output: Cascade Ports
@@ -486,7 +527,7 @@ begin
                         INMODEREG => 1,                    -- Number of pipeline stages for INMODE (0 or 1)
                         MREG => 0,                         -- Number of multiplier pipeline stages (0 or 1)
                         OPMODEREG => 1,                    -- Number of pipeline stages for OPMODE (0 or 1)
-                        PREG => 1
+                        PREG => 1                          -- NEEDED TO SAMPLE THE TDL INTERNALLY
                     )
                     port map (
                         -- Cascade: 30-bit (each) output: Cascade Ports

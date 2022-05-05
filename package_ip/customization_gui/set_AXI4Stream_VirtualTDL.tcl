@@ -1,121 +1,37 @@
+proc update_PARAM_VALUE.FILE_PATH_NAME_CO_DELAY { PARAM_VALUE.FILE_PATH_NAME_CO_DELAY PARAM_VALUE.SIM_VS_IMP } {
+	# Procedure called to update FILE_PATH_NAME_CO_DELAY when any of the dependent parameters in the arguments change
+	
+	set FILE_PATH_NAME_CO_DELAY ${PARAM_VALUE.FILE_PATH_NAME_CO_DELAY}
+	set SIM_VS_IMP ${PARAM_VALUE.SIM_VS_IMP}
+	set values(SIM_VS_IMP) [get_property value $SIM_VS_IMP]
+	if { [gen_USERPARAMETER_FILE_PATH_NAME_CO_DELAY_ENABLEMENT $values(SIM_VS_IMP)] } {
+		set_property enabled true $FILE_PATH_NAME_CO_DELAY
+	} else {
+		set_property enabled false $FILE_PATH_NAME_CO_DELAY
+	}
+}
 
-# Loading additional proc with user specified bodies to compute parameter values.
-source [file join [file dirname [file dirname [info script]]] gui/AXI4Stream_HybridTDL_v1_0.gtcl]
+proc validate_PARAM_VALUE.FILE_PATH_NAME_CO_DELAY { PARAM_VALUE.FILE_PATH_NAME_CO_DELAY } {
+	# Procedure called to validate FILE_PATH_NAME_CO_DELAY
+	return true
+}
 
-# Definitional proc to organize widgets for parameters.
-proc init_gui { IPINST } {
-  ipgui::add_param $IPINST -name "Component_Name"
-  #Adding Page
-  set Page_0 [ipgui::add_page $IPINST -name "Page 0"]
-  set XUS_VS_X7S [ipgui::add_param $IPINST -name "XUS_VS_X7S" -parent ${Page_0} -widget comboBox]
-  set_property tooltip {Use TDL for Xilinx Ultrascale or 7-Series} ${XUS_VS_X7S}
-  set DEBUG_MODE [ipgui::add_param $IPINST -name "DEBUG_MODE" -parent ${Page_0}]
-  set_property tooltip {Allow to tune in real-time the valid position for its generation} ${DEBUG_MODE}
-  set NUMBER_OF_CARRY_CHAINS [ipgui::add_param $IPINST -name "NUMBER_OF_CARRY_CHAINS" -parent ${Page_0}]
-  set_property tooltip {Number of Carry chains sub-Interpolated in each TDC channel} ${NUMBER_OF_CARRY_CHAINS}
-  set NUMBER_OF_DSP_CHAINS [ipgui::add_param $IPINST -name "NUMBER_OF_DSP_CHAINS" -parent ${Page_0}]
-  set_property tooltip {Number of DSP chains sub-Interpolated in each TDC channel} ${NUMBER_OF_DSP_CHAINS}
-  set BUFFERING_STAGE [ipgui::add_param $IPINST -name "BUFFERING_STAGE" -parent ${Page_0}]
-  set_property tooltip {Insertion of a further buffering stage between TDL and decoder for bufferazing the generation of the valid} ${BUFFERING_STAGE}
-  #Adding Group
-  set TDL_Dimension [ipgui::add_group $IPINST -name "TDL Dimension" -parent ${Page_0}]
-  set NUM_TAP_TDL [ipgui::add_param $IPINST -name "NUM_TAP_TDL" -parent ${TDL_Dimension}]
-  set_property tooltip {Number of Taps in each TDL} ${NUM_TAP_TDL}
-  set BIT_SMP_TDL [ipgui::add_param $IPINST -name "BIT_SMP_TDL" -parent ${TDL_Dimension}]
-  set_property tooltip {Number of taps sampled on the TDL} ${BIT_SMP_TDL}
-  set NUM_TAP_PRE_TDL [ipgui::add_param $IPINST -name "NUM_TAP_PRE_TDL" -parent ${TDL_Dimension}]
-  set_property tooltip {Number of Taps in each TDL} ${NUM_TAP_PRE_TDL}
-  set BIT_SMP_PRE_TDL [ipgui::add_param $IPINST -name "BIT_SMP_PRE_TDL" -parent ${TDL_Dimension}]
-  set_property tooltip {Number of taps sampled on the PRE-TDL} ${BIT_SMP_PRE_TDL}
+proc update_PARAM_VALUE.FILE_PATH_NAME_O_DELAY { PARAM_VALUE.FILE_PATH_NAME_O_DELAY PARAM_VALUE.SIM_VS_IMP } {
+	# Procedure called to update FILE_PATH_NAME_O_DELAY when any of the dependent parameters in the arguments change
+	
+	set FILE_PATH_NAME_O_DELAY ${PARAM_VALUE.FILE_PATH_NAME_O_DELAY}
+	set SIM_VS_IMP ${PARAM_VALUE.SIM_VS_IMP}
+	set values(SIM_VS_IMP) [get_property value $SIM_VS_IMP]
+	if { [gen_USERPARAMETER_FILE_PATH_NAME_O_DELAY_ENABLEMENT $values(SIM_VS_IMP)] } {
+		set_property enabled true $FILE_PATH_NAME_O_DELAY
+	} else {
+		set_property enabled false $FILE_PATH_NAME_O_DELAY
+	}
+}
 
-  #Adding Group
-  set Valid_Generation [ipgui::add_group $IPINST -name "Valid Generation" -parent ${Page_0}]
-  set MIN_VALID_TAP_POS [ipgui::add_param $IPINST -name "MIN_VALID_TAP_POS" -parent ${Valid_Generation}]
-  set_property tooltip {Select the minimum position of the bit of sampled taps of TDL to insert in the MUX using in DEBUG for valid generation} ${MIN_VALID_TAP_POS}
-  set STEP_VALID_TAP_POS [ipgui::add_param $IPINST -name "STEP_VALID_TAP_POS" -parent ${Valid_Generation}]
-  set_property tooltip {Select the step between consecuteve position of the bit of sampled taps of TDL to insert in the MUX using in DEBUGle for valid generation} ${STEP_VALID_TAP_POS}
-  set MAX_VALID_TAP_POS [ipgui::add_param $IPINST -name "MAX_VALID_TAP_POS" -parent ${Valid_Generation}]
-  set_property tooltip {Select the maximum position of the bit of sampled taps of TDL to insert in the MUX using in DEBUG for valid generation} ${MAX_VALID_TAP_POS}
-  set VALID_NUMBER_OF_TDL_INIT [ipgui::add_param $IPINST -name "VALID_NUMBER_OF_TDL_INIT" -parent ${Valid_Generation}]
-  set_property tooltip {Select the TDL for the valid position (if TDL Debug FALSE) or initalize the TDL to choose the valid position (if TDL Debug TRUE)} ${VALID_NUMBER_OF_TDL_INIT}
-  set VALID_POSITION_TAP_INIT [ipgui::add_param $IPINST -name "VALID_POSITION_TAP_INIT" -parent ${Valid_Generation}]
-  set_property tooltip {Select the tap position for the valid (if TDL Debug FALSE) or initalize the position (if TDL Debug TRUE)} ${VALID_POSITION_TAP_INIT}
-
-  #Adding Group
-  set TDL [ipgui::add_group $IPINST -name "TDL" -parent ${Page_0} -layout horizontal]
-  #Adding Group
-  set Offset_of_TDL [ipgui::add_group $IPINST -name "Offset of TDL" -parent ${TDL}]
-  set OFFSET_TAP_TDL_0 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_0" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 0} ${OFFSET_TAP_TDL_0}
-  set OFFSET_TAP_TDL_1 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_1" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 1} ${OFFSET_TAP_TDL_1}
-  set OFFSET_TAP_TDL_2 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_2" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 2} ${OFFSET_TAP_TDL_2}
-  set OFFSET_TAP_TDL_3 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_3" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 3} ${OFFSET_TAP_TDL_3}
-  set OFFSET_TAP_TDL_4 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_4" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 4} ${OFFSET_TAP_TDL_4}
-  set OFFSET_TAP_TDL_5 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_5" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 5} ${OFFSET_TAP_TDL_5}
-  set OFFSET_TAP_TDL_6 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_6" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 6} ${OFFSET_TAP_TDL_6}
-  set OFFSET_TAP_TDL_7 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_7" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 7} ${OFFSET_TAP_TDL_7}
-  set OFFSET_TAP_TDL_8 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_8" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 8} ${OFFSET_TAP_TDL_8}
-  set OFFSET_TAP_TDL_9 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_9" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 9} ${OFFSET_TAP_TDL_9}
-  set OFFSET_TAP_TDL_10 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_10" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 10} ${OFFSET_TAP_TDL_10}
-  set OFFSET_TAP_TDL_11 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_11" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 11} ${OFFSET_TAP_TDL_11}
-  set OFFSET_TAP_TDL_12 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_12" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 12} ${OFFSET_TAP_TDL_12}
-  set OFFSET_TAP_TDL_13 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_13" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 13} ${OFFSET_TAP_TDL_13}
-  set OFFSET_TAP_TDL_14 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_14" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 14} ${OFFSET_TAP_TDL_14}
-  set OFFSET_TAP_TDL_15 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_15" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 15} ${OFFSET_TAP_TDL_15}
-
-  #Adding Group
-  set Type_of_TDL [ipgui::add_group $IPINST -name "Type of TDL" -parent ${TDL}]
-  set TYPE_TDL_0 [ipgui::add_param $IPINST -name "TYPE_TDL_0" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 0} ${TYPE_TDL_0}
-  set TYPE_TDL_1 [ipgui::add_param $IPINST -name "TYPE_TDL_1" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 1} ${TYPE_TDL_1}
-  set TYPE_TDL_2 [ipgui::add_param $IPINST -name "TYPE_TDL_2" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 2} ${TYPE_TDL_2}
-  set TYPE_TDL_3 [ipgui::add_param $IPINST -name "TYPE_TDL_3" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 3} ${TYPE_TDL_3}
-  set TYPE_TDL_4 [ipgui::add_param $IPINST -name "TYPE_TDL_4" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 4} ${TYPE_TDL_4}
-  set TYPE_TDL_5 [ipgui::add_param $IPINST -name "TYPE_TDL_5" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 5} ${TYPE_TDL_5}
-  set TYPE_TDL_6 [ipgui::add_param $IPINST -name "TYPE_TDL_6" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 6} ${TYPE_TDL_6}
-  set TYPE_TDL_7 [ipgui::add_param $IPINST -name "TYPE_TDL_7" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 7} ${TYPE_TDL_7}
-  set TYPE_TDL_8 [ipgui::add_param $IPINST -name "TYPE_TDL_8" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 8} ${TYPE_TDL_8}
-  set TYPE_TDL_9 [ipgui::add_param $IPINST -name "TYPE_TDL_9" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 9} ${TYPE_TDL_9}
-  set TYPE_TDL_10 [ipgui::add_param $IPINST -name "TYPE_TDL_10" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 10} ${TYPE_TDL_10}
-  set TYPE_TDL_11 [ipgui::add_param $IPINST -name "TYPE_TDL_11" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 11} ${TYPE_TDL_11}
-  set TYPE_TDL_12 [ipgui::add_param $IPINST -name "TYPE_TDL_12" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 12} ${TYPE_TDL_12}
-  set TYPE_TDL_13 [ipgui::add_param $IPINST -name "TYPE_TDL_13" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 13} ${TYPE_TDL_13}
-  set TYPE_TDL_14 [ipgui::add_param $IPINST -name "TYPE_TDL_14" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 14} ${TYPE_TDL_14}
-  set TYPE_TDL_15 [ipgui::add_param $IPINST -name "TYPE_TDL_15" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 15} ${TYPE_TDL_15}
-
-
-
-
+proc validate_PARAM_VALUE.FILE_PATH_NAME_O_DELAY { PARAM_VALUE.FILE_PATH_NAME_O_DELAY } {
+	# Procedure called to validate FILE_PATH_NAME_O_DELAY
+	return true
 }
 
 proc update_PARAM_VALUE.MAX_VALID_TAP_POS { PARAM_VALUE.MAX_VALID_TAP_POS PARAM_VALUE.DEBUG_MODE } {
@@ -884,6 +800,15 @@ proc validate_PARAM_VALUE.NUM_TAP_TDL { PARAM_VALUE.NUM_TAP_TDL } {
 	return true
 }
 
+proc update_PARAM_VALUE.SIM_VS_IMP { PARAM_VALUE.SIM_VS_IMP } {
+	# Procedure called to update SIM_VS_IMP when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.SIM_VS_IMP { PARAM_VALUE.SIM_VS_IMP } {
+	# Procedure called to validate SIM_VS_IMP
+	return true
+}
+
 proc update_PARAM_VALUE.VALID_NUMBER_OF_TDL_INIT { PARAM_VALUE.VALID_NUMBER_OF_TDL_INIT } {
 	# Procedure called to update VALID_NUMBER_OF_TDL_INIT when any of the dependent parameters in the arguments change
 }
@@ -1000,6 +925,21 @@ proc update_MODELPARAM_VALUE.TYPE_TDL_15 { MODELPARAM_VALUE.TYPE_TDL_15 PARAM_VA
 proc update_MODELPARAM_VALUE.DEBUG_MODE { MODELPARAM_VALUE.DEBUG_MODE PARAM_VALUE.DEBUG_MODE } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
 	set_property value [get_property value ${PARAM_VALUE.DEBUG_MODE}] ${MODELPARAM_VALUE.DEBUG_MODE}
+}
+
+proc update_MODELPARAM_VALUE.SIM_VS_IMP { MODELPARAM_VALUE.SIM_VS_IMP PARAM_VALUE.SIM_VS_IMP } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.SIM_VS_IMP}] ${MODELPARAM_VALUE.SIM_VS_IMP}
+}
+
+proc update_MODELPARAM_VALUE.FILE_PATH_NAME_CO_DELAY { MODELPARAM_VALUE.FILE_PATH_NAME_CO_DELAY PARAM_VALUE.FILE_PATH_NAME_CO_DELAY } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.FILE_PATH_NAME_CO_DELAY}] ${MODELPARAM_VALUE.FILE_PATH_NAME_CO_DELAY}
+}
+
+proc update_MODELPARAM_VALUE.FILE_PATH_NAME_O_DELAY { MODELPARAM_VALUE.FILE_PATH_NAME_O_DELAY PARAM_VALUE.FILE_PATH_NAME_O_DELAY } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.FILE_PATH_NAME_O_DELAY}] ${MODELPARAM_VALUE.FILE_PATH_NAME_O_DELAY}
 }
 
 proc update_MODELPARAM_VALUE.NUMBER_OF_CARRY_CHAINS { MODELPARAM_VALUE.NUMBER_OF_CARRY_CHAINS PARAM_VALUE.NUMBER_OF_CARRY_CHAINS } {
