@@ -135,13 +135,17 @@ architecture Behavioral of DSP_TDL is
 	 signal BCOUT : B_array_type;
 	 
 	 ----- Output of the NUM_DSP_TDL -----
-    signal O	: std_logic_vector(NUM_DSP_TOT*BIT_DSP-1 downto 0);
+    signal O	: std_logic_vector(NUM_DSP_TOT*BIT_DSP-1 downto 0) := (Others => '1');
 
 	 
     ----- Input signal of the first DSP in the chain. It will contain our Async Input
-    signal B : std_logic_vector(17 downto 0) := (Others => '0');
-	----------------------------------------------------------------------------
-
+    signal B : std_logic_vector(17 downto 0);
+    
+    signal C : std_logic_vector(47 downto 0);
+    
+    signal ALUMODE : std_logic_vector(3 downto 0);
+ 	----------------------------------------------------------------------------
+  
 
 begin
     
@@ -150,8 +154,10 @@ begin
 	-- respectively *NUM_TAP_PRE_TDL* of them for what concern the PRE-TDL and *NUM_TAP_TDL* for what concern the V-TDL.
 	
     --- Async Input ---
-    B <= (0 => AsyncInput, Others => '0');
+    B <= (0 => AsyncInput, Others => '0') when AsyncInput = '1' else (0 => not AsyncInput, Others => '0');
     
+    C <= (Others => AsyncInput);
+    ALUMODE <= (0|1 => not AsyncInput, Others => '0');
     
     --- Output connections ---
     Taps_preTDL	 <=	O(NUM_DSP_PRE_TDL*BIT_DSP - 1 downto NUM_DSP_PRE_TDL*BIT_DSP - NUM_TAP_PRE_TDL);
@@ -237,7 +243,7 @@ begin
             MULTSIGNIN => '0',         -- 1-bit input: Multiplier sign cascade
             PCIN => (Others => '0'),                     -- 48-bit input: P cascade
             -- Control inputs: Control Inputs/Status Bits
-            ALUMODE => "0000",               -- 4-bit input: ALU control
+            ALUMODE => ALUMODE,               -- 4-bit input: ALU control
             CARRYINSEL => "000",         -- 3-bit input: Carry select
             CLK => clk,                       -- 1-bit input: Clock
             INMODE => (Others => '0'),                 -- 5-bit input: INMODE control
@@ -245,7 +251,7 @@ begin
             -- Data inputs: Data Ports
             A => (Others => '0'),                           -- 30-bit input: A data
             B => B,                           -- 18-bit input: B data
-            C => (Others => '1'),                           -- 48-bit input: C data
+            C => C,                           -- 48-bit input: C data
             CARRYIN => '0',               -- 1-bit input: Carry-in
             D => (Others => '0'),                           -- 27-bit input: D data
             -- Reset/Clock Enable inputs: Reset/Clock Enable Inputs
@@ -353,7 +359,7 @@ begin
                           MULTSIGNIN => '0',         -- 1-bit input: Multiplier sign cascade
                           PCIN => (Others => '0'),                     -- 48-bit input: P cascade
                           -- Control inputs: Control Inputs/Status Bits
-                          ALUMODE => "0000",               -- 4-bit input: ALU control
+                          ALUMODE => ALUMODE,               -- 4-bit input: ALU control
                           CARRYINSEL => "000",         -- 3-bit input: Carry select
                           CLK => clk,                       -- 1-bit input: Clock
                           INMODE => (Others => '0'),                 -- 5-bit input: INMODE control
@@ -361,7 +367,7 @@ begin
                           -- Data inputs: Data Ports
                           A => (Others => '0'),                           -- 30-bit input: A data
                           B => (Others => '0'),                           -- 18-bit input: B data
-                          C => (Others => '1'),                           -- 48-bit input: C data
+                          C => C,                           -- 48-bit input: C data
                           CARRYIN => '0',               -- 1-bit input: Carry-in
                           D => (Others => '0'),                           -- 27-bit input: D data
                           -- Reset/Clock Enable inputs: Reset/Clock Enable Inputs
@@ -451,7 +457,7 @@ begin
               MULTSIGNIN => '0',         -- 1-bit input: Multiplier sign input
               PCIN => (Others => '0'),                     -- 48-bit input: P cascade input
               -- Control: 4-bit (each) input: Control Inputs/Status Bits
-              ALUMODE => "0000",               -- 4-bit input: ALU control input
+              ALUMODE => ALUMODE,               -- 4-bit input: ALU control input
               CARRYINSEL => "000",         -- 3-bit input: Carry select input
               CLK => clk,                       -- 1-bit input: Clock input
               INMODE => (Others => '0'),                 -- 5-bit input: INMODE control input
@@ -459,7 +465,7 @@ begin
               -- Data: 30-bit (each) input: Data Ports
               A => (Others => '0'),                           -- 30-bit input: A data input
               B => B,                           -- 18-bit input: B data input
-              C => (Others => '1'),                           -- 48-bit input: C data input
+              C => C,                           -- 48-bit input: C data input
               CARRYIN => '0',               -- 1-bit input: Carry input signal
               D => (Others => '0'),                           -- 25-bit input: D data input
               -- Reset/Clock Enable: 1-bit (each) input: Reset/Clock Enable Inputs
@@ -551,7 +557,7 @@ begin
                         MULTSIGNIN => '0',         -- 1-bit input: Multiplier sign input
                         PCIN => (Others => '0'),                     -- 48-bit input: P cascade input
                         -- Control: 4-bit (each) input: Control Inputs/Status Bits
-                        ALUMODE => "0000",               -- 4-bit input: ALU control input
+                        ALUMODE => ALUMODE,               -- 4-bit input: ALU control input
                         CARRYINSEL => "000",         -- 3-bit input: Carry select input
                         CLK => clk,                       -- 1-bit input: Clock input
                         INMODE => (Others => '0'),                 -- 5-bit input: INMODE control input
@@ -559,7 +565,7 @@ begin
                         -- Data: 30-bit (each) input: Data Ports
                         A => (Others => '0'),                           -- 30-bit input: A data input
                         B => (Others => '0'),                           -- 18-bit input: B data input
-                        C => (Others => '1'),                           -- 48-bit input: C data input
+                        C => C,                           -- 48-bit input: C data input
                         CARRYIN => '0',               -- 1-bit input: Carry input signal
                         D => (Others => '0'),                           -- 25-bit input: D data input
                         -- Reset/Clock Enable: 1-bit (each) input: Reset/Clock Enable Inputs
