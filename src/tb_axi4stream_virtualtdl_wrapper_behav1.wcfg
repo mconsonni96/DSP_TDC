@@ -3,7 +3,7 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="tb_axi4stream_virtualtdl_wrapper_behav.wdb" id="1">
+      <db_ref path="tb_AXI4Stream_VirtualTDL_Wrapper_behav.wdb" id="1">
          <top_modules>
             <top_module name="localpackage_tdl" />
             <top_module name="tb_AXI4Stream_VirtualTDL_Wrapper" />
@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="2544fs"></ZoomStartTime>
-      <ZoomEndTime time="26285fs"></ZoomEndTime>
-      <Cursor1Time time="6500fs"></Cursor1Time>
+      <ZoomStartTime time="1000fs"></ZoomStartTime>
+      <ZoomEndTime time="12911fs"></ZoomEndTime>
+      <Cursor1Time time="1500fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="258"></NameColumnWidth>
-      <ValueColumnWidth column_width="122"></ValueColumnWidth>
+      <ValueColumnWidth column_width="118"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="38" />
+   <WVObjectSize size="32" />
    <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/reset">
       <obj_property name="ElementShortName">reset</obj_property>
       <obj_property name="ObjectShortName">reset</obj_property>
@@ -44,33 +44,9 @@
       <obj_property name="label">Carry Chain</obj_property>
       <obj_property name="DisplayName">label</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/\Virtual_TDL(0)\/gen_carry_chain/Inst_CARRY_TDL/CO_Taps_TDL">
-      <obj_property name="ElementShortName">CO_Taps_TDL[63:0]</obj_property>
-      <obj_property name="ObjectShortName">CO_Taps_TDL[63:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/\Virtual_TDL(0)\/gen_carry_chain/Inst_CARRY_Sampler/RiseValid">
-      <obj_property name="ElementShortName">RiseValid</obj_property>
-      <obj_property name="ObjectShortName">RiseValid</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/\Virtual_TDL(0)\/gen_carry_chain/Inst_CARRY_Sampler/FallValid">
-      <obj_property name="ElementShortName">FallValid</obj_property>
-      <obj_property name="ObjectShortName">FallValid</obj_property>
-   </wvobject>
    <wvobject fp_name="divider106" type="divider">
       <obj_property name="label">DSP Chain</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/\Virtual_TDL(1)\/gen_dsp_chain/Inst_TDL/O">
-      <obj_property name="ElementShortName">O[95:0]</obj_property>
-      <obj_property name="ObjectShortName">O[95:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/\Virtual_TDL(1)\/gen_dsp_chain/Inst_DSP_Sampler/RiseValid">
-      <obj_property name="ElementShortName">RiseValid</obj_property>
-      <obj_property name="ObjectShortName">RiseValid</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/dut_AXI4Stream_VirtualTDL_Wrapper/\Virtual_TDL(1)\/gen_dsp_chain/Inst_DSP_Sampler/FallValid">
-      <obj_property name="ElementShortName">FallValid</obj_property>
-      <obj_property name="ObjectShortName">FallValid</obj_property>
    </wvobject>
    <wvobject fp_name="divider107" type="divider">
       <obj_property name="label">AXI4Stream output data</obj_property>
@@ -81,8 +57,8 @@
       <obj_property name="ObjectShortName">m00_axis_undeco_tvalid</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_AXI4Stream_VirtualTDL_Wrapper/m00_axis_undeco_tdata">
-      <obj_property name="ElementShortName">m00_axis_undeco_tdata[128:0]</obj_property>
-      <obj_property name="ObjectShortName">m00_axis_undeco_tdata[128:0]</obj_property>
+      <obj_property name="ElementShortName">m00_axis_undeco_tdata[96:0]</obj_property>
+      <obj_property name="ObjectShortName">m00_axis_undeco_tdata[96:0]</obj_property>
    </wvobject>
    <wvobject fp_name="divider110" type="divider">
       <obj_property name="label">Valid selection</obj_property>

@@ -50,7 +50,7 @@ architecture Behavioral of tb_AXI4Stream_VirtualTDL_Wrapper is
 	
 	constant    DEBUG_MODE : BOOLEAN := FALSE;
 	
-	constant	NUMBER_OF_CARRY_CHAINS	:	NATURAL	RANGE 0 TO 16 	:= 1;
+	constant	NUMBER_OF_CARRY_CHAINS	:	NATURAL	RANGE 0 TO 16 	:= 0;
 	constant	NUMBER_OF_DSP_CHAINS	:	NATURAL	RANGE 0 TO 16 	:= 1;
 	
 	constant	BUFFERING_STAGE	:	BOOLEAN	:= FALSE;
@@ -64,8 +64,8 @@ architecture Behavioral of tb_AXI4Stream_VirtualTDL_Wrapper is
 	constant    VALID_POSITION_TAP_INIT		:	INTEGER	RANGE 0 TO 4095		:=	0;
 	constant    VALID_NUMBER_OF_TDL_INIT	:	INTEGER	RANGE 0 TO 15		:=	0;
 	
-	constant	NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 64;
-	constant	BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 4096	:= 64;
+	constant	NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 144;
+	constant	BIT_SMP_TDL		:	POSITIVE	RANGE 1 TO 4096	:= 144;
 	
 	constant	NUM_TAP_PRE_TDL		:	INTEGER	RANGE 0 TO 1024	:= 0;
 	constant	BIT_SMP_PRE_TDL		:	INTEGER	RANGE 0 TO 1024	:= 0;
@@ -127,7 +127,7 @@ architecture Behavioral of tb_AXI4Stream_VirtualTDL_Wrapper is
 		
 		ValidPositionTap		:	IN	STD_LOGIC_VECTOR(31 DOWNTO 0)   := ( 1 => '1', Others => '0');
 
-		ValidNumberOfTdl        :   IN  STD_LOGIC_VECTOR(31 DOWNTO 0)   := ( Others => '0')
+		ValidNumberOfTdl        :   IN  STD_LOGIC_VECTOR(31 DOWNTO 0)   := (Others => '0')
 
 		
 	);
@@ -147,7 +147,7 @@ architecture Behavioral of tb_AXI4Stream_VirtualTDL_Wrapper is
 	
 	signal  ValidPositionTap		:	std_logic_vector(31 DOWNTO 0)   := (Others => '0');
 
-	signal	ValidNumberOfTdl        :   std_logic_vector(31 DOWNTO 0)   := ( Others => '0');
+	signal	ValidNumberOfTdl        :   std_logic_vector(31 DOWNTO 0)   := (Others => '0');
 	
 begin
     
@@ -212,6 +212,9 @@ begin
 		AsyncInput <= '0';
 		wait for ASYNC_PERIOD/2;
 		AsyncInput <= '1';
+		--wait for ASYNC_PERIOD/2;
+	
+		--AsyncInput <= '0';
 		wait ;
 
 	end process;

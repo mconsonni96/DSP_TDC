@@ -784,7 +784,7 @@ package body LocalPackage_TDL is
 
 	begin
 
-		if RiseValid = '0' and  FallValid = '1' then
+		if RiseValid = '1' and  FallValid = '0' then
 			valid_tmp	:=	'1';
 		else
 			valid_tmp	:=	'0';

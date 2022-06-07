@@ -149,8 +149,8 @@ entity AXI4Stream_VirtualTDL is
 		----------------------------
 		
 		------------ Tapped Delay-Line (TDL) ---------
-		NUMBER_OF_CARRY_CHAINS	:	NATURAL	RANGE 0 TO 16 	:= 2;										--! Number of CARRY-TDL in parallel
-		NUMBER_OF_DSP_CHAINS	:	NATURAL	RANGE 0 TO 16 	:= 2;										--! Number of DSP-TDL in parallel
+		NUMBER_OF_CARRY_CHAINS	:	NATURAL	RANGE 0 TO 16 	:= 1;										--! Number of CARRY-TDL in parallel
+		NUMBER_OF_DSP_CHAINS	:	NATURAL	RANGE 0 TO 16 	:= 1;										--! Number of DSP-TDL in parallel
 		
 		NUM_TAP_TDL		:	POSITIVE	RANGE 4 TO 4096	:= 512;										--! Bit of the Tapped Delay-Line (number of buffers in the TDL)
 		

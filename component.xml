@@ -44,6 +44,12 @@
           </spirit:physicalPort>
         </spirit:portMap>
       </spirit:portMaps>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>POLARITY</spirit:name>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.RESET.POLARITY">ACTIVE_HIGH</spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
     </spirit:busInterface>
     <spirit:busInterface>
       <spirit:name>clk</spirit:name>
@@ -102,16 +108,6 @@
           </spirit:physicalPort>
         </spirit:portMap>
       </spirit:portMaps>
-      <spirit:parameters>
-        <spirit:parameter>
-          <spirit:name>NUM_READ_OUTSTANDING</spirit:name>
-          <spirit:value spirit:id="BUSIFPARAM_VALUE.POLARITYIN.NUM_READ_OUTSTANDING"/>
-        </spirit:parameter>
-        <spirit:parameter>
-          <spirit:name>NUM_WRITE_OUTSTANDING</spirit:name>
-          <spirit:value spirit:id="BUSIFPARAM_VALUE.POLARITYIN.NUM_WRITE_OUTSTANDING"/>
-        </spirit:parameter>
-      </spirit:parameters>
     </spirit:busInterface>
     <spirit:busInterface>
       <spirit:name>ValidPositionTap</spirit:name>
@@ -160,7 +156,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>043dd9a1</spirit:value>
+            <spirit:value>940b49d9</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -176,7 +172,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>c872f196</spirit:value>
+            <spirit:value>321878e9</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -240,7 +236,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>04723bae</spirit:value>
+            <spirit:value>1808d354</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -828,7 +824,7 @@
       <spirit:file>
         <spirit:name>hdl/AXI4Stream_VirtualTDL.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_6b132c57</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_71b19c75</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -2827,63 +2823,67 @@
       <xilinx:upgrades>
         <xilinx:canUpgradeFrom>user.org:user:AXI4Stream_VirtualTDL:1.0</xilinx:canUpgradeFrom>
       </xilinx:upgrades>
-      <xilinx:coreCreationDateTime>2022-06-06T11:05:10Z</xilinx:coreCreationDateTime>
+      <xilinx:coreCreationDateTime>2022-06-07T14:14:39Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="nopcore"/>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@b5ccdc5_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@11d1ff4d_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@3f6e47f8_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@60eb3a60_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@2bb89207_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@3f02847_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@7cb334cb_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@5d4429ed_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@6cbfa039_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@353441eb_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@d8d8f1c_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@49db77c4_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@49710de4_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@34a0c7c1_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e02c643_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@7a9d9b6c_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@78efe32b_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@5d527ee1_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@3e21965f_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@77ccff8d_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@69a92009_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@3efa1320_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@51dfc1df_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@d88ec5e_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@787c6aed_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@50c2eb09_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@789e092f_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@6d6175_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@1ea4d245_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@2919d797_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@3a4117fb_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@4a64b715_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@1b9b6de8_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@194dd54e_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@68d07386_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@6bab6dd7_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@55110d3f_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@643035d2_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@39c626c4_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@1c371029_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@197c01a4_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@11bdbe8_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@5cf11fcf_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@30c1ba54_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
-        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e547ec3_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@670c8e7b_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7c29bc08_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@25c5d4bb_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@e960ac0_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2f875199_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@145115a4_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@704073d8_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@733e4478_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@485d7baf_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3fd7a543_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4fae6de1_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@fd9c2fd_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@437ad69d_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7c3e1494_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5aca6165_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7113bf5d_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@49b70708_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@11c56f30_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3e520846_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@22544965_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1866f27b_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@289a327e_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@45fc77c7_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5f7304e5_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@66575523_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@33d1f0f9_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2bd121d7_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7a2ec2f6_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b3f7dff_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@771e703a_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4a8e8b0d_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@78d5b1f7_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5d84f6fd_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@57ac1c5_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@22e6ea16_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@57e57384_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@25353919_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4816796f_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ef595a9_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@518de1a5_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1548c9d6_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@775e4b2f_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@27f0522d_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5a1b3c_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3c2237c2_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@791b3135_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@15faa5ef_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3546361b_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@8b156d5_ARCHIVE_LOCATION">/home/mconsonni/Utility_Ip_Core/ip-repo/AXI4-Stream_VirtualTDL</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.2</xilinx:xilinxVersion>
-      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="77d05428"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="a58553ca"/>
+      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="eb8b43ff"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="0c07610d"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="e4d6db81"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="ed5926de"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="90509805"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="99832057"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="ea86793a"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>
