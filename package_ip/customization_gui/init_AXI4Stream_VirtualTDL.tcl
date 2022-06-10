@@ -27,7 +27,7 @@ proc init_AXI4Stream_VirtualTDL_gui { IPINST Page} {
   set BIT_SMP_TDL [ipgui::add_param $IPINST -name "BIT_SMP_TDL" -parent ${TDL_Dimension}]
   set_property tooltip {Number of taps sampled on the TDL} ${BIT_SMP_TDL}
   set NUM_TAP_PRE_TDL [ipgui::add_param $IPINST -name "NUM_TAP_PRE_TDL" -parent ${TDL_Dimension}]
-  set_property tooltip {Number of Taps in each TDL} ${NUM_TAP_PRE_TDL}
+  set_property tooltip {Number of Taps in each PRE-TDL} ${NUM_TAP_PRE_TDL}
   set BIT_SMP_PRE_TDL [ipgui::add_param $IPINST -name "BIT_SMP_PRE_TDL" -parent ${TDL_Dimension}]
   set_property tooltip {Number of taps sampled on the PRE-TDL} ${BIT_SMP_PRE_TDL}
 
@@ -52,18 +52,6 @@ proc init_AXI4Stream_VirtualTDL_gui { IPINST Page} {
   set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 0} ${OFFSET_TAP_TDL_0}
   set OFFSET_TAP_TDL_1 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_1" -parent ${Offset_of_TDL}]
   set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 1} ${OFFSET_TAP_TDL_1}
-  set OFFSET_TAP_TDL_10 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_10" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 10} ${OFFSET_TAP_TDL_10}
-  set OFFSET_TAP_TDL_11 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_11" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 11} ${OFFSET_TAP_TDL_11}
-  set OFFSET_TAP_TDL_12 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_12" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 12} ${OFFSET_TAP_TDL_12}
-  set OFFSET_TAP_TDL_13 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_13" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 13} ${OFFSET_TAP_TDL_13}
-  set OFFSET_TAP_TDL_14 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_14" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 14} ${OFFSET_TAP_TDL_14}
-  set OFFSET_TAP_TDL_15 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_15" -parent ${Offset_of_TDL}]
-  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 15} ${OFFSET_TAP_TDL_15}
   set OFFSET_TAP_TDL_2 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_2" -parent ${Offset_of_TDL}]
   set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 2} ${OFFSET_TAP_TDL_2}
   set OFFSET_TAP_TDL_3 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_3" -parent ${Offset_of_TDL}]
@@ -80,6 +68,18 @@ proc init_AXI4Stream_VirtualTDL_gui { IPINST Page} {
   set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 7} ${OFFSET_TAP_TDL_7}
   set OFFSET_TAP_TDL_6 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_6" -parent ${Offset_of_TDL}]
   set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 6} ${OFFSET_TAP_TDL_6}
+  set OFFSET_TAP_TDL_10 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_10" -parent ${Offset_of_TDL}]
+  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 10} ${OFFSET_TAP_TDL_10}
+  set OFFSET_TAP_TDL_11 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_11" -parent ${Offset_of_TDL}]
+  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 11} ${OFFSET_TAP_TDL_11}
+  set OFFSET_TAP_TDL_12 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_12" -parent ${Offset_of_TDL}]
+  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 12} ${OFFSET_TAP_TDL_12}
+  set OFFSET_TAP_TDL_13 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_13" -parent ${Offset_of_TDL}]
+  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 13} ${OFFSET_TAP_TDL_13}
+  set OFFSET_TAP_TDL_14 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_14" -parent ${Offset_of_TDL}]
+  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 14} ${OFFSET_TAP_TDL_14}
+  set OFFSET_TAP_TDL_15 [ipgui::add_param $IPINST -name "OFFSET_TAP_TDL_15" -parent ${Offset_of_TDL}]
+  set_property tooltip {Offset Between consecutive Sampled Taps over the TDL 15} ${OFFSET_TAP_TDL_15}
 
   #Adding Group
   set Type_of_TDL [ipgui::add_group $IPINST -name "Type of TDL" -parent ${Carry_Chains}]
@@ -87,18 +87,6 @@ proc init_AXI4Stream_VirtualTDL_gui { IPINST Page} {
   set_property tooltip {CO vs O Sampling TDL 0} ${TYPE_TDL_0}
   set TYPE_TDL_1 [ipgui::add_param $IPINST -name "TYPE_TDL_1" -parent ${Type_of_TDL} -widget comboBox]
   set_property tooltip {CO vs O Sampling TDL 1} ${TYPE_TDL_1}
-  set TYPE_TDL_10 [ipgui::add_param $IPINST -name "TYPE_TDL_10" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 10} ${TYPE_TDL_10}
-  set TYPE_TDL_11 [ipgui::add_param $IPINST -name "TYPE_TDL_11" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 11} ${TYPE_TDL_11}
-  set TYPE_TDL_12 [ipgui::add_param $IPINST -name "TYPE_TDL_12" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 12} ${TYPE_TDL_12}
-  set TYPE_TDL_13 [ipgui::add_param $IPINST -name "TYPE_TDL_13" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 13} ${TYPE_TDL_13}
-  set TYPE_TDL_14 [ipgui::add_param $IPINST -name "TYPE_TDL_14" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 14} ${TYPE_TDL_14}
-  set TYPE_TDL_15 [ipgui::add_param $IPINST -name "TYPE_TDL_15" -parent ${Type_of_TDL} -widget comboBox]
-  set_property tooltip {CO vs O Sampling TDL 15} ${TYPE_TDL_15}
   set TYPE_TDL_2 [ipgui::add_param $IPINST -name "TYPE_TDL_2" -parent ${Type_of_TDL} -widget comboBox]
   set_property tooltip {CO vs O Sampling TDL 2} ${TYPE_TDL_2}
   set TYPE_TDL_3 [ipgui::add_param $IPINST -name "TYPE_TDL_3" -parent ${Type_of_TDL} -widget comboBox]
@@ -115,6 +103,18 @@ proc init_AXI4Stream_VirtualTDL_gui { IPINST Page} {
   set_property tooltip {CO vs O Sampling TDL 8} ${TYPE_TDL_8}
   set TYPE_TDL_9 [ipgui::add_param $IPINST -name "TYPE_TDL_9" -parent ${Type_of_TDL} -widget comboBox]
   set_property tooltip {CO vs O Sampling TDL 9} ${TYPE_TDL_9}
+  set TYPE_TDL_10 [ipgui::add_param $IPINST -name "TYPE_TDL_10" -parent ${Type_of_TDL} -widget comboBox]
+  set_property tooltip {CO vs O Sampling TDL 10} ${TYPE_TDL_10}
+  set TYPE_TDL_11 [ipgui::add_param $IPINST -name "TYPE_TDL_11" -parent ${Type_of_TDL} -widget comboBox]
+  set_property tooltip {CO vs O Sampling TDL 11} ${TYPE_TDL_11}
+  set TYPE_TDL_12 [ipgui::add_param $IPINST -name "TYPE_TDL_12" -parent ${Type_of_TDL} -widget comboBox]
+  set_property tooltip {CO vs O Sampling TDL 12} ${TYPE_TDL_12}
+  set TYPE_TDL_13 [ipgui::add_param $IPINST -name "TYPE_TDL_13" -parent ${Type_of_TDL} -widget comboBox]
+  set_property tooltip {CO vs O Sampling TDL 13} ${TYPE_TDL_13}
+  set TYPE_TDL_14 [ipgui::add_param $IPINST -name "TYPE_TDL_14" -parent ${Type_of_TDL} -widget comboBox]
+  set_property tooltip {CO vs O Sampling TDL 14} ${TYPE_TDL_14}
+  set TYPE_TDL_15 [ipgui::add_param $IPINST -name "TYPE_TDL_15" -parent ${Type_of_TDL} -widget comboBox]
+  set_property tooltip {CO vs O Sampling TDL 15} ${TYPE_TDL_15}
 
 
 
